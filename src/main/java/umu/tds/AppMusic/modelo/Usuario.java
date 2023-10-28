@@ -51,5 +51,20 @@ public class Usuario {
     public void setPlaylists(List<PlayList> playlists) {
         this.playlists = playlists;
     }
+
+	public Integer getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getLogin() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getPassword() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
