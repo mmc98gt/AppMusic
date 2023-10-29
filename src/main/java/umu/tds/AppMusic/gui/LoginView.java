@@ -50,7 +50,7 @@ public class LoginView {
 
 	private void initialize() {
 		frmLogin = new JFrame();
-		frmLogin.setTitle("Login AppVideo");
+		frmLogin.setTitle("Login AppMusic");
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLogin.getContentPane().setLayout(new BorderLayout());
 
