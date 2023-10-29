@@ -4,10 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,12 +42,12 @@ public class LoginView {
 		frmLogin.setLocationRelativeTo(null);
 		frmLogin.setVisible(true);
 	}
-	
-	/********************************************************************** 
-	 * Procurar organizar la creación de una ventana en varios métodos
-	 * con el fin de facilitar su comprensión. Esta clase muestra un ejemplo
+
+	/**********************************************************************
+	 * Procurar organizar la creación de una ventana en varios métodos con el fin de
+	 * facilitar su comprensión. Esta clase muestra un ejemplo
 	 **********************************************************************/
-	
+
 	private void initialize() {
 		frmLogin = new JFrame();
 		frmLogin.setTitle("Login AppVideo");
@@ -53,6 +56,7 @@ public class LoginView {
 
 		crearPanelTitulo();
 		crearPanelLogin();
+		crearPanelRegistro();
 
 		frmLogin.setResizable(false);
 		frmLogin.pack();
@@ -63,7 +67,8 @@ public class LoginView {
 		frmLogin.getContentPane().add(panel_Norte, BorderLayout.NORTH);
 		panel_Norte.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 15));
 
-		JLabel lblTitulo = new JLabel("AppVideo");
+		JLabel lblTitulo = new JLabel("AppMusic");
+		lblTitulo.setIcon(new ImageIcon(LoginView.class.getResource("/umu/tds/AppMusic/images/musica (1).png")));
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTitulo.setForeground(Color.DARK_GRAY);
 		panel_Norte.add(lblTitulo);
@@ -71,12 +76,13 @@ public class LoginView {
 
 	private void crearPanelLogin() {
 		JPanel panelLogin = new JPanel();
-		panelLogin.setBorder(new EmptyBorder(10, 10, 10, 10));
+		panelLogin.setBorder(new EmptyBorder(10, 20, 20, 20));
 		frmLogin.getContentPane().add(panelLogin, BorderLayout.CENTER);
 		panelLogin.setLayout(new BorderLayout(0, 0));
 
 		panelLogin.add(crearPanelUsuarioPassw(), BorderLayout.NORTH);
-		panelLogin.add(crearPanelBotones(), BorderLayout.SOUTH);
+		panelLogin.add(crearPanelBotones(), BorderLayout.CENTER);
+
 	}
 
 	private JPanel crearPanelUsuarioPassw() {
@@ -87,11 +93,13 @@ public class LoginView {
 		// Panel Campo Login
 		JPanel panelCampoUsuario = new JPanel();
 		panelCampos.add(panelCampoUsuario);
+		panelCampoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		panelCampoUsuario.setLayout(new BorderLayout(0, 0));
 
 		JLabel lblUsuario = new JLabel("Usuario: ");
+		lblUsuario.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblUsuario.setIcon(new ImageIcon(LoginView.class.getResource("/umu/tds/AppMusic/images/usuario.png")));
 		panelCampoUsuario.add(lblUsuario);
-		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 
 		textUsuario = new JTextField();
@@ -104,6 +112,7 @@ public class LoginView {
 		panelCampoPassword.setLayout(new BorderLayout(0, 0));
 
 		JLabel lblPassword = new JLabel("Contrase\u00F1a: ");
+		lblPassword.setIcon(new ImageIcon(LoginView.class.getResource("/umu/tds/AppMusic/images/contrasena.png")));
 		panelCampoPassword.add(lblPassword);
 		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -111,35 +120,58 @@ public class LoginView {
 		textPassword = new JPasswordField();
 		panelCampoPassword.add(textPassword, BorderLayout.EAST);
 		textPassword.setColumns(15);
-		
+
 		return panelCampos;
 	}
 
 	private JPanel crearPanelBotones() {
-		JPanel panelBotones = new JPanel();
-		panelBotones.setBorder(new EmptyBorder(5, 0, 5, 0));
-		panelBotones.setLayout(new BorderLayout(0, 0));
+		JPanel panelBotonesLogin = new JPanel();
+		panelBotonesLogin.setBorder(new EmptyBorder(5, 0, 5, 0));
+		panelBotonesLogin.setLayout(new BorderLayout(0, 0));
 
-		JPanel panelBotonesLoginRegistro = new JPanel();
-		panelBotones.add(panelBotonesLoginRegistro, BorderLayout.WEST);
+		JButton btnLogin = new JButton("    Login    ");
+		panelBotonesLogin.add(btnLogin, BorderLayout.WEST);
 
-		JButton btnLogin = new JButton("Login");
-		panelBotonesLoginRegistro.add(btnLogin);
-
-		JButton btnRegistro = new JButton("Registro");
-		panelBotonesLoginRegistro.add(btnRegistro);
+		// hay que añadir el manejador
+		JButton btnLoginGit = new JButton("Login con GitHub");
+		panelBotonesLogin.add(btnLoginGit, BorderLayout.CENTER);
 
 		JPanel panelBotonSalir = new JPanel();
-		panelBotones.add(panelBotonSalir, BorderLayout.EAST);
+		panelBotonesLogin.add(panelBotonSalir, BorderLayout.EAST);
 
 		JButton btnSalir = new JButton("Salir");
 		panelBotonSalir.add(btnSalir);
 
 		addManejadorBotonLogin(btnLogin);
-		addManejadorBotonRegistro(btnRegistro);
+		// addManejadorBotonRegistro(btnRegistro);
 		addManejadorBotonSalir(btnSalir);
+
+		return panelBotonesLogin;
+	}
+
+	private void crearPanelRegistro() {
+		JPanel panelRegistro = new JPanel();
+		panelRegistro.setBorder(new EmptyBorder(0, 0, 0, 0));
+		frmLogin.getContentPane().add(panelRegistro, BorderLayout.SOUTH);
+		panelRegistro.setLayout(new BorderLayout(0, 0));
+
+		JLabel lblRegistro = new JLabel("¿Todavía no tienes cuenta?");
+		lblRegistro.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRegistro.setFont(new Font("DialogInput", Font.BOLD, 14));
+		panelRegistro.add(lblRegistro, BorderLayout.NORTH);
+
+		JButton btnRegistro = new JButton("Registrate");
+		btnRegistro.setIcon(new ImageIcon(LoginView.class.getResource("/umu/tds/AppMusic/images/registrarse.png")));
+		btnRegistro.setFont(new Font("DialogInput", Font.BOLD, 14));
+		btnRegistro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panelRegistro.add(btnRegistro, BorderLayout.CENTER);
+		panelRegistro.setBorder(new EmptyBorder(10, 20, 20, 20));
 		
-		return panelBotones;
+		
+		addManejadorBotonRegistro(btnRegistro);
 	}
 
 	private void addManejadorBotonSalir(JButton btnSalir) {
@@ -154,8 +186,8 @@ public class LoginView {
 	private void addManejadorBotonRegistro(JButton btnRegistro) {
 		btnRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistroView registro = new RegistroView (frmLogin);
-				registro.setLocationRelativeTo(frmLogin);                              	
+				RegistroView registro = new RegistroView(frmLogin);
+				registro.setLocationRelativeTo(frmLogin);
 				registro.setVisible(true);
 				frmLogin.dispose();
 			}
@@ -165,8 +197,7 @@ public class LoginView {
 	private void addManejadorBotonLogin(JButton btnLogin) {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean login = Controlador.INSTANCE.loginUsuario(
-						textUsuario.getText(),
+				boolean login = Controlador.INSTANCE.loginUsuario(textUsuario.getText(),
 						new String(textPassword.getPassword()));
 
 				if (login) {
@@ -174,8 +205,8 @@ public class LoginView {
 					principal.mostrarVentana();
 					frmLogin.dispose();
 				} else
-					JOptionPane.showMessageDialog(frmLogin, "Nombre de usuario o contraseña no valido",
-							"Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(frmLogin, "Nombre de usuario o contraseña no valido", "Error",
+							JOptionPane.ERROR_MESSAGE);
 			}
 		});
 	}
