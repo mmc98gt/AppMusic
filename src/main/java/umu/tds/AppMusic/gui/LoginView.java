@@ -151,7 +151,6 @@ public class LoginView {
 
 	private void crearPanelRegistro() {
 		JPanel panelRegistro = new JPanel();
-		panelRegistro.setBorder(new EmptyBorder(0, 0, 0, 0));
 		frmLogin.getContentPane().add(panelRegistro, BorderLayout.SOUTH);
 		panelRegistro.setLayout(new BorderLayout(0, 0));
 
