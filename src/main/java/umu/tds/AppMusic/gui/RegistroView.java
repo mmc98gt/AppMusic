@@ -4,11 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -25,6 +27,8 @@ import umu.tds.AppMusic.controlador.Controlador;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
+import javax.swing.border.EtchedBorder;
+import com.toedter.calendar.JDateChooser;
 
 public class RegistroView extends JDialog {
 
@@ -42,7 +46,6 @@ public class RegistroView extends JDialog {
 	private JLabel lblPasswordChk;
 	private JTextField txtNombre;
 	private JTextField txtApellidos;
-	private JTextField txtFechaNacimiento;
 	private JTextField txtEmail;
 	private JTextField txtUsuario;
 	private JPasswordField txtPassword;
@@ -62,6 +65,8 @@ public class RegistroView extends JDialog {
 	private JPanel panelCamposEmail;
 	private JPanel panelCamposUsuario;
 	private JPanel panelCamposFechaNacimiento;
+	private JPanel panel_1;
+	private JDateChooser dateChooser;
 
 	public RegistroView(JFrame owner){
 		super(owner, "Registro Usuario", true);
@@ -72,10 +77,13 @@ public class RegistroView extends JDialog {
 
 	private void crearPanelRegistro() {
 		this.getContentPane().setLayout(new BorderLayout());
+		
+		this.crearPanelTitulo();
+		
 
 		JPanel datosPersonales = new JPanel();
 		this.getContentPane().add(datosPersonales);
-		datosPersonales.setBorder(new TitledBorder(null, "Datos de Registro", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		datosPersonales.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos de Registro", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		datosPersonales.setLayout(new BoxLayout(datosPersonales, BoxLayout.Y_AXIS));
 
 		datosPersonales.add(creaLineaNombre());
@@ -91,6 +99,18 @@ public class RegistroView extends JDialog {
 
 		this.revalidate();
 		this.pack();
+	}
+	
+	private void crearPanelTitulo() {
+		JPanel titulo = new JPanel();
+		this.getContentPane().add(titulo, BorderLayout.NORTH);
+		titulo.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 15));
+
+		JLabel lblTitulo = new JLabel("AppMusic");
+		lblTitulo.setIcon(new ImageIcon(LoginView.class.getResource("/umu/tds/AppMusic/images/musica (1).png")));
+		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTitulo.setForeground(Color.DARK_GRAY);
+		titulo.add(lblTitulo);
 	}
 
 	private JPanel creaLineaNombre() {
@@ -223,9 +243,9 @@ public class RegistroView extends JDialog {
 		lblFechaNacimiento = new JLabel("Fecha de Nacimiento: ", JLabel.RIGHT);
 		panelCamposFechaNacimiento.add(lblFechaNacimiento);
 		fixedSize(lblFechaNacimiento, 130, 20);
-		txtFechaNacimiento = new JTextField();
-		panelCamposFechaNacimiento.add(txtFechaNacimiento);
-		fixedSize(txtFechaNacimiento, 215, 20);
+		
+		dateChooser = new JDateChooser();
+		panelCamposFechaNacimiento.add(dateChooser);
 		lblFechaNacimientoError = new JLabel("Introduce la fecha de nacimiento", SwingConstants.CENTER);
 		fixedSize(lblFechaNacimientoError, 150, 15);
 		lblFechaNacimientoError.setForeground(Color.RED);
@@ -237,7 +257,7 @@ public class RegistroView extends JDialog {
 	private void crearPanelBotones() {
 		JPanel lineaBotones = new JPanel(); 
 		this.getContentPane().add(lineaBotones, BorderLayout.SOUTH);
-		lineaBotones.setBorder(new EmptyBorder(5, 0, 0, 0));
+		lineaBotones.setBorder(new EmptyBorder(10, 20, 20, 20));
 		lineaBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
 		
 		btnRegistrar = new JButton("Registrar");
@@ -392,7 +412,6 @@ public class RegistroView extends JDialog {
 		txtPassword.setBorder(border);
 		txtPasswordChk.setBorder(border);
 		txtUsuario.setBorder(border);
-		txtFechaNacimiento.setBorder(border);
 		
 		lblNombre.setForeground(Color.BLACK);
 		lblApellidos.setForeground(Color.BLACK);
