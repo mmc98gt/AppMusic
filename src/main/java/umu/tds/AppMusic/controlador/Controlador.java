@@ -1,5 +1,7 @@
 package umu.tds.AppMusic.controlador;
 
+import java.util.Date;
+
 import umu.tds.AppMusic.dao.DAOException;
 import umu.tds.AppMusic.dao.FactoriaDao;
 import umu.tds.AppMusic.dao.UsuarioDao;
@@ -38,7 +40,7 @@ public enum Controlador {
 	}
 
 	public boolean registrarUsuario(String nombre, String apellidos, String email, String login, String password,
-			String fechaNacimiento) {
+			Date fechaNacimiento) {
 
 		if (esUsuarioRegistrado(login))
 			return false;

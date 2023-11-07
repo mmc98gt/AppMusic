@@ -66,7 +66,7 @@ public class RegistroView extends JDialog {
 	private JPanel panelCamposUsuario;
 	private JPanel panelCamposFechaNacimiento;
 	private JPanel panel_1;
-	private JDateChooser dateChooser;
+	private JDateChooser selectorFecha;
 
 	public RegistroView(JFrame owner){
 		super(owner, "Registro Usuario", true);
@@ -244,8 +244,9 @@ public class RegistroView extends JDialog {
 		panelCamposFechaNacimiento.add(lblFechaNacimiento);
 		fixedSize(lblFechaNacimiento, 130, 20);
 		
-		dateChooser = new JDateChooser();
-		panelCamposFechaNacimiento.add(dateChooser);
+		selectorFecha = new JDateChooser();
+		selectorFecha.setDateFormatString("dd/MMM/yyyy");
+		panelCamposFechaNacimiento.add(selectorFecha);
 		lblFechaNacimientoError = new JLabel("Introduce la fecha de nacimiento", SwingConstants.CENTER);
 		fixedSize(lblFechaNacimientoError, 150, 15);
 		lblFechaNacimientoError.setForeground(Color.RED);
@@ -283,7 +284,7 @@ public class RegistroView extends JDialog {
 							txtEmail.getText(), 
 							txtUsuario.getText(),
 							new String(txtPassword.getPassword()), 
-							txtFechaNacimiento.getText()
+							selectorFecha.getDate()
 					);
 					if (registrado) {
 						JOptionPane.showMessageDialog(RegistroView.this, "Usuario registrado correctamente.", "Registro",
@@ -377,10 +378,10 @@ public class RegistroView extends JDialog {
 			txtUsuario.setBorder(BorderFactory.createLineBorder(Color.RED));
 			salida = false;
 		}
-		if (txtFechaNacimiento.getText().isEmpty()) {
+		if (selectorFecha.getDate()== null) {
 			lblFechaNacimientoError.setVisible(true);
 			lblFechaNacimiento.setForeground(Color.RED);
-			txtFechaNacimiento.setBorder(BorderFactory.createLineBorder(Color.RED));
+			selectorFecha.setBorder(BorderFactory.createLineBorder(Color.RED));
 			salida = false;
 		}
 
