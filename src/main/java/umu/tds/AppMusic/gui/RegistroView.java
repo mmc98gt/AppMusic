@@ -65,7 +65,6 @@ public class RegistroView extends JDialog {
 	private JPanel panelCamposEmail;
 	private JPanel panelCamposUsuario;
 	private JPanel panelCamposFechaNacimiento;
-	private JPanel panel_1;
 	private JDateChooser selectorFecha;
 
 	public RegistroView(JFrame owner){
