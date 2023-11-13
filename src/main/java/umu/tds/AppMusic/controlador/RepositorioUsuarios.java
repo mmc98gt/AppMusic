@@ -23,7 +23,7 @@ public enum RepositorioUsuarios {
 		try {
 			factoria = FactoriaDao.getInstancia();
 			
-			List<Usuario> listausuarios = factoria.getUsuarioDao().obtenerTodosLosUsuarios();
+			List<Usuario> listausuarios = factoria.getUsuarioDAO().obtenerTodosLosUsuarios();
 			for (Usuario usuario : listausuarios) {
 				usuariosPorID.put(usuario.getId(), usuario);
 				usuariosPorLogin.put(usuario.getLogin(), usuario);

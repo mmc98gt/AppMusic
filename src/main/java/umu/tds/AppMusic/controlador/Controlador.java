@@ -47,7 +47,7 @@ public enum Controlador {
 		Usuario usuario = new Usuario(nombre);
 
 		UsuarioDao usuarioDAO = factoria
-				.getUsuarioDao(); /* Adaptador DAO para almacenar el nuevo Usuario en la BD */
+				.getUsuarioDAO(); /* Adaptador DAO para almacenar el nuevo Usuario en la BD */
 		usuarioDAO.agregarUsuario(usuario);
 
 		RepositorioUsuarios.INSTANCE.addUsuario(usuario);
@@ -58,7 +58,7 @@ public enum Controlador {
 		if (!esUsuarioRegistrado(usuario.getLogin()))
 			return false;
 
-		UsuarioDao usuarioDAO = factoria.getUsuarioDao(); /* Adaptador DAO para borrar el Usuario de la BD */
+		UsuarioDao usuarioDAO = factoria.getUsuarioDAO(); /* Adaptador DAO para borrar el Usuario de la BD */
 		usuarioDAO.eliminarUsuario(usuario.getNombre());
 
 		RepositorioUsuarios.INSTANCE.removeUsuario(usuario);
