@@ -39,12 +39,11 @@ public enum Controlador {
 		return false;
 	}
 
-	public boolean registrarUsuario(String nombre, String apellidos, String email, String login, String password,
-			Date fechaNacimiento) {
+	public boolean registrarUsuario(String nombre, String apellidos, String email, String login, String password, String fechaNacimiento) {
 
 		if (esUsuarioRegistrado(login))
 			return false;
-		Usuario usuario = new Usuario(nombre);
+		Usuario usuario = new Usuario(nombre,apellidos,email,login,password,fechaNacimiento);
 
 		UsuarioDao usuarioDAO = factoria
 				.getUsuarioDAO(); /* Adaptador DAO para almacenar el nuevo Usuario en la BD */

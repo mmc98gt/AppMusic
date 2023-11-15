@@ -6,11 +6,11 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import beans.Entidad;
+import beans.Propiedad;
 import tds.driver.FactoriaServicioPersistencia;
 import tds.driver.ServicioPersistencia;
 import umu.tds.AppMusic.modelo.Usuario;
-import beans.Entidad;
-import beans.Propiedad;
 
 /**
  * 
@@ -37,30 +37,36 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 	}
 
 	private Usuario entidadToUsuario(Entidad eUsuario) {
+	    String nombre = servPersistencia.recuperarPropiedadEntidad(eUsuario, NOMBRE);
+	    String apellidos = servPersistencia.recuperarPropiedadEntidad(eUsuario, APELLIDOS);
+	    String email = servPersistencia.recuperarPropiedadEntidad(eUsuario, EMAIL);
+	    String login = servPersistencia.recuperarPropiedadEntidad(eUsuario, LOGIN);
+	    String password = servPersistencia.recuperarPropiedadEntidad(eUsuario, PASSWORD);
+	    String fechaNacimientoStr = servPersistencia.recuperarPropiedadEntidad(eUsuario, FECHA_NACIMIENTO);
 
-		String nombre = servPersistencia.recuperarPropiedadEntidad(eUsuario, NOMBRE);
-		String apellidos = servPersistencia.recuperarPropiedadEntidad(eUsuario, APELLIDOS);
-		String email = servPersistencia.recuperarPropiedadEntidad(eUsuario, EMAIL);
-		String login = servPersistencia.recuperarPropiedadEntidad(eUsuario, LOGIN);
-		String password = servPersistencia.recuperarPropiedadEntidad(eUsuario, PASSWORD);
-		String fechaNacimiento = servPersistencia.recuperarPropiedadEntidad(eUsuario, FECHA_NACIMIENTO);
+	    Usuario usuario = new Usuario(nombre, apellidos, email, login, password, fechaNacimientoStr);
+	    usuario.setId(eUsuario.getId());
 
-		Usuario usuario = new Usuario(nombre, apellidos, email, login, password, fechaNacimiento);
-		usuario.setId(eUsuario.getId());
-
-		return usuario;
+	    return usuario;
 	}
 
-	@SuppressWarnings("deprecation")
-	private Entidad usuarioToEntidad(Usuario usuario) {
-		Entidad eUsuario = new Entidad();
-		eUsuario.setNombre(USUARIO);
 
-		eUsuario.setPropiedades(new ArrayList<Propiedad>(Arrays.asList(new Propiedad(NOMBRE, usuario.getNombre()),
-				new Propiedad(APELLIDOS, usuario.getApellidos()), new Propiedad(EMAIL, usuario.getEmail()),
-				new Propiedad(LOGIN, usuario.getLogin()), new Propiedad(PASSWORD, usuario.getPassword()),
-				new Propiedad(FECHA_NACIMIENTO, usuario.getFechaNacimiento().toGMTString()))));
-		return eUsuario;
+	private Entidad usuarioToEntidad(Usuario usuario) {
+	    Entidad eUsuario = new Entidad();
+	    eUsuario.setNombre(USUARIO);
+
+	    String fechaNacimientoStr = usuario.getFechaNacimiento() != null 
+	                                 ? usuario.getFechaNacimiento() 
+	                                 : ""; // o alguna fecha por defecto
+
+	    eUsuario.setPropiedades(new ArrayList<Propiedad>(Arrays.asList(
+	            new Propiedad(NOMBRE, usuario.getNombre()),
+	            new Propiedad(APELLIDOS, usuario.getApellidos()),
+	            new Propiedad(EMAIL, usuario.getEmail()),
+	            new Propiedad(LOGIN, usuario.getLogin()),
+	            new Propiedad(PASSWORD, usuario.getPassword()),
+	            new Propiedad(FECHA_NACIMIENTO, fechaNacimientoStr))));
+	    return eUsuario;
 	}
 
 	public void create(Usuario usuario) {

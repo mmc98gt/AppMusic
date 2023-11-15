@@ -1,8 +1,5 @@
 package umu.tds.AppMusic.modelo;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +10,7 @@ public class Usuario {
 	private String email;
 	private String login;
 	private String password;
-	private java.util.Date fechaNacimiento;
+	private String fechaNacimiento;
 	private boolean premium;
 	private List<PlayList> playlists;
 
@@ -25,23 +22,13 @@ public class Usuario {
 	}
 
 	// Nuevo constructor
-	public Usuario(String nombre, String apellidos, String email, String login, String password,
-			String fechaNacimiento) {
+	public Usuario(String nombre, String apellidos, String email, String login, String password, String fechaNacimiento) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
 		this.login = login;
 		this.password = password;
-		SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-		try {
-			this.fechaNacimiento = formatoFecha.parse(fechaNacimiento);
-		} catch (ParseException e) {
-			e.printStackTrace();
-			// Manejar la excepción adecuadamente. Por ejemplo, puedes asignar null a
-			// fechaNacimiento
-			// o manejarlo de otra manera según las necesidades de tu aplicación.
-			this.fechaNacimiento = null;
-		}
+		this.fechaNacimiento = fechaNacimiento;
 		this.premium = false;
 		this.playlists = new ArrayList<>();
 	}
@@ -83,16 +70,6 @@ public class Usuario {
 		this.playlists = playlists;
 	}
 
-	public String getLogin() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public String getApellidos() {
 		return apellidos;
 	}
@@ -109,20 +86,12 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public java.util.Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public int getId() {
@@ -131,5 +100,21 @@ public class Usuario {
 	
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

@@ -283,7 +283,7 @@ public class RegistroView extends JDialog {
 							txtEmail.getText(), 
 							txtUsuario.getText(),
 							new String(txtPassword.getPassword()), 
-							selectorFecha.getDate()
+							selectorFecha.getDate().toString()
 					);
 					if (registrado) {
 						JOptionPane.showMessageDialog(RegistroView.this, "Usuario registrado correctamente.", "Registro",
