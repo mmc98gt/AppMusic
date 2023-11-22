@@ -146,7 +146,7 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 		        } else if (prop.getNombre().equals(LOGIN)) {
 		            prop.setValor(usuario.getLogin());
 		        } else if (prop.getNombre().equals(FECHA_NACIMIENTO)) {
-		            prop.setValor(dateFormat.format(usuario.getFechaNacimiento()));
+		        	prop.setValor(usuario.getFechaNacimiento());
 		        }
 		        servPersistencia.modificarPropiedad(prop);
 		    }		
