@@ -198,7 +198,6 @@ public class LoginView {
 			public void actionPerformed(ActionEvent e) {
 				boolean login = Controlador.INSTANCE.loginUsuario(textUsuario.getText(),
 						new String(textPassword.getPassword()));
-
 				if (login) {
 					VentanaPrincipal principal = new VentanaPrincipal();
 					principal.mostrarVentana();
