@@ -66,13 +66,57 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
-		crearPanelBotones();
-		crearPanelPrincipal();
+		crearPaneles();
 		// frmVentanaPrincipal.setResizable(false);
-		//frmVentanaPrincipal.pack();
+		// frmVentanaPrincipal.pack();
 	}
 
-	private void crearPanelBotones() {
+	private void crearPaneles() {
+		JPanel panelCentro = new JPanel();
+		contentPane.add(panelCentro, BorderLayout.CENTER);
+		panelCentro.setLayout(new BorderLayout(0, 0));
+
+		JPanel panel_norte = new JPanel();
+		FlowLayout fl_panel_norte = (FlowLayout) panel_norte.getLayout();
+		fl_panel_norte.setAlignment(FlowLayout.RIGHT);
+		panelCentro.add(panel_norte, BorderLayout.NORTH);
+
+		// hay que añadir el nombre de usuario
+		JLabel lblBienvenido = new JLabel("Bienvenido, ");
+		panel_norte.add(lblBienvenido);
+
+		JButton btnPremium = new JButton("Premium");
+		panel_norte.add(btnPremium);
+
+		JButton btnSalir = new JButton("Salir");
+		panel_norte.add(btnSalir);
+
+		panelCardLayout = new JPanel();
+		panelCentro.add(panelCardLayout, BorderLayout.CENTER);
+		panelCardLayout.setLayout(new CardLayout(0, 0));
+
+		///////////////////////////////////////////
+		/*
+		 * JPanel panelBuscar = new JPanel(); panelCardLayout.add(panelBuscar,
+		 * "panelBuscar1");
+		 * 
+		 * JLabel lblPanelbuscar = new JLabel("PanelBuscar");
+		 * panelBuscar.add(lblPanelbuscar);
+		 * 
+		 * JPanel panelGestion = new JPanel(); panelCardLayout.add(panelGestion,
+		 * "panelGestion");
+		 * 
+		 * JLabel lblPanelgestion = new JLabel("PanelGestion");
+		 * panelGestion.add(lblPanelgestion);
+		 * 
+		 * JPanel panelRecientes = new JPanel(); panelCardLayout.add(panelRecientes,
+		 * "panelRecientes");
+		 * 
+		 * JPanel panelPlaylists = new JPanel(); panelCardLayout.add(panelPlaylists,
+		 * "panelPlaylists");
+		 */
+
+		// PANEL BOTONES
 		JPanel panelBotones = new JPanel();
 		contentPane.add(panelBotones, BorderLayout.WEST);
 		GridBagLayout gbl_panelBotones = new GridBagLayout();
@@ -82,10 +126,9 @@ public class VentanaPrincipal extends JFrame {
 		gbl_panelBotones.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panelBotones.setLayout(gbl_panelBotones);
 
-		panelCardLayout = new JPanel();
-
 		JButton btnBuscar = new JButton("Buscar");
-
+		VentanaBuscar ventanaBuscar = new VentanaBuscar();
+		panelCardLayout.add(ventanaBuscar, "panelBuscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CardLayout card = (CardLayout) panelCardLayout.getLayout();
@@ -105,13 +148,13 @@ public class VentanaPrincipal extends JFrame {
 
 		JButton btnGestionPlaylist = new JButton("Gestion Playlists");
 
-		btnGestionPlaylist.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CardLayout card = (CardLayout) panelCardLayout.getLayout();
-				
-				card.show(panelCardLayout, "panelGestion");
-			}
-		});
+		/*
+		 * btnGestionPlaylist.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent e) { CardLayout card = (CardLayout)
+		 * panelCardLayout.getLayout();
+		 * 
+		 * card.show(panelCardLayout, "panelGestion"); } });
+		 */
 
 		btnGestionPlaylist.setHorizontalAlignment(SwingConstants.LEFT);
 		btnGestionPlaylist
@@ -145,49 +188,6 @@ public class VentanaPrincipal extends JFrame {
 		gbc_btnNewButton_3.gridx = 1;
 		gbc_btnNewButton_3.gridy = 4;
 		panelBotones.add(btnPlaylist, gbc_btnNewButton_3);
-	}
-
-	private void crearPanelPrincipal() {
-		JPanel panelCentro = new JPanel();
-		contentPane.add(panelCentro, BorderLayout.CENTER);
-		panelCentro.setLayout(new BorderLayout(0, 0));
-
-		JPanel panel_norte = new JPanel();
-		FlowLayout fl_panel_norte = (FlowLayout) panel_norte.getLayout();
-		fl_panel_norte.setAlignment(FlowLayout.RIGHT);
-		panelCentro.add(panel_norte, BorderLayout.NORTH);
-
-		//hay que añadir el nombre de usuario
-		JLabel lblBienvenido = new JLabel("Bienvenido, ");
-		panel_norte.add(lblBienvenido);
-
-		JButton btnPremium = new JButton("Premium");
-		panel_norte.add(btnPremium);
-
-		JButton btnSalir = new JButton("Salir");
-		panel_norte.add(btnSalir);
-
-		panelCentro.add(panelCardLayout, BorderLayout.CENTER);
-		panelCardLayout.setLayout(new CardLayout(0, 0));
-
-		///////////////////////////////////////////
-		JPanel panelBuscar = new JPanel();
-		panelCardLayout.add(panelBuscar, "panelBuscar");
-
-		JLabel lblPanelbuscar = new JLabel("PanelBuscar");
-		panelBuscar.add(lblPanelbuscar);
-
-		JPanel panelGestion = new JPanel();
-		panelCardLayout.add(panelGestion, "panelGestion");
-
-		JLabel lblPanelgestion = new JLabel("PanelGestion");
-		panelGestion.add(lblPanelgestion);
-
-		JPanel panelRecientes = new JPanel();
-		panelCardLayout.add(panelRecientes, "panelRecientes");
-
-		JPanel panelPlaylists = new JPanel();
-		panelCardLayout.add(panelPlaylists, "panelPlaylists");
 	}
 
 }
