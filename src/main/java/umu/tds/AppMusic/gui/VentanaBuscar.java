@@ -28,6 +28,7 @@ public class VentanaBuscar extends JPanel {
 	private JComboBox comboBox;
 	private JCheckBox chckbxFavoritas;
 	private JButton btnBuscar;
+	private JPanel panelb;
 
 	/**
 	 * Launch the application.
@@ -39,6 +40,8 @@ public class VentanaBuscar extends JPanel {
 	 */
 	public VentanaBuscar() {
 		
+		
+		
 		initialize();
 	}
 
@@ -46,16 +49,25 @@ public class VentanaBuscar extends JPanel {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		System.out.print("fdsg");
 		
-		setBorder(new TitledBorder(null, "Buscar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+setLayout(new BorderLayout(0, 0));
 		
+		JPanel panel = new JPanel();
+		add(panel, BorderLayout.NORTH);
+		panel.setBorder(new TitledBorder(null, "Buscar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{31, 158, 10, 158, 0};
+		gbl_panel.rowHeights = new int[]{0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_panel.rowWeights = new double[]{Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
+		
+		/*	GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{10, 186, 186, 10, 0};
 		gbl_panel.rowHeights = new int[]{10, 50, 50, 50, 10, 0};
 		gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		setLayout(gbl_panel);
+		setLayout(gbl_panel);*/
 		
 		txtIntrprete = new JTextField();
 		txtIntrprete.setHorizontalAlignment(SwingConstants.LEFT);
@@ -65,7 +77,7 @@ public class VentanaBuscar extends JPanel {
 		gbc_txtIntrprete.insets = new Insets(0, 0, 5, 5);
 		gbc_txtIntrprete.gridx = 1;
 		gbc_txtIntrprete.gridy = 1;
-		add(txtIntrprete, gbc_txtIntrprete);
+		panel.add(txtIntrprete, gbc_txtIntrprete);
 		txtIntrprete.setColumns(10);
 		
 		txtTtulo = new JTextField();
@@ -74,9 +86,9 @@ public class VentanaBuscar extends JPanel {
 		GridBagConstraints gbc_txtTtulo = new GridBagConstraints();
 		gbc_txtTtulo.insets = new Insets(0, 0, 5, 5);
 		gbc_txtTtulo.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtTtulo.gridx = 2;
+		gbc_txtTtulo.gridx = 3;
 		gbc_txtTtulo.gridy = 1;
-		add(txtTtulo, gbc_txtTtulo);
+		panel.add(txtTtulo, gbc_txtTtulo);
 		txtTtulo.setColumns(10);
 		
 		chckbxFavoritas = new JCheckBox("Favoritas");
@@ -84,23 +96,28 @@ public class VentanaBuscar extends JPanel {
 		gbc_chckbxFavoritas.insets = new Insets(0, 0, 5, 5);
 		gbc_chckbxFavoritas.gridx = 1;
 		gbc_chckbxFavoritas.gridy = 2;
-		add(chckbxFavoritas, gbc_chckbxFavoritas);
+		panel.add(chckbxFavoritas, gbc_chckbxFavoritas);
 		
 		comboBox = new JComboBox<EstiloMusical>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 2;
+		gbc_comboBox.gridx = 3;
 		gbc_comboBox.gridy = 2;
-		add(comboBox, gbc_comboBox);
+		panel.add(comboBox, gbc_comboBox);
 		
 		btnBuscar = new JButton("Buscar");
 		GridBagConstraints gbc_btnBuscar = new GridBagConstraints();
-		gbc_btnBuscar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnBuscar.gridx = 2;
+		gbc_btnBuscar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnBuscar.gridx = 3;
 		gbc_btnBuscar.gridy = 3;
-		add(btnBuscar, gbc_btnBuscar);
+		panel.add(btnBuscar, gbc_btnBuscar);
 		
+		JPanel panelControlMusica = new JPanel();
+		add(panelControlMusica, BorderLayout.SOUTH);
+		
+		JPanel panel_tabla = new JPanel();
+		add(panel_tabla, BorderLayout.CENTER);
 	}
 
 }

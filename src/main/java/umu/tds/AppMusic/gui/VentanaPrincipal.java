@@ -96,20 +96,16 @@ public class VentanaPrincipal extends JFrame {
 		panelCardLayout.setLayout(new CardLayout(0, 0));
 
 		///////////////////////////////////////////
-		/*
-		 * JPanel panelBuscar = new JPanel(); panelCardLayout.add(panelBuscar,
-		 * "panelBuscar1");
-		 * 
-		 * JLabel lblPanelbuscar = new JLabel("PanelBuscar");
-		 * panelBuscar.add(lblPanelbuscar);
-		 * 
-		 * JPanel panelGestion = new JPanel(); panelCardLayout.add(panelGestion,
-		 * "panelGestion");
-		 * 
-		 * JLabel lblPanelgestion = new JLabel("PanelGestion");
-		 * panelGestion.add(lblPanelgestion);
-		 * 
-		 * JPanel panelRecientes = new JPanel(); panelCardLayout.add(panelRecientes,
+		
+		
+		  
+		  JPanel panelGestion = new JPanel(); panelCardLayout.add(panelGestion,
+		  "panelGestion");
+		  
+		  JLabel lblPanelgestion = new JLabel("PanelGestion");
+		  panelGestion.add(lblPanelgestion);
+		  
+		 /* JPanel panelRecientes = new JPanel(); panelCardLayout.add(panelRecientes,
 		 * "panelRecientes");
 		 * 
 		 * JPanel panelPlaylists = new JPanel(); panelCardLayout.add(panelPlaylists,
