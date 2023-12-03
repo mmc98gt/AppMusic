@@ -13,7 +13,6 @@ import umu.tds.AppMusic.modelo.Usuario;
 
 public class TDSUsuarioDAOTest {
 
-    private TDSUsuarioDAO usuarioDAO;
     private FactoriaDao factoria;
     
     @Before

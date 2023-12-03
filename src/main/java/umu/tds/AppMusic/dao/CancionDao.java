@@ -13,7 +13,7 @@ public interface CancionDao {
     void actualizarCancion(Cancion cancion);
     
     // Método para eliminar una canción
-    void eliminarCancion(String titulo);  // Usando el título como identificador, o puedes usar otro atributo único si prefieres
+    void eliminarCancion(Cancion cancion);  // Usando el título como identificador, o puedes usar otro atributo único si prefieres
     
     // Método para obtener una canción por su título
     Cancion obtenerCancionPorTitulo(String titulo);

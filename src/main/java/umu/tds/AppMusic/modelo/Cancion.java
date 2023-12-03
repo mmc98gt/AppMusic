@@ -2,6 +2,7 @@ package umu.tds.AppMusic.modelo;
 
 public class Cancion {
     
+	private int id;
     private String titulo;
     private String rutaFichero;
     private int numReproducciones;
@@ -57,5 +58,13 @@ public class Cancion {
     public void setInterprete(Interprete interprete) {
         this.interprete = interprete;
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
     
 }
