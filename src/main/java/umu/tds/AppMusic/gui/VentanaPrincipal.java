@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import umu.tds.AppMusic.controlador.Controlador;
 import umu.tds.AppMusic.modelo.Usuario;
 
 import java.awt.GridBagLayout;
@@ -22,27 +23,13 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class VentanaPrincipal extends JFrame {
+public class VentanaPrincipal{
 
 	private JPanel contentPane;
 	private JFrame frmVentanaPrincipal;
 	private JPanel panelCardLayout;
+	private String textoBienvenida;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaPrincipal frame = new VentanaPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -50,26 +37,29 @@ public class VentanaPrincipal extends JFrame {
 
 	public void mostrarVentana() {
 		frmVentanaPrincipal.setLocationRelativeTo(null);
-		frmVentanaPrincipal.setVisible(true);
+	    frmVentanaPrincipal.setVisible(true);
 	}
 
 	public VentanaPrincipal() {
 		initialize();
 	}
 
-	private void initialize() {
-		setTitle("AppMusic");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 653, 447);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+    private void initialize() {
+        frmVentanaPrincipal = new JFrame();
+        frmVentanaPrincipal.setTitle("AppMusic");
+        frmVentanaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frmVentanaPrincipal.setBounds(100, 100, 653, 447);
 
-		crearPaneles();
-		// frmVentanaPrincipal.setResizable(false);
-		// frmVentanaPrincipal.pack();
-	}
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setLayout(new BorderLayout(0, 0));
+        frmVentanaPrincipal.setContentPane(contentPane);
+
+        Usuario usuarioActual = Controlador.INSTANCE.getUsuarioActual();
+        textoBienvenida = "Bienvenido, " + (usuarioActual != null ? usuarioActual.getNombre() : "Invitado");
+
+        crearPaneles();
+    }
 
 	private void crearPaneles() {
 		JPanel panelCentro = new JPanel();
@@ -81,8 +71,7 @@ public class VentanaPrincipal extends JFrame {
 		fl_panel_norte.setAlignment(FlowLayout.RIGHT);
 		panelCentro.add(panel_norte, BorderLayout.NORTH);
 
-		// hay que añadir el nombre de usuario
-		JLabel lblBienvenido = new JLabel("Bienvenido, ");
+		JLabel lblBienvenido = new JLabel(textoBienvenida);
 		panel_norte.add(lblBienvenido);
 
 		JButton btnPremium = new JButton("Premium");
