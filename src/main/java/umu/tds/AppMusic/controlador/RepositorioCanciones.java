@@ -54,4 +54,11 @@ public enum RepositorioCanciones {
         cancionesPorID.remove(cancion.getId());
         cancionesPorTitulo.remove(cancion.getTitulo());
     }
+    /**
+     * Método para obtener todas las canciones disponibles.
+     * @return una lista de todas las canciones.
+     */
+    public List<Cancion> findAllCanciones() {
+        return new LinkedList<>(cancionesPorTitulo.values());
+    }
 }

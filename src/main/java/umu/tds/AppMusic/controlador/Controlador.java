@@ -1,10 +1,14 @@
 package umu.tds.AppMusic.controlador;
 
 import java.util.Date;
+import java.util.List;
 
 import umu.tds.AppMusic.dao.DAOException;
 import umu.tds.AppMusic.dao.FactoriaDao;
 import umu.tds.AppMusic.dao.UsuarioDao;
+import umu.tds.AppMusic.modelo.Cancion;
+import umu.tds.AppMusic.modelo.EstiloMusical;
+import umu.tds.AppMusic.modelo.PlayList;
 import umu.tds.AppMusic.modelo.Usuario;
 
 
@@ -63,5 +67,30 @@ public enum Controlador {
 		RepositorioUsuarios.INSTANCE.removeUsuario(usuario);
 		return true;
 	}
+	
+    /**
+     * Método para añadir una playlist al usuario actual.
+     * @param playList La playlist a añadir.
+     * @return true si la playlist se añadió correctamente, false en caso contrario.
+     */
+    public boolean addPlaylistToCurrentUser(PlayList playList) {
+        if (usuarioActual == null || playList == null) {
+            return false;
+        }
+
+        usuarioActual.addPlayList(playList);
+
+        // Actualizar el usuario en la base de datos
+        UsuarioDao usuarioDAO = factoria.getUsuarioDAO();
+        usuarioDAO.actualizarUsuario(usuarioActual);
+
+        return true;
+    }
+    
+    public List<Cancion> buscarCanciones(String interprete, String titulo, boolean esFavorita, EstiloMusical estilo) {
+        // Implementa la lógica de búsqueda aquí
+        // Retorna una lista de objetos Cancion que coincidan con los criterios
+    	return RepositorioCanciones.INSTANCE.findAllCanciones();
+    }
 }
 
