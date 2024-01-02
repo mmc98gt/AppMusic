@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import beans.Entidad;
 import beans.Propiedad;
@@ -68,13 +69,22 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 	            new Propiedad(FECHA_NACIMIENTO, fechaNacimientoStr))));
 	    return eUsuario;
 	}
-
+	
+    /**
+     * Crea un nuevo usuario en la base de datos.
+     * @param usuario Usuario a crear.
+     */
 	public void create(Usuario usuario) {
 		Entidad eUsuario = this.usuarioToEntidad(usuario);
 		eUsuario = servPersistencia.registrarEntidad(eUsuario);
 		usuario.setId(eUsuario.getId());
 	}
-
+	
+    /**
+     * Elimina un usuario de la base de datos.
+     * @param usuario Usuario a eliminar.
+     * @return Verdadero si se eliminó con éxito, falso de lo contrario.
+     */
 	public boolean delete(Usuario usuario) {
 		Entidad eUsuario;
 		eUsuario = servPersistencia.recuperarEntidad(usuario.getId());
@@ -82,9 +92,10 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 		return servPersistencia.borrarEntidad(eUsuario);
 	}
 
-	/**
-	 * Permite que un Usuario modifique su perfil: password y email
-	 */
+    /**
+     * Actualiza la información de un usuario en la base de datos.
+     * @param usuario Usuario con la información actualizada.
+     */
 	public void update(Usuario usuario) {
 		Entidad eUsuario = servPersistencia.recuperarEntidad(usuario.getId());
 
@@ -105,13 +116,22 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 			servPersistencia.modificarPropiedad(prop);
 		}
 	}
-
+	
+    /**
+     * Recupera un usuario basado en su identificador.
+     * @param id El identificador del usuario.
+     * @return El usuario correspondiente al identificador.
+     */
 	public Usuario get(int id) {
 		Entidad eUsuario = servPersistencia.recuperarEntidad(id);
 
 		return entidadToUsuario(eUsuario);
 	}
 
+    /**
+     * Obtiene todos los usuarios de la base de datos.
+     * @return Una lista de todos los usuarios.
+     */
 	public List<Usuario> getAll() {
 		List<Entidad> entidades = servPersistencia.recuperarEntidades(USUARIO);
 
@@ -122,7 +142,11 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 
 		return usuarios;
 	}
-
+	
+    /**
+     * Agrega un nuevo usuario a la base de datos.
+     * @param usuario El usuario a agregar.
+     */
 	@Override
 	public void agregarUsuario(Usuario usuario) {
 		   Entidad eUsuario = usuarioToEntidad(usuario);
@@ -130,6 +154,10 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 		    usuario.setId(eUsuario.getId());
 	}
 
+    /**
+     * Actualiza la información de un usuario existente.
+     * @param usuario El usuario con la información actualizada.
+     */
 	@Override
 	public void actualizarUsuario(Usuario usuario) {
 		   Entidad eUsuario = servPersistencia.recuperarEntidad(usuario.getId());
@@ -152,38 +180,41 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 		    }		
 	}
 
+    /**
+     * Elimina un usuario basado en su nombre.
+     * @param nombre El nombre del usuario a eliminar.
+     */
 	@Override
 	public void eliminarUsuario(String nombre) {
-	    // Recuperar entidad usuario basado en el nombre
-	    List<Entidad> entidades = servPersistencia.recuperarEntidades(USUARIO);
-	    for (Entidad eUsuario : entidades) {
-	        if (servPersistencia.recuperarPropiedadEntidad(eUsuario, NOMBRE).equals(nombre)) {
-	            servPersistencia.borrarEntidad(eUsuario);
-	            break;
-	        }
-	    }		
+        servPersistencia.recuperarEntidades(USUARIO).stream()
+        .filter(eUsuario -> servPersistencia.recuperarPropiedadEntidad(eUsuario, NOMBRE).equals(nombre))
+        .findFirst()
+        .ifPresent(servPersistencia::borrarEntidad);		
 	}
 
+    /**
+     * Obtiene un usuario basado en su nombre.
+     * @param nombre El nombre del usuario.
+     * @return El usuario con ese nombre, o null si no se encuentra.
+     */
 	@Override
 	public Usuario obtenerUsuarioPorNombre(String nombre) {
-	    // Recuperar entidad usuario basado en el nombre
-	    List<Entidad> entidades = servPersistencia.recuperarEntidades(USUARIO);
-	    for (Entidad eUsuario : entidades) {
-	        if (servPersistencia.recuperarPropiedadEntidad(eUsuario, NOMBRE).equals(nombre)) {
-	            return entidadToUsuario(eUsuario);
-	        }
-	    }
-	    return null; // Si no se encuentra el usuario
+        return servPersistencia.recuperarEntidades(USUARIO).stream()
+                .filter(eUsuario -> servPersistencia.recuperarPropiedadEntidad(eUsuario, NOMBRE).equals(nombre))
+                .map(this::entidadToUsuario)
+                .findFirst()
+                .orElse(null);
 	}
 
+    /**
+     * Obtiene todos los usuarios de la base de datos.
+     * @return Una lista de todos los usuarios.
+     */
 	@Override
 	public List<Usuario> obtenerTodosLosUsuarios() {
-	    List<Entidad> entidades = servPersistencia.recuperarEntidades(USUARIO);
-	    List<Usuario> usuarios = new LinkedList<>();
-	    for (Entidad eUsuario : entidades) {
-	        usuarios.add(entidadToUsuario(eUsuario));
-	    }
-	    return usuarios;
+        return servPersistencia.recuperarEntidades(USUARIO).stream()
+                .map(this::entidadToUsuario)
+                .collect(Collectors.toCollection(LinkedList::new));
 	}
 
 }
