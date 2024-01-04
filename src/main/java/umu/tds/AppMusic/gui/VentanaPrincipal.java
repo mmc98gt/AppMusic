@@ -106,9 +106,9 @@ public class VentanaPrincipal{
 		contentPane.add(panelBotones, BorderLayout.WEST);
 		GridBagLayout gbl_panelBotones = new GridBagLayout();
 		gbl_panelBotones.columnWidths = new int[] { 10, 0, 10, 0 };
-		gbl_panelBotones.rowHeights = new int[] { 10, 0, 0, 0, 0, 0 };
-		gbl_panelBotones.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_panelBotones.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panelBotones.rowHeights = new int[] { 10, 0, 0, 0, 0, 0, 0 };
+		gbl_panelBotones.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_panelBotones.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		panelBotones.setLayout(gbl_panelBotones);
 
 		JButton btnBuscar = new JButton("Buscar");
@@ -132,7 +132,14 @@ public class VentanaPrincipal{
 		panelBotones.add(btnBuscar, gbc_btnNewButton);
 
 		JButton btnGestionPlaylist = new JButton("Gestion Playlists");
-
+		VentanaGestion ventanaGestion = new VentanaGestion();
+		panelCardLayout.add(ventanaGestion, "panelGestion");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CardLayout card = (CardLayout) panelCardLayout.getLayout();
+				card.show(panelCardLayout, "panelGestion");
+			}
+		});
 		/*
 		 * btnGestionPlaylist.addActionListener(new ActionListener() { public void
 		 * actionPerformed(ActionEvent e) { CardLayout card = (CardLayout)
@@ -168,11 +175,20 @@ public class VentanaPrincipal{
 		btnPlaylist.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/playlist.png")));
 		btnPlaylist.setFont(new Font("Tahoma", Font.BOLD, 14));
 		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
-		gbc_btnNewButton_3.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton_3.gridx = 1;
 		gbc_btnNewButton_3.gridy = 4;
 		panelBotones.add(btnPlaylist, gbc_btnNewButton_3);
+		
+		JPanel panel_Listas = new JPanel();
+		GridBagConstraints gbc_panel_Listas = new GridBagConstraints();
+		gbc_panel_Listas.insets = new Insets(0, 0, 0, 5);
+		gbc_panel_Listas.fill = GridBagConstraints.BOTH;
+		gbc_panel_Listas.gridx = 1;
+		gbc_panel_Listas.gridy = 5;
+		panelBotones.add(panel_Listas, gbc_panel_Listas);
+		panel_Listas.setLayout(new CardLayout(0, 0));
 	}
 
 }

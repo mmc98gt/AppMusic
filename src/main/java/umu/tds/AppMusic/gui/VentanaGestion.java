@@ -70,6 +70,7 @@ public class VentanaGestion extends JPanel {
 		panel.setLayout(gbl_panel);
         panel_tabla = new JPanel(new BorderLayout());
         add(panel_tabla, BorderLayout.CENTER);
+        //TODO mostrar tabla con las canciones seleccionadas en la busqueda
         
 
 		txtTitulo = new JTextField();
@@ -102,27 +103,5 @@ public class VentanaGestion extends JPanel {
 		add(panelControlMusica, BorderLayout.SOUTH);
 	}
 	
-	
-
-	private void mostrarResultadosEnTabla(List<Cancion> resultados) {
-	    // Crear un modelo de tabla para mostrar los resultados
-	    String[] columnNames = {"Título", "Intérprete", "Estilo Musical"};
-	    DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
-
-	    for (Cancion cancion : resultados) {
-	        Object[] row = new Object[]{
-	            cancion.getTitulo(),
-	            cancion.getInterprete(),
-	            cancion.getEstilo().toString() // Asumiendo que cada canción tiene un estilo musical asociado
-	        };
-	        tableModel.addRow(row);
-	    }
-
-	    JTable table = new JTable(tableModel);
-	    panel_tabla.removeAll();
-	    panel_tabla.add(new JScrollPane(table), BorderLayout.CENTER);
-	    panel_tabla.revalidate();
-	    panel_tabla.repaint();
-	}
 
 }
