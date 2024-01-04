@@ -141,11 +141,10 @@ public enum Controlador {
      */
     public List<Cancion> buscarCanciones(String interprete, String titulo, boolean esFavorita, EstiloMusical estilo) {
         return RepositorioCanciones.INSTANCE.findAllCanciones().stream()
-                .filter(cancion -> cancion.getInterprete().getNombre().equals(interprete)
-                        && cancion.getTitulo().equals(titulo)
+                .filter(cancion -> (interprete == null || interprete.isEmpty() || cancion.getInterprete().getNombre().equals(interprete))
+                        && (titulo == null || titulo.isEmpty() || cancion.getTitulo().equals(titulo))
                         && (!esFavorita || cancionEsFavorita(cancion))
-                        && cancion.getEstilo().equals(estilo))
+                        && (estilo == null || cancion.getEstilo().equals(estilo)))
                 .collect(Collectors.toList());
     }
-
 }

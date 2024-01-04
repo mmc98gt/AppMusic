@@ -148,8 +148,8 @@ public class VentanaBuscar extends JPanel {
 	    for (Cancion cancion : resultados) {
 	        Object[] row = new Object[]{
 	            cancion.getTitulo(),
-	            cancion.getInterprete(),
-	            cancion.getEstilo().toString() // Asumiendo que cada canción tiene un estilo musical asociado
+	            cancion.getInterprete().getNombre(),
+	            cancion.getEstilo().getNombre()
 	        };
 	        tableModel.addRow(row);
 	    }
