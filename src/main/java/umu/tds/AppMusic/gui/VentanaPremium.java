@@ -62,31 +62,23 @@ public class VentanaPremium extends JDialog {
 		getContentPane().setLayout(gridBagLayout);
 
 		String[] array = { "DescuentoFijo","DescuentoJovenes" };
-
-		JLabel lblTextoMejora = new JLabel("MEJORA PREMIUM");
-		lblTextoMejora.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		GridBagConstraints gbc_lblTextoMejora = new GridBagConstraints();
-		gbc_lblTextoMejora.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTextoMejora.gridx = 2;
-		gbc_lblTextoMejora.gridy = 1;
-		getContentPane().add(lblTextoMejora, gbc_lblTextoMejora);
+		
+				JLabel lblTextoMejora = new JLabel("MEJORA PREMIUM");
+				lblTextoMejora.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				GridBagConstraints gbc_lblTextoMejora = new GridBagConstraints();
+				gbc_lblTextoMejora.gridwidth = 2;
+				gbc_lblTextoMejora.insets = new Insets(0, 0, 5, 5);
+				gbc_lblTextoMejora.gridx = 2;
+				gbc_lblTextoMejora.gridy = 0;
+				getContentPane().add(lblTextoMejora, gbc_lblTextoMejora);
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(array));
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 2;
+		gbc_comboBox.gridx = 3;
 		gbc_comboBox.gridy = 2;
 		getContentPane().add(comboBox, gbc_comboBox);
-		// int cantidadDescontada = 0;
-		//int precioInicial = 20;
-		JButton btnCalcularDescuento = new JButton("Calcular Descuento");
-		btnCalcularDescuento.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		GridBagConstraints gbc_btnCalcularDescuento = new GridBagConstraints();
-		gbc_btnCalcularDescuento.insets = new Insets(0, 0, 5, 5);
-		gbc_btnCalcularDescuento.gridx = 3;
-		gbc_btnCalcularDescuento.gridy = 2;
-		getContentPane().add(btnCalcularDescuento, gbc_btnCalcularDescuento);
 
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
@@ -123,6 +115,15 @@ public class VentanaPremium extends JDialog {
 		scrollPane.setViewportView(tablaPrecios);
 
 		JButton btnCancelar = new JButton("CANCELAR SUSCRIPCIÓN");
+		// int cantidadDescontada = 0;
+		//int precioInicial = 20;
+		JButton btnCalcularDescuento = new JButton("Calcular Descuento");
+		btnCalcularDescuento.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		GridBagConstraints gbc_btnCalcularDescuento = new GridBagConstraints();
+		gbc_btnCalcularDescuento.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCalcularDescuento.gridx = 3;
+		gbc_btnCalcularDescuento.gridy = 3;
+		getContentPane().add(btnCalcularDescuento, gbc_btnCalcularDescuento);
 
 		JButton btnPagar = new JButton("PAGAR");
 
