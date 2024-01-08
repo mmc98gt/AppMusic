@@ -76,6 +76,8 @@ public class VentanaPrincipal{
 
 		JButton btnPremium = new JButton("Premium");
 		panel_norte.add(btnPremium);
+		
+		
 
 		JButton btnSalir = new JButton("Salir");
 		panel_norte.add(btnSalir);
@@ -106,9 +108,9 @@ public class VentanaPrincipal{
 		contentPane.add(panelBotones, BorderLayout.WEST);
 		GridBagLayout gbl_panelBotones = new GridBagLayout();
 		gbl_panelBotones.columnWidths = new int[] { 10, 0, 10, 0 };
-		gbl_panelBotones.rowHeights = new int[] { 10, 0, 0, 0, 0, 0, 0 };
+		gbl_panelBotones.rowHeights = new int[] { 10, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panelBotones.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
-		gbl_panelBotones.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panelBotones.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		panelBotones.setLayout(gbl_panelBotones);
 
 		JButton btnBuscar = new JButton("Buscar");
@@ -169,6 +171,30 @@ public class VentanaPrincipal{
 		gbc_btnNewButton_2.gridx = 1;
 		gbc_btnNewButton_2.gridy = 3;
 		panelBotones.add(btnRecientes, gbc_btnNewButton_2);
+		
+		JButton btnMasEscuchadas = new JButton("Más escuchadas");
+		btnMasEscuchadas.setHorizontalAlignment(SwingConstants.LEFT);
+		btnMasEscuchadas.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/relog.png")));
+		btnMasEscuchadas.setFont(new Font("Tahoma", Font.BOLD, 14));
+		GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
+		gbc_btnNewButton_5.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnNewButton_5.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_5.gridx = 1;
+		gbc_btnNewButton_5.gridy = 4;
+		//panelBotones.add(btnMasEscuchadas, gbc_btnNewButton_5);
+		
+		JButton btnDescargarPDF = new JButton("Descargar PFD");
+		btnDescargarPDF.setHorizontalAlignment(SwingConstants.LEFT);
+		btnDescargarPDF.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/relog.png")));
+		btnDescargarPDF.setFont(new Font("Tahoma", Font.BOLD, 14));
+		GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
+		gbc_btnNewButton_6.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnNewButton_6.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_6.gridx = 1;
+		gbc_btnNewButton_6.gridy = 5;
+		//panelBotones.add(btnDescargarPDF, gbc_btnNewButton_6);
+		
+		
 
 		JButton btnPlaylist = new JButton("Mis Playlists");
 		btnPlaylist.setHorizontalAlignment(SwingConstants.LEFT);
@@ -178,7 +204,7 @@ public class VentanaPrincipal{
 		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton_3.gridx = 1;
-		gbc_btnNewButton_3.gridy = 4;
+		gbc_btnNewButton_3.gridy = 6;
 		panelBotones.add(btnPlaylist, gbc_btnNewButton_3);
 		
 		JPanel panel_Listas = new JPanel();
@@ -186,7 +212,7 @@ public class VentanaPrincipal{
 		gbc_panel_Listas.insets = new Insets(0, 0, 0, 5);
 		gbc_panel_Listas.fill = GridBagConstraints.BOTH;
 		gbc_panel_Listas.gridx = 1;
-		gbc_panel_Listas.gridy = 5;
+		gbc_panel_Listas.gridy = 7;
 		panelBotones.add(panel_Listas, gbc_panel_Listas);
 		panel_Listas.setLayout(new CardLayout(0, 0));
 	}
