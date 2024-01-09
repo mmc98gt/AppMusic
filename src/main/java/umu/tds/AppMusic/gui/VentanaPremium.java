@@ -6,6 +6,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import javax.swing.table.DefaultTableModel;
@@ -52,7 +53,22 @@ public class VentanaPremium extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public VentanaPremium() {
+	public VentanaPremium(JFrame owner){
+		super(owner, "Registro Usuario", true);
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		this.setResizable(false);
+		this.initialize();
+	}
+	
+	public VentanaPremium(){
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		this.setResizable(false);
+		this.initialize();
+	}
+	
+	
+	
+	 private void initialize() {
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 40, 10, 189, 0, 40, 0 };
@@ -145,5 +161,6 @@ public class VentanaPremium extends JDialog {
 
 	
 	}
+	
 
 }

@@ -12,6 +12,8 @@ import umu.tds.AppMusic.modelo.Usuario;
 
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.ImageIcon;
@@ -30,7 +32,7 @@ public class VentanaPrincipal{
 	private JPanel panelCardLayout;
 	private String textoBienvenida;
 
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -76,6 +78,7 @@ public class VentanaPrincipal{
 
 		JButton btnPremium = new JButton("Premium");
 		panel_norte.add(btnPremium);
+		addManejadorBotonPremium(btnPremium);
 		
 		
 
@@ -142,13 +145,7 @@ public class VentanaPrincipal{
 				card.show(panelCardLayout, "panelGestion");
 			}
 		});
-		/*
-		 * btnGestionPlaylist.addActionListener(new ActionListener() { public void
-		 * actionPerformed(ActionEvent e) { CardLayout card = (CardLayout)
-		 * panelCardLayout.getLayout();
-		 * 
-		 * card.show(panelCardLayout, "panelGestion"); } });
-		 */
+		
 
 		btnGestionPlaylist.setHorizontalAlignment(SwingConstants.LEFT);
 		btnGestionPlaylist
@@ -215,6 +212,17 @@ public class VentanaPrincipal{
 		gbc_panel_Listas.gridy = 7;
 		panelBotones.add(panel_Listas, gbc_panel_Listas);
 		panel_Listas.setLayout(new CardLayout(0, 0));
+	}
+	
+	private void addManejadorBotonPremium(JButton btnPremium) {
+		btnPremium.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaPremium registro = new VentanaPremium(frmVentanaPrincipal);
+				registro.setLocationRelativeTo(frmVentanaPrincipal);
+				registro.setVisible(true);
+				frmVentanaPrincipal.dispose();
+			}
+		});
 	}
 
 }
