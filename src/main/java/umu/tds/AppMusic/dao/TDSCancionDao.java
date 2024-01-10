@@ -2,9 +2,8 @@ package umu.tds.AppMusic.dao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
-
+import java.util.stream.Collectors;
 import beans.Entidad;
 import beans.Propiedad;
 import tds.driver.FactoriaServicioPersistencia;
@@ -13,125 +12,137 @@ import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.EstiloMusical;
 import umu.tds.AppMusic.modelo.Interprete;
 
-//TODO añadir funcionalidad faltante... y comprobar que este bien
 /**
- * Clase que implementa el Adaptador DAO concreto de Cancion para el tipo H2.
+ * Clase que implementa el Adaptador DAO concreto de Cancion para el tipo H2. Se
+ * encarga de convertir objetos Cancion en entidades para persistirlas y
+ * viceversa.
  */
 public class TDSCancionDao implements CancionDao {
 
-    private static final String CANCION = "Cancion";
+	private static final String CANCION = "Cancion";
+	private static final String TITULO = "titulo";
+	private static final String RUTA_FICHERO = "rutaFichero";
+	private static final String NUM_REPRODUCCIONES = "numReproducciones";
+	private static final String ESTILO_MUSICAL = "estiloMusical";
+	private static final String INTERPRETE = "interprete";
 
-    private static final String TITULO = "titulo";
-    private static final String RUTA_FICHERO = "rutaFichero";
-    private static final String NUM_REPRODUCCIONES = "numReproducciones";
-    private static final String ESTILO_MUSICAL = "estiloMusical";
-    private static final String INTERPRETE = "interprete";
+	private ServicioPersistencia servPersistencia;
 
-    private ServicioPersistencia servPersistencia;
+	public TDSCancionDao() {
+		servPersistencia = FactoriaServicioPersistencia.getInstance().getServicioPersistencia();
+	}
 
-    public TDSCancionDao() {
-        servPersistencia = FactoriaServicioPersistencia.getInstance().getServicioPersistencia();
-    }
+	/**
+	 * Convierte una entidad a un objeto Cancion.
+	 * 
+	 * @param eCancion La entidad a convertir.
+	 * @return El objeto Cancion correspondiente a la entidad.
+	 */
+	private Cancion entidadToCancion(Entidad eCancion) {
+		String titulo = servPersistencia.recuperarPropiedadEntidad(eCancion, TITULO);
+		String rutaFichero = servPersistencia.recuperarPropiedadEntidad(eCancion, RUTA_FICHERO);
+		String numReproduccionesStr = servPersistencia.recuperarPropiedadEntidad(eCancion, NUM_REPRODUCCIONES);
+		int numReproducciones = Integer.parseInt(numReproduccionesStr);
 
-    // Métodos para convertir entre Entidad y Cancion, y viceversa...
+		EstiloMusical estilo = new EstiloMusical(""); // Lógica pendiente
+		Interprete interprete = new Interprete(""); // Lógica pendiente
 
-    private Cancion entidadToCancion(Entidad eCancion) {
-        String titulo = servPersistencia.recuperarPropiedadEntidad(eCancion, TITULO);
-        String rutaFichero = servPersistencia.recuperarPropiedadEntidad(eCancion, RUTA_FICHERO);
-        String numReproduccionesStr = servPersistencia.recuperarPropiedadEntidad(eCancion, NUM_REPRODUCCIONES);
-        int numReproducciones = Integer.parseInt(numReproduccionesStr);
+		Cancion cancion = new Cancion(titulo, rutaFichero, estilo, interprete);
+		for (int i = 0; i < numReproducciones; i++) {
+			cancion.incrementarReproducciones();
+		}
 
-        // Aquí debes implementar la lógica para convertir los identificadores de estilo e intérprete
-        // en objetos EstiloMusical e Interprete. Esto puede depender de cómo estén representados estos en tu base de datos.
-        EstiloMusical estilo = new EstiloMusical(""); // Convertir de cadena/identificador a objeto EstiloMusical
-        Interprete interprete = new Interprete(""); // Convertir de cadena/identificador a objeto Interprete
+		return cancion;
+	}
 
-        Cancion cancion = new Cancion(titulo, rutaFichero, estilo, interprete);
-        for (int i = 0; i < numReproducciones; i++) {
-            cancion.incrementarReproducciones();
-        }
+	/**
+	 * Convierte un objeto Cancion a una entidad.
+	 * 
+	 * @param cancion La canción a convertir.
+	 * @return La entidad correspondiente al objeto Cancion.
+	 */
+	private Entidad cancionToEntidad(Cancion cancion) {
+		Entidad eCancion = new Entidad();
+		eCancion.setNombre(CANCION);
 
-        return cancion;
-    }
+		String estiloId = ""; // Lógica pendiente
+		String interpreteId = ""; // Lógica pendiente
 
-    private Entidad cancionToEntidad(Cancion cancion) {
-        Entidad eCancion = new Entidad();
-        eCancion.setNombre(CANCION);
+		eCancion.setPropiedades(new ArrayList<>(Arrays.asList(new Propiedad(TITULO, cancion.getTitulo()),
+				new Propiedad(RUTA_FICHERO, cancion.getRutaFichero()),
+				new Propiedad(NUM_REPRODUCCIONES, String.valueOf(cancion.getNumReproducciones())),
+				new Propiedad(ESTILO_MUSICAL, estiloId), new Propiedad(INTERPRETE, interpreteId))));
+		return eCancion;
+	}
 
-        // Aquí debes implementar la lógica para convertir los objetos EstiloMusical e Interprete
-        // en una representación que pueda ser almacenada en la base de datos, como un identificador o cadena de texto.
-        String estiloId = ""; // Convertir objeto EstiloMusical a cadena/identificador
-        String interpreteId = ""; // Convertir objeto Interprete a cadena/identificador
+	/**
+	 * Agrega una nueva canción a la base de datos.
+	 * 
+	 * @param cancion La canción a agregar.
+	 */
+	public void agregarCancion(Cancion cancion) {
+		Entidad eCancion = this.cancionToEntidad(cancion);
+		servPersistencia.registrarEntidad(eCancion);
+	}
 
-        eCancion.setPropiedades(new ArrayList<Propiedad>(Arrays.asList(
-            new Propiedad(TITULO, cancion.getTitulo()),
-            new Propiedad(RUTA_FICHERO, cancion.getRutaFichero()),
-            new Propiedad(NUM_REPRODUCCIONES, String.valueOf(cancion.getNumReproducciones())),
-            new Propiedad(ESTILO_MUSICAL, estiloId),
-            new Propiedad(INTERPRETE, interpreteId)
-        )));
-        return eCancion;
-    }
+	/**
+	 * Actualiza una canción existente en la base de datos.
+	 * 
+	 * @param cancion La canción a actualizar.
+	 */
+	public void actualizarCancion(Cancion cancion) {
+		Entidad eCancion = servPersistencia.recuperarEntidad(cancion.getId());
+		eCancion.getPropiedades().forEach(prop -> {
+			switch (prop.getNombre()) {
+			case TITULO:
+				prop.setValor(cancion.getTitulo());
+				break;
+			case RUTA_FICHERO:
+				prop.setValor(cancion.getRutaFichero());
+				break;
+			case NUM_REPRODUCCIONES:
+				prop.setValor(String.valueOf(cancion.getNumReproducciones()));
+				break;
+			case ESTILO_MUSICAL:
+			case INTERPRETE:
+				// Lógica pendiente para convertir estilo e intérprete
+				break;
+			}
+			servPersistencia.modificarPropiedad(prop);
+		});
+	}
 
+	/**
+	 * Elimina una canción de la base de datos.
+	 * 
+	 * @param cancion La canción a eliminar.
+	 */
+	public void eliminarCancion(Cancion cancion) {
+		Entidad eCancion = servPersistencia.recuperarEntidad(cancion.getId());
+		if (eCancion != null) {
+			servPersistencia.borrarEntidad(eCancion);
+		}
+	}
 
-    // Métodos CRUD para Cancion
+	/**
+	 * Obtiene una canción por su título.
+	 * 
+	 * @param titulo El título de la canción a buscar.
+	 * @return La canción encontrada o null si no existe.
+	 */
+	public Cancion obtenerCancionPorTitulo(String titulo) {
+		return servPersistencia.recuperarEntidades(CANCION).stream()
+				.filter(eCancion -> servPersistencia.recuperarPropiedadEntidad(eCancion, TITULO).equals(titulo))
+				.findFirst().map(this::entidadToCancion).orElse(null);
+	}
 
-    public void agregarCancion(Cancion cancion) {
-        Entidad eCancion = this.cancionToEntidad(cancion);
-        eCancion = servPersistencia.registrarEntidad(eCancion);
-        // Se asume que la ID se establece automáticamente en la base de datos
-    }
-
-    public void actualizarCancion(Cancion cancion) {
-        Entidad eCancion = servPersistencia.recuperarEntidad(cancion.getId());
-
-        for (Propiedad prop : eCancion.getPropiedades()) {
-            switch (prop.getNombre()) {
-                case TITULO:
-                    prop.setValor(cancion.getTitulo());
-                    break;
-                case RUTA_FICHERO:
-                    prop.setValor(cancion.getRutaFichero());
-                    break;
-                case NUM_REPRODUCCIONES:
-                    prop.setValor(String.valueOf(cancion.getNumReproducciones()));
-                    break;
-                case ESTILO_MUSICAL:
-                    // Convertir estilo a cadena o identificador
-                    break;
-                case INTERPRETE:
-                    // Convertir intérprete a cadena o identificador
-                    break;
-            }
-            servPersistencia.modificarPropiedad(prop);
-        }
-    }
-
-    public void eliminarCancion(Cancion cancion) {
-        Entidad eCancion = servPersistencia.recuperarEntidad(cancion.getId());
-        if (eCancion != null) {
-            servPersistencia.borrarEntidad(eCancion);
-        }
-    }
-
-    public Cancion obtenerCancionPorTitulo(String titulo) {
-        List<Entidad> entidades = servPersistencia.recuperarEntidades(CANCION);
-        for (Entidad eCancion : entidades) {
-            if (servPersistencia.recuperarPropiedadEntidad(eCancion, TITULO).equals(titulo)) {
-                return entidadToCancion(eCancion);
-            }
-        }
-        return null;
-    }
-
-    public List<Cancion> obtenerTodasLasCanciones() {
-        List<Entidad> entidades = servPersistencia.recuperarEntidades(CANCION);
-        List<Cancion> canciones = new LinkedList<>();
-        for (Entidad eCancion : entidades) {
-            canciones.add(entidadToCancion(eCancion));
-        }
-        return canciones;
-    }
-
-
+	/**
+	 * Obtiene todas las canciones disponibles en la base de datos.
+	 * 
+	 * @return Una lista de todas las canciones.
+	 */
+	public List<Cancion> obtenerTodasLasCanciones() {
+		return servPersistencia.recuperarEntidades(CANCION).stream().map(this::entidadToCancion)
+				.collect(Collectors.toList());
+	}
 }

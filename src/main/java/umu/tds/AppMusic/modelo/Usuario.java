@@ -3,6 +3,10 @@ package umu.tds.AppMusic.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Representa a un usuario de la aplicación, incluyendo información personal y de acceso,
+ * estado de suscripción y listas de reproducción.
+ */
 public class Usuario {
 	private int id;
 	private String nombre;
@@ -14,14 +18,25 @@ public class Usuario {
 	private boolean premium;
 	private List<PlayList> playlists;
 
-	// Constructor existente
+	/**
+	 * Constructor para crear un usuario solo con su nombre.
+	 * @param nombre El nombre del usuario.
+	 */
 	public Usuario(String nombre) {
 		this.nombre = nombre;
-		this.premium = false; // Asumiendo que por defecto no es premium
+		this.premium = false; // Por defecto, el usuario no es premium
 		this.playlists = new ArrayList<>();
 	}
 
-	// Nuevo constructor
+	/**
+	 * Constructor para crear un usuario con información completa.
+	 * @param nombre El nombre del usuario.
+	 * @param apellidos Los apellidos del usuario.
+	 * @param email El correo electrónico del usuario.
+	 * @param login El nombre de usuario para iniciar sesión.
+	 * @param password La contraseña del usuario.
+	 * @param fechaNacimiento La fecha de nacimiento del usuario.
+	 */
 	public Usuario(String nombre, String apellidos, String email, String login, String password,
 			String fechaNacimiento) {
 		this.nombre = nombre;
@@ -30,26 +45,33 @@ public class Usuario {
 		this.login = login;
 		this.password = password;
 		this.fechaNacimiento = fechaNacimiento;
-		this.premium = false;
+		this.premium = false; // Por defecto, el usuario no es premium
 		this.playlists = new ArrayList<>();
 	}
 
-	// Métodos
+	/**
+	 * Realiza el proceso para convertir al usuario en premium.
+	 */
 	public void realizarPago() {
-		// Lógica para realizar el pago y convertirse en usuario premium
-		this.premium = true; // Por ejemplo, puedes cambiar el estado a premium después del pago
+		this.premium = true; // Cambiar el estado a premium después del pago
 	}
 
+	/**
+	 * Añade una playlist a la lista de playlists del usuario.
+	 * @param playList La playlist a añadir.
+	 */
 	public void addPlayList(PlayList playList) {
 		if (playList != null && !this.playlists.contains(playList)) {
 			this.playlists.add(playList);
 		}
 	}
 
+	/**
+	 * Elimina una playlist de la lista de playlists del usuario.
+	 * @param playList La playlist a eliminar.
+	 */
 	public void removePlayList(PlayList playList) {
-		if (playList != null) {
-			this.playlists.remove(playList);
-		}
+		this.playlists.remove(playList);
 	}
 
 	// Getters y Setters
