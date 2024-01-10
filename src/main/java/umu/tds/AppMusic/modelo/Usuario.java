@@ -22,7 +22,8 @@ public class Usuario {
 	}
 
 	// Nuevo constructor
-	public Usuario(String nombre, String apellidos, String email, String login, String password, String fechaNacimiento) {
+	public Usuario(String nombre, String apellidos, String email, String login, String password,
+			String fechaNacimiento) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
@@ -40,8 +41,14 @@ public class Usuario {
 	}
 
 	public void addPlayList(PlayList playList) {
-		if (playList != null) {
+		if (playList != null && !this.playlists.contains(playList)) {
 			this.playlists.add(playList);
+		}
+	}
+
+	public void removePlayList(PlayList playList) {
+		if (playList != null) {
+			this.playlists.remove(playList);
 		}
 	}
 
@@ -67,7 +74,11 @@ public class Usuario {
 	}
 
 	public void setPlaylists(List<PlayList> playlists) {
-		this.playlists = playlists;
+		if (playlists == null) {
+			this.playlists = new ArrayList<>();
+		} else {
+			this.playlists = playlists;
+		}
 	}
 
 	public String getApellidos() {
@@ -97,9 +108,12 @@ public class Usuario {
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
-		this.id = id;
+	    if (id < 0) {
+	        throw new IllegalArgumentException("El ID no puede ser negativo");
+	    }
+	    this.id = id;
 	}
 
 	public String getLogin() {
@@ -107,6 +121,9 @@ public class Usuario {
 	}
 
 	public void setLogin(String login) {
+		if (login == null || login.trim().isEmpty()) {
+			throw new IllegalArgumentException("El login no puede ser null o vacío");
+		}
 		this.login = login;
 	}
 
