@@ -7,7 +7,7 @@ public class Programa {
 		Canciones canciones = MapperCancionesXMLtoJava
 				.cargarCanciones("xml/canciones.xml"); //Obtener fichero a cargar mediante JFileChooser en Swing
 	
-		for (Cancion cancion : canciones.getCancion()) {
+		for (CancionXml cancion : canciones.getCancion()) {
 			
 			System.out.println("Titulo: " + cancion.getTitulo());
 			System.out.println(" Interprete : " + cancion.getInterprete());

@@ -45,11 +45,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Cancion }
+     * Create an instance of {@link CancionXml }
      * 
      */
-    public Cancion createCancion() {
-        return new Cancion();
+    public CancionXml createCancion() {
+        return new CancionXml();
     }
 
 }

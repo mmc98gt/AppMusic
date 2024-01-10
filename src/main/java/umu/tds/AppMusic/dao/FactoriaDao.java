@@ -44,4 +44,5 @@ public abstract class FactoriaDao {
 	
 	public abstract TDSUsuarioDAO getUsuarioDAO();
 	public abstract TDSCancionDao getCancionDAO();
+	public abstract TDSCancionXMLDao getCancionXMLDao();
 }

@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "canciones")
 public class Canciones {
 
-    protected List<Cancion> cancion;
+    protected List<CancionXml> cancion;
 
     /**
      * Gets the value of the cancion property.
@@ -62,13 +62,13 @@ public class Canciones {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Cancion }
+     * {@link CancionXml }
      * 
      * 
      */
-    public List<Cancion> getCancion() {
+    public List<CancionXml> getCancion() {
         if (cancion == null) {
-            cancion = new ArrayList<Cancion>();
+            cancion = new ArrayList<CancionXml>();
         }
         return this.cancion;
     }

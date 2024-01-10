@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlType;
     "estilo",
     "interprete"
 })
-public class Cancion {
+public class CancionXml {
 
     @XmlElement(name = "URL", required = true)
     protected String url;

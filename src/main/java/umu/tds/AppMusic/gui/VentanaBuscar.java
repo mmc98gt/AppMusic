@@ -76,27 +76,41 @@ public class VentanaBuscar extends JPanel {
 		 * 0.0, Double.MIN_VALUE}; setLayout(gbl_panel);
 		 */
 
-		txtIntrprete = new JTextField();
-		txtIntrprete.setHorizontalAlignment(SwingConstants.LEFT);
-		txtIntrprete.setText("Intérprete\r\n");
-		GridBagConstraints gbc_txtIntrprete = new GridBagConstraints();
-		gbc_txtIntrprete.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtIntrprete.insets = new Insets(0, 0, 5, 5);
-		gbc_txtIntrprete.gridx = 1;
-		gbc_txtIntrprete.gridy = 1;
-		panel.add(txtIntrprete, gbc_txtIntrprete);
-		txtIntrprete.setColumns(10);
+        // Etiqueta para Intérprete
+        JLabel lblInterprete = new JLabel("Intérprete");
+        GridBagConstraints gbc_lblInterprete = new GridBagConstraints();
+        gbc_lblInterprete.insets = new Insets(0, 0, 5, 5);
+        gbc_lblInterprete.gridx = 1;
+        gbc_lblInterprete.gridy = 0;
+        panel.add(lblInterprete, gbc_lblInterprete);
 
-		txtTtulo = new JTextField();
-		txtTtulo.setText("Título");
-		txtTtulo.setToolTipText("Título\r\n");
-		GridBagConstraints gbc_txtTtulo = new GridBagConstraints();
-		gbc_txtTtulo.insets = new Insets(0, 0, 5, 5);
-		gbc_txtTtulo.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtTtulo.gridx = 3;
-		gbc_txtTtulo.gridy = 1;
-		panel.add(txtTtulo, gbc_txtTtulo);
-		txtTtulo.setColumns(10);
+        // Campo de texto para Intérprete
+        txtIntrprete = new JTextField();
+        GridBagConstraints gbc_txtIntrprete = new GridBagConstraints();
+        gbc_txtIntrprete.insets = new Insets(0, 0, 5, 5);
+        gbc_txtIntrprete.fill = GridBagConstraints.HORIZONTAL;
+        gbc_txtIntrprete.gridx = 1;
+        gbc_txtIntrprete.gridy = 1;
+        panel.add(txtIntrprete, gbc_txtIntrprete);
+        txtIntrprete.setColumns(10);
+
+        // Etiqueta para Título
+        JLabel lblTitulo = new JLabel("Título");
+        GridBagConstraints gbc_lblTitulo = new GridBagConstraints();
+        gbc_lblTitulo.insets = new Insets(0, 0, 5, 5);
+        gbc_lblTitulo.gridx = 3;
+        gbc_lblTitulo.gridy = 0;
+        panel.add(lblTitulo, gbc_lblTitulo);
+
+        // Campo de texto para Título
+        txtTtulo = new JTextField();
+        GridBagConstraints gbc_txtTtulo = new GridBagConstraints();
+        gbc_txtTtulo.insets = new Insets(0, 0, 5, 5);
+        gbc_txtTtulo.fill = GridBagConstraints.HORIZONTAL;
+        gbc_txtTtulo.gridx = 3;
+        gbc_txtTtulo.gridy = 1;
+        panel.add(txtTtulo, gbc_txtTtulo);
+        txtTtulo.setColumns(10);
 
 		chckbxFavoritas = new JCheckBox("Favoritas");
 		GridBagConstraints gbc_chckbxFavoritas = new GridBagConstraints();

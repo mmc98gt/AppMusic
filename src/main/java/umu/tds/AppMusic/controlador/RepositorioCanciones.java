@@ -24,6 +24,7 @@ public enum RepositorioCanciones {
             factoria = FactoriaDao.getInstancia();
             
             List<Cancion> listaCanciones = factoria.getCancionDAO().obtenerTodasLasCanciones();
+            listaCanciones.addAll(factoria.getCancionXMLDao().obtenerTodasLasCanciones());
             for (Cancion cancion : listaCanciones) {
                 cancionesPorID.put(cancion.getId(), cancion);
                 cancionesPorTitulo.put(cancion.getTitulo(), cancion);

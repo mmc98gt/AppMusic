@@ -19,4 +19,9 @@ public final class TDSFactoriaDAO extends FactoriaDao {
 		return new TDSCancionDao(); 
 	}
 
+	@Override
+	public TDSCancionXMLDao getCancionXMLDao() {
+		return new TDSCancionXMLDao();
+	}
+
 }
