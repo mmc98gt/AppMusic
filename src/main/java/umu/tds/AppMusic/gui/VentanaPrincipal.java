@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import umu.tds.AppMusic.controlador.Controlador;
 import umu.tds.AppMusic.modelo.Usuario;
 
@@ -23,6 +25,15 @@ import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.awt.event.ActionEvent;
 
 public class VentanaPrincipal{
@@ -32,6 +43,10 @@ public class VentanaPrincipal{
 	private JPanel panelCardLayout;
 	private String textoBienvenida;
 	private Usuario usuarioActual;
+	
+    private MediaPlayer mediaPlayer;
+    private String tempPath;
+	private VentanaBuscar ventanaBuscar = new VentanaBuscar();
 
 	
 	/**
@@ -44,6 +59,8 @@ public class VentanaPrincipal{
 	}
 
 	public VentanaPrincipal() {
+        mediaPlayer = null;
+        tempPath = System.getProperty("user.dir") + "/temp";
 		initialize();
 	}
 
@@ -70,9 +87,11 @@ public class VentanaPrincipal{
 		panelCentro.setLayout(new BorderLayout(0, 0));
 
 		JPanel panel_norte = new JPanel();
+		JPanel panel_sur = new JPanel();
 		FlowLayout fl_panel_norte = (FlowLayout) panel_norte.getLayout();
 		fl_panel_norte.setAlignment(FlowLayout.RIGHT);
 		panelCentro.add(panel_norte, BorderLayout.NORTH);
+		panelCentro.add(panel_sur, BorderLayout.SOUTH);
 
 		JLabel lblBienvenido = new JLabel(textoBienvenida);
 		panel_norte.add(lblBienvenido);
@@ -81,7 +100,7 @@ public class VentanaPrincipal{
 		panel_norte.add(btnPremium);
 		addManejadorBotonPremium(btnPremium);
 		
-		
+	    agregarBotonesControlMusica(panel_sur);
 
 		JButton btnSalir = new JButton("Salir");
 		panel_norte.add(btnSalir);
@@ -118,7 +137,6 @@ public class VentanaPrincipal{
 		panelBotones.setLayout(gbl_panelBotones);
 
 		JButton btnBuscar = new JButton("Buscar");
-		VentanaBuscar ventanaBuscar = new VentanaBuscar();
 		panelCardLayout.add(ventanaBuscar, "panelBuscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -225,6 +243,72 @@ public class VentanaPrincipal{
 				frmVentanaPrincipal.dispose();
 			}
 		});
+	}
+	
+    // Método para reproducir una canción
+    private void playCancion() {
+    	  String url = VentanaBuscar.getDirecion();
+
+    	    try {
+    	        com.sun.javafx.application.PlatformImpl.startup(() -> {});
+
+    	        Media media;
+    	        if (url.startsWith("http")) {
+    	            URL uri = new URL(url);
+    	            System.setProperty("java.io.tmpdir", tempPath);
+    	            Path mp3 = Files.createTempFile("now-playing", ".mp3");
+    	            try (InputStream stream = uri.openStream()) {
+    	                Files.copy(stream, mp3, StandardCopyOption.REPLACE_EXISTING);
+    	            }
+    	            media = new Media(mp3.toFile().toURI().toString());
+    	        } else {
+    	        	String resourcePath = "/" + url;
+    	            URL resourceURL = getClass().getResource(resourcePath);
+    	            if (resourceURL == null) {
+    	                throw new FileNotFoundException("Fichero canción no encontrado: " + url);
+    	            }
+    	            media = new Media(resourceURL.toExternalForm());
+    	        }
+
+    	        mediaPlayer = new MediaPlayer(media);
+    	        mediaPlayer.play();
+    	    } catch (Exception e) {
+    	        e.printStackTrace();
+    	    }
+    }
+
+    // Método para detener la reproducción
+    private void stopCancion() {
+        if (mediaPlayer != null) mediaPlayer.stop();
+        File directorio = new File(tempPath);
+        if (directorio.exists() && directorio.isDirectory()) {
+            String[] files = directorio.list();
+            if (files != null) {
+                for (String archivo : files) {
+                    File fichero = new File(directorio, archivo);
+                    fichero.delete();
+                }
+            }
+        }
+    }
+	
+	// Añadir botones de control de música en el panel sur
+	private void agregarBotonesControlMusica(JPanel panel_sur) {
+	    JButton btnCancionAnterior = new JButton("Canción anterior");
+	    JButton btnDetenerCancion = new JButton("Detener canción");
+	    JButton btnPausarCancion = new JButton("Pausar canción");
+	    JButton btnReproducirCancion = new JButton("Reproducir canción");
+	    JButton btnCancionSiguiente = new JButton("Canción siguiente");
+
+	    btnReproducirCancion.addActionListener(e -> playCancion());
+        btnDetenerCancion.addActionListener(e -> stopCancion());
+
+	    // Añadir botones al panel
+	    panel_sur.add(btnCancionAnterior);
+	    panel_sur.add(btnDetenerCancion);
+	    panel_sur.add(btnPausarCancion);
+	    panel_sur.add(btnReproducirCancion);
+	    panel_sur.add(btnCancionSiguiente);
 	}
 
 }

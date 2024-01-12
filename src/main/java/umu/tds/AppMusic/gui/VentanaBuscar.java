@@ -14,6 +14,8 @@ import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import umu.tds.AppMusic.controlador.Controlador;
@@ -38,6 +40,7 @@ public class VentanaBuscar extends JPanel {
 	private JButton btnBuscar;
 	private JPanel panelb;
     private JPanel panel_tabla;
+    private static Cancion cancionActual;
 	/**
 	 * Launch the application.
 	 */
@@ -173,6 +176,35 @@ public class VentanaBuscar extends JPanel {
 	    panel_tabla.add(new JScrollPane(table), BorderLayout.CENTER);
 	    panel_tabla.revalidate();
 	    panel_tabla.repaint();
+	    
+	    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+	        public void valueChanged(ListSelectionEvent event) {
+	            if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
+	                // Obtener la canción seleccionada
+	                int selectedRowIndex = table.getSelectedRow();
+	                Cancion cancionSeleccionada = resultados.get(selectedRowIndex);
+	                setCancionActual(cancionSeleccionada);
+	                // Aquí puedes llamar a cualquier método que necesites para reproducir la canción
+	            }
+	        }
+	    });
+	}
+
+	public Cancion getCancionActual() {
+		return cancionActual;
+	}
+	
+	public static String getDirecion() {
+		try {
+			return cancionActual.getRutaFichero();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+
+	public void setCancionActual(Cancion cancionActual) {
+		VentanaBuscar.cancionActual = cancionActual;
 	}
 
 }
