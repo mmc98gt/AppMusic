@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import umu.tds.AppMusic.controlador.Controlador;
+import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.Usuario;
 
 import java.awt.GridBagLayout;
@@ -179,7 +180,7 @@ public class VentanaPrincipal{
 
 		JButton btnRecientes = new JButton("Recientes");
 		btnRecientes.setHorizontalAlignment(SwingConstants.LEFT);
-		btnRecientes.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/relog.png")));
+		btnRecientes.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/reloj.png")));
 		btnRecientes.setFont(new Font("Tahoma", Font.BOLD, 14));
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.fill = GridBagConstraints.HORIZONTAL;
@@ -191,7 +192,7 @@ public class VentanaPrincipal{
 		if(usuarioActual.isPremium()) {
 			JButton btnMasEscuchadas = new JButton("Más escuchadas");
 			btnMasEscuchadas.setHorizontalAlignment(SwingConstants.LEFT);
-			btnMasEscuchadas.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/relog.png")));
+			btnMasEscuchadas.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/masEscuchado.png")));
 			btnMasEscuchadas.setFont(new Font("Tahoma", Font.BOLD, 14));
 			GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
 			gbc_btnNewButton_5.fill = GridBagConstraints.HORIZONTAL;
@@ -202,7 +203,7 @@ public class VentanaPrincipal{
 			
 			JButton btnDescargarPDF = new JButton("Descargar PFD");
 			btnDescargarPDF.setHorizontalAlignment(SwingConstants.LEFT);
-			btnDescargarPDF.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/relog.png")));
+			btnDescargarPDF.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/descarga.png")));
 			btnDescargarPDF.setFont(new Font("Tahoma", Font.BOLD, 14));
 			GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
 			gbc_btnNewButton_6.fill = GridBagConstraints.HORIZONTAL;
@@ -291,14 +292,21 @@ public class VentanaPrincipal{
             }
         }
     }
+    
+    
 	
 	// Añadir botones de control de música en el panel sur
 	private void agregarBotonesControlMusica(JPanel panel_sur) {
-	    JButton btnCancionAnterior = new JButton("Canción anterior");
-	    JButton btnDetenerCancion = new JButton("Detener canción");
-	    JButton btnPausarCancion = new JButton("Pausar canción");
-	    JButton btnReproducirCancion = new JButton("Reproducir canción");
-	    JButton btnCancionSiguiente = new JButton("Canción siguiente");
+	    JButton btnCancionAnterior = new JButton("");
+	    btnCancionAnterior.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/anterior32.png")));
+	    JButton btnDetenerCancion = new JButton("");
+	    btnDetenerCancion.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/stop.png")));
+	    JButton btnPausarCancion = new JButton("");
+	    btnPausarCancion.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/pause.png")));
+	    JButton btnReproducirCancion = new JButton("");
+	    btnReproducirCancion.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/play32.png")));
+	    JButton btnCancionSiguiente = new JButton("");
+	    btnCancionSiguiente.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/siguiente32.png")));
 
 	    btnReproducirCancion.addActionListener(e -> playCancion());
         btnDetenerCancion.addActionListener(e -> stopCancion());

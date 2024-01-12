@@ -40,6 +40,8 @@ public class VentanaBuscar extends JPanel {
 	private JButton btnBuscar;
 	private JPanel panelb;
     private JPanel panel_tabla;
+    private JTable table;
+    private List<Cancion> resultadoActual;
     private static Cancion cancionActual;
 	/**
 	 * Launch the application.
@@ -154,6 +156,7 @@ public class VentanaBuscar extends JPanel {
 		EstiloMusical estilo = (EstiloMusical) comboBox.getSelectedItem();
 
 		List<Cancion> resultados = Controlador.INSTANCE.buscarCanciones(interprete, titulo, esFavorita, estilo);
+		resultadoActual = Controlador.INSTANCE.buscarCanciones(interprete, titulo, esFavorita, estilo);
 		mostrarResultadosEnTabla(resultados);
 	}
 
@@ -171,7 +174,7 @@ public class VentanaBuscar extends JPanel {
 	        tableModel.addRow(row);
 	    }
 
-	    JTable table = new JTable(tableModel);
+	    table = new JTable(tableModel);
 	    panel_tabla.removeAll();
 	    panel_tabla.add(new JScrollPane(table), BorderLayout.CENTER);
 	    panel_tabla.revalidate();
@@ -190,8 +193,18 @@ public class VentanaBuscar extends JPanel {
 	    });
 	}
 
-	public Cancion getCancionActual() {
+	public static Cancion getCancionActual() {
 		return cancionActual;
+	}
+	
+	public Cancion getCancionAnterior() {
+		int num = table.getSelectedRow();
+		if(num-1 != -1) {
+			Cancion cancion = resultadoActual.get(num-1);
+			return cancion;
+		}
+		return null;
+		
 	}
 	
 	public static String getDirecion() {
