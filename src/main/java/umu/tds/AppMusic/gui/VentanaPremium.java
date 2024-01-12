@@ -3,7 +3,6 @@ package umu.tds.AppMusic.gui;
 
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -11,6 +10,8 @@ import javax.swing.JPanel;
 
 import javax.swing.table.DefaultTableModel;
 
+import umu.tds.AppMusic.controlador.Controlador;
+import umu.tds.AppMusic.modelo.Usuario;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -25,9 +26,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-import java.awt.Color;
-
-import java.text.DecimalFormat;
 
 public class VentanaPremium extends JDialog {
 	/**
@@ -54,7 +52,7 @@ public class VentanaPremium extends JDialog {
 	 * Create the dialog.
 	 */
 	public VentanaPremium(JFrame owner){
-		super(owner, "Registro Usuario", true);
+		super(owner, "Premium", true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setResizable(false);
 		this.initialize();
@@ -69,9 +67,11 @@ public class VentanaPremium extends JDialog {
 	
 	
 	 private void initialize() {
+		 
+		 Usuario usuarioActual = Controlador.INSTANCE.getUsuarioActual();
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 40, 10, 189, 0, 40, 0 };
+		gridBagLayout.columnWidths = new int[] { 40, 10, 309, 0, 40, 0 };
 		gridBagLayout.rowHeights = new int[] { 40, 0, 0, 0, 0, 40, 0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
@@ -131,9 +131,22 @@ public class VentanaPremium extends JDialog {
 		scrollPane.setViewportView(tablaPrecios);
 
 		JButton btnCancelar = new JButton("CANCELAR SUSCRIPCIÓN");
-		// int cantidadDescontada = 0;
-		//int precioInicial = 20;
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (usuarioActual.isPremium()) {
+					JOptionPane.showMessageDialog(btnCancelar, "Has cancelado tu suscripcion","Premium",
+							JOptionPane.INFORMATION_MESSAGE, null);
+					Controlador.INSTANCE.getUsuarioActual().setPremium(false);
+				} else {
+					JOptionPane.showMessageDialog(btnCancelar, "Tienes que estar suscrito para poder cancelar tu suscripion",
+							"Premium", JOptionPane.INFORMATION_MESSAGE, null);
+				}
+
+			}
+		});
+		
 		JButton btnCalcularDescuento = new JButton("Calcular Descuento");
+		//TODO funcionalidad boton calcular descuento
 		btnCalcularDescuento.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		GridBagConstraints gbc_btnCalcularDescuento = new GridBagConstraints();
 		gbc_btnCalcularDescuento.insets = new Insets(0, 0, 5, 5);
@@ -142,6 +155,28 @@ public class VentanaPremium extends JDialog {
 		getContentPane().add(btnCalcularDescuento, gbc_btnCalcularDescuento);
 
 		JButton btnPagar = new JButton("PAGAR");
+		btnPagar.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				if (usuarioActual.isPremium()) {
+					JOptionPane.showMessageDialog(btnPagar,
+							"Ya eras premium!", "Premium",
+							JOptionPane.INFORMATION_MESSAGE, null);
+					VentanaPrincipal principal = new VentanaPrincipal();
+					principal.mostrarVentana();
+					VentanaPremium.this.dispose();
+				} else {
+					JOptionPane.showMessageDialog(btnPagar, "Ya eres premium!",
+							"Premium", JOptionPane.INFORMATION_MESSAGE, null);
+					VentanaPrincipal principal = new VentanaPrincipal();
+					principal.mostrarVentana();
+					VentanaPremium.this.dispose();
+				}
+				Controlador.INSTANCE.getUsuarioActual().setPremium(true);
+
+			}
+		});
 
 		btnPagar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_btnPagar = new GridBagConstraints();

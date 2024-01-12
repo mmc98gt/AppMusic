@@ -31,6 +31,7 @@ public class VentanaPrincipal{
 	private JFrame frmVentanaPrincipal;
 	private JPanel panelCardLayout;
 	private String textoBienvenida;
+	private Usuario usuarioActual;
 
 	
 	/**
@@ -57,9 +58,9 @@ public class VentanaPrincipal{
         contentPane.setLayout(new BorderLayout(0, 0));
         frmVentanaPrincipal.setContentPane(contentPane);
 
-        Usuario usuarioActual = Controlador.INSTANCE.getUsuarioActual();
+        usuarioActual = Controlador.INSTANCE.getUsuarioActual();
         textoBienvenida = "Bienvenido, " + (usuarioActual != null ? usuarioActual.getNombre() : "Invitado");
-
+        
         crearPaneles();
     }
 
@@ -169,28 +170,29 @@ public class VentanaPrincipal{
 		gbc_btnNewButton_2.gridy = 3;
 		panelBotones.add(btnRecientes, gbc_btnNewButton_2);
 		
-		JButton btnMasEscuchadas = new JButton("Más escuchadas");
-		btnMasEscuchadas.setHorizontalAlignment(SwingConstants.LEFT);
-		btnMasEscuchadas.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/relog.png")));
-		btnMasEscuchadas.setFont(new Font("Tahoma", Font.BOLD, 14));
-		GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
-		gbc_btnNewButton_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton_5.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_5.gridx = 1;
-		gbc_btnNewButton_5.gridy = 4;
-		//panelBotones.add(btnMasEscuchadas, gbc_btnNewButton_5);
-		
-		JButton btnDescargarPDF = new JButton("Descargar PFD");
-		btnDescargarPDF.setHorizontalAlignment(SwingConstants.LEFT);
-		btnDescargarPDF.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/relog.png")));
-		btnDescargarPDF.setFont(new Font("Tahoma", Font.BOLD, 14));
-		GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
-		gbc_btnNewButton_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton_6.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_6.gridx = 1;
-		gbc_btnNewButton_6.gridy = 5;
-		//panelBotones.add(btnDescargarPDF, gbc_btnNewButton_6);
-		
+		if(usuarioActual.isPremium()) {
+			JButton btnMasEscuchadas = new JButton("Más escuchadas");
+			btnMasEscuchadas.setHorizontalAlignment(SwingConstants.LEFT);
+			btnMasEscuchadas.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/relog.png")));
+			btnMasEscuchadas.setFont(new Font("Tahoma", Font.BOLD, 14));
+			GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
+			gbc_btnNewButton_5.fill = GridBagConstraints.HORIZONTAL;
+			gbc_btnNewButton_5.insets = new Insets(0, 0, 5, 5);
+			gbc_btnNewButton_5.gridx = 1;
+			gbc_btnNewButton_5.gridy = 4;
+			panelBotones.add(btnMasEscuchadas, gbc_btnNewButton_5);
+			
+			JButton btnDescargarPDF = new JButton("Descargar PFD");
+			btnDescargarPDF.setHorizontalAlignment(SwingConstants.LEFT);
+			btnDescargarPDF.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/relog.png")));
+			btnDescargarPDF.setFont(new Font("Tahoma", Font.BOLD, 14));
+			GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
+			gbc_btnNewButton_6.fill = GridBagConstraints.HORIZONTAL;
+			gbc_btnNewButton_6.insets = new Insets(0, 0, 5, 5);
+			gbc_btnNewButton_6.gridx = 1;
+			gbc_btnNewButton_6.gridy = 5;
+			panelBotones.add(btnDescargarPDF, gbc_btnNewButton_6);
+		}
 		
 
 		JButton btnPlaylist = new JButton("Mis Playlists");
