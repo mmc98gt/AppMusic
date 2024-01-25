@@ -161,7 +161,7 @@ public class VentanaBuscar extends JPanel {
 	}
 
 	private void mostrarResultadosEnTabla(List<Cancion> resultados) {
-	    // Crear un modelo de tabla para mostrar los resultados
+	 /*   // Crear un modelo de tabla para mostrar los resultados
 	    String[] columnNames = {"Título", "Intérprete", "Estilo Musical"};
 	    DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
@@ -180,6 +180,25 @@ public class VentanaBuscar extends JPanel {
 	    panel_tabla.revalidate();
 	    panel_tabla.repaint();
 	    
+	    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+	        public void valueChanged(ListSelectionEvent event) {
+	            if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
+	                // Obtener la canción seleccionada
+	                int selectedRowIndex = table.getSelectedRow();
+	                Cancion cancionSeleccionada = resultados.get(selectedRowIndex);
+	                setCancionActual(cancionSeleccionada);
+	                // Aquí puedes llamar a cualquier método que necesites para reproducir la canción
+	            }
+	        }
+	    });*/
+		Tabla tableModel = new Tabla(resultados);
+	    JTable table = new JTable(tableModel);
+
+	    panel_tabla.removeAll();
+	    panel_tabla.add(new JScrollPane(table), BorderLayout.CENTER);
+	    panel_tabla.revalidate();
+	    panel_tabla.repaint();
+
 	    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 	        public void valueChanged(ListSelectionEvent event) {
 	            if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
