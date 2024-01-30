@@ -1,0 +1,7 @@
+Lista de cosas por hacer:
+
+-Pasar la tabla a abstracta como dijo el profesor
+-Identificar bien los patrones ya que estan mal en la documentacion
+-Ampliar el controlador con funciones faltantes
+-Hacer la colobaración de las playlist
+-Otras cosas mas
