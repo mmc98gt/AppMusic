@@ -37,50 +37,49 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.awt.event.ActionEvent;
 
-public class VentanaPrincipal{
+public class VentanaPrincipal {
 
 	private JPanel contentPane;
 	private JFrame frmVentanaPrincipal;
 	private JPanel panelCardLayout;
 	private String textoBienvenida;
 	private Usuario usuarioActual;
-	
-    private MediaPlayer mediaPlayer;
-    private String tempPath;
+
+	private MediaPlayer mediaPlayer;
+	private String tempPath;
 	private VentanaBuscar ventanaBuscar = new VentanaBuscar();
 
-	
 	/**
 	 * Create the frame.
 	 */
 
 	public void mostrarVentana() {
 		frmVentanaPrincipal.setLocationRelativeTo(null);
-	    frmVentanaPrincipal.setVisible(true);
+		frmVentanaPrincipal.setVisible(true);
 	}
 
 	public VentanaPrincipal() {
-        mediaPlayer = null;
-        tempPath = System.getProperty("user.dir") + "/temp";
+		mediaPlayer = null;
+		tempPath = System.getProperty("user.dir") + "/temp";
 		initialize();
 	}
 
-    private void initialize() {
-        frmVentanaPrincipal = new JFrame();
-        frmVentanaPrincipal.setTitle("AppMusic");
-        frmVentanaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frmVentanaPrincipal.setBounds(100, 100, 653, 447);
+	private void initialize() {
+		frmVentanaPrincipal = new JFrame();
+		frmVentanaPrincipal.setTitle("AppMusic");
+		frmVentanaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmVentanaPrincipal.setBounds(100, 100, 653, 447);
 
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setLayout(new BorderLayout(0, 0));
-        frmVentanaPrincipal.setContentPane(contentPane);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		frmVentanaPrincipal.setContentPane(contentPane);
 
-        usuarioActual = Controlador.INSTANCE.getUsuarioActual();
-        textoBienvenida = "Bienvenido, " + (usuarioActual != null ? usuarioActual.getNombre() : "Invitado");
-        
-        crearPaneles();
-    }
+		usuarioActual = Controlador.INSTANCE.getUsuarioActual();
+		textoBienvenida = "Bienvenido, " + (usuarioActual != null ? usuarioActual.getNombre() : "Invitado");
+
+		crearPaneles();
+	}
 
 	private void crearPaneles() {
 		JPanel panelCentro = new JPanel();
@@ -100,8 +99,8 @@ public class VentanaPrincipal{
 		JButton btnPremium = new JButton("Premium");
 		panel_norte.add(btnPremium);
 		addManejadorBotonPremium(btnPremium);
-		
-	    agregarBotonesControlMusica(panel_sur);
+
+		agregarBotonesControlMusica(panel_sur);
 
 		JButton btnSalir = new JButton("Salir");
 		panel_norte.add(btnSalir);
@@ -111,16 +110,15 @@ public class VentanaPrincipal{
 		panelCardLayout.setLayout(new CardLayout(0, 0));
 
 		///////////////////////////////////////////
-		
-		
-		  
-		  JPanel panelGestion = new JPanel(); panelCardLayout.add(panelGestion,
-		  "panelGestion");
-		  
-		  JLabel lblPanelgestion = new JLabel("PanelGestion");
-		  panelGestion.add(lblPanelgestion);
-		  
-		 /* JPanel panelRecientes = new JPanel(); panelCardLayout.add(panelRecientes,
+
+		JPanel panelGestion = new JPanel();
+		panelCardLayout.add(panelGestion, "panelGestion");
+
+		JLabel lblPanelgestion = new JLabel("PanelGestion");
+		panelGestion.add(lblPanelgestion);
+
+		/*
+		 * JPanel panelRecientes = new JPanel(); panelCardLayout.add(panelRecientes,
 		 * "panelRecientes");
 		 * 
 		 * JPanel panelPlaylists = new JPanel(); panelCardLayout.add(panelPlaylists,
@@ -165,7 +163,6 @@ public class VentanaPrincipal{
 				card.show(panelCardLayout, "panelGestion");
 			}
 		});
-		
 
 		btnGestionPlaylist.setHorizontalAlignment(SwingConstants.LEFT);
 		btnGestionPlaylist
@@ -188,11 +185,12 @@ public class VentanaPrincipal{
 		gbc_btnNewButton_2.gridx = 1;
 		gbc_btnNewButton_2.gridy = 3;
 		panelBotones.add(btnRecientes, gbc_btnNewButton_2);
-		
-		if(usuarioActual.isPremium()) {
+
+		if (usuarioActual.isPremium()) {
 			JButton btnMasEscuchadas = new JButton("Más escuchadas");
 			btnMasEscuchadas.setHorizontalAlignment(SwingConstants.LEFT);
-			btnMasEscuchadas.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/masEscuchado.png")));
+			btnMasEscuchadas.setIcon(
+					new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/masEscuchado.png")));
 			btnMasEscuchadas.setFont(new Font("Tahoma", Font.BOLD, 14));
 			GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
 			gbc_btnNewButton_5.fill = GridBagConstraints.HORIZONTAL;
@@ -200,10 +198,11 @@ public class VentanaPrincipal{
 			gbc_btnNewButton_5.gridx = 1;
 			gbc_btnNewButton_5.gridy = 4;
 			panelBotones.add(btnMasEscuchadas, gbc_btnNewButton_5);
-			
+
 			JButton btnDescargarPDF = new JButton("Descargar PFD");
 			btnDescargarPDF.setHorizontalAlignment(SwingConstants.LEFT);
-			btnDescargarPDF.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/descarga.png")));
+			btnDescargarPDF.setIcon(
+					new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/descarga.png")));
 			btnDescargarPDF.setFont(new Font("Tahoma", Font.BOLD, 14));
 			GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
 			gbc_btnNewButton_6.fill = GridBagConstraints.HORIZONTAL;
@@ -212,7 +211,6 @@ public class VentanaPrincipal{
 			gbc_btnNewButton_6.gridy = 5;
 			panelBotones.add(btnDescargarPDF, gbc_btnNewButton_6);
 		}
-		
 
 		JButton btnPlaylist = new JButton("Mis Playlists");
 		btnPlaylist.setHorizontalAlignment(SwingConstants.LEFT);
@@ -224,7 +222,7 @@ public class VentanaPrincipal{
 		gbc_btnNewButton_3.gridx = 1;
 		gbc_btnNewButton_3.gridy = 6;
 		panelBotones.add(btnPlaylist, gbc_btnNewButton_3);
-		
+
 		JPanel panel_Listas = new JPanel();
 		GridBagConstraints gbc_panel_Listas = new GridBagConstraints();
 		gbc_panel_Listas.insets = new Insets(0, 0, 0, 5);
@@ -234,7 +232,7 @@ public class VentanaPrincipal{
 		panelBotones.add(panel_Listas, gbc_panel_Listas);
 		panel_Listas.setLayout(new CardLayout(0, 0));
 	}
-	
+
 	private void addManejadorBotonPremium(JButton btnPremium) {
 		btnPremium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -245,78 +243,98 @@ public class VentanaPrincipal{
 			}
 		});
 	}
-	
-    // Método para reproducir una canción
-    private void playCancion() {
-    	  String url = VentanaBuscar.getDirecion();
 
-    	    try {
-    	        com.sun.javafx.application.PlatformImpl.startup(() -> {});
+	// Método para reproducir una canción
+	private void playCancion() {
+		if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED) {
+			mediaPlayer.play();
+			return;
+		}
+		stopCancion();
+		String url = VentanaBuscar.getDirecion();
+		try {
+			com.sun.javafx.application.PlatformImpl.startup(() -> {
+			});
 
-    	        Media media;
-    	        if (url.startsWith("http")) {
-    	            URL uri = new URL(url);
-    	            System.setProperty("java.io.tmpdir", tempPath);
-    	            Path mp3 = Files.createTempFile("now-playing", ".mp3");
-    	            try (InputStream stream = uri.openStream()) {
-    	                Files.copy(stream, mp3, StandardCopyOption.REPLACE_EXISTING);
-    	            }
-    	            media = new Media(mp3.toFile().toURI().toString());
-    	        } else {
-    	        	String resourcePath = "/" + url;
-    	            URL resourceURL = getClass().getResource(resourcePath);
-    	            if (resourceURL == null) {
-    	                throw new FileNotFoundException("Fichero canción no encontrado: " + url);
-    	            }
-    	            media = new Media(resourceURL.toExternalForm());
-    	        }
+			Media media;
+			if (url.startsWith("http")) {
+				URL uri = new URL(url);
+				System.setProperty("java.io.tmpdir", tempPath);
+				Path mp3 = Files.createTempFile("now-playing", ".mp3");
+				try (InputStream stream = uri.openStream()) {
+					Files.copy(stream, mp3, StandardCopyOption.REPLACE_EXISTING);
+				}
+				media = new Media(mp3.toFile().toURI().toString());
+			} else {
+				String resourcePath = "/" + url;
+				URL resourceURL = getClass().getResource(resourcePath);
+				if (resourceURL == null) {
+					throw new FileNotFoundException("Fichero canción no encontrado: " + url);
+				}
+				media = new Media(resourceURL.toExternalForm());
+			}
 
-    	        mediaPlayer = new MediaPlayer(media);
-    	        mediaPlayer.play();
-    	    } catch (Exception e) {
-    	        e.printStackTrace();
-    	    }
-    }
+			mediaPlayer = new MediaPlayer(media);
+			mediaPlayer.play();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-    // Método para detener la reproducción
-    private void stopCancion() {
-        if (mediaPlayer != null) mediaPlayer.stop();
-        File directorio = new File(tempPath);
-        if (directorio.exists() && directorio.isDirectory()) {
-            String[] files = directorio.list();
-            if (files != null) {
-                for (String archivo : files) {
-                    File fichero = new File(directorio, archivo);
-                    fichero.delete();
-                }
-            }
-        }
-    }
-    
-    
-	
+	// Método para detener la reproducción
+	private void stopCancion() {
+		if (mediaPlayer != null) {
+			mediaPlayer.stop();
+			mediaPlayer.dispose();
+			mediaPlayer = null;
+		}
+		File directorio = new File(tempPath);
+		if (directorio.exists() && directorio.isDirectory()) {
+			String[] files = directorio.list();
+			if (files != null) {
+				for (String archivo : files) {
+					File fichero = new File(directorio, archivo);
+					fichero.delete();
+				}
+			}
+		}
+	}
+
+	// Método para pausar la reproducción de la canción
+	private void pauseCancion() {
+		if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+			mediaPlayer.pause();
+		}
+	}
+
 	// Añadir botones de control de música en el panel sur
 	private void agregarBotonesControlMusica(JPanel panel_sur) {
-	    JButton btnCancionAnterior = new JButton("");
-	    btnCancionAnterior.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/anterior32.png")));
-	    JButton btnDetenerCancion = new JButton("");
-	    btnDetenerCancion.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/stop.png")));
-	    JButton btnPausarCancion = new JButton("");
-	    btnPausarCancion.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/pause.png")));
-	    JButton btnReproducirCancion = new JButton("");
-	    btnReproducirCancion.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/play32.png")));
-	    JButton btnCancionSiguiente = new JButton("");
-	    btnCancionSiguiente.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/siguiente32.png")));
+		JButton btnCancionAnterior = new JButton("");
+		btnCancionAnterior
+				.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/anterior32.png")));
+		JButton btnDetenerCancion = new JButton("");
+		btnDetenerCancion
+				.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/stop.png")));
+		JButton btnPausarCancion = new JButton("");
+		btnPausarCancion
+				.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/pause.png")));
+		JButton btnReproducirCancion = new JButton("");
+		btnReproducirCancion
+				.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/play32.png")));
+		JButton btnCancionSiguiente = new JButton("");
+		btnCancionSiguiente
+				.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/siguiente32.png")));
 
-	    btnReproducirCancion.addActionListener(e -> playCancion());
-        btnDetenerCancion.addActionListener(e -> stopCancion());
+		btnReproducirCancion.addActionListener(e -> playCancion());
+		btnDetenerCancion.addActionListener(e -> stopCancion());
+		btnPausarCancion.addActionListener(e -> pauseCancion());
 
-	    // Añadir botones al panel
-	    panel_sur.add(btnCancionAnterior);
-	    panel_sur.add(btnDetenerCancion);
-	    panel_sur.add(btnPausarCancion);
-	    panel_sur.add(btnReproducirCancion);
-	    panel_sur.add(btnCancionSiguiente);
+		// Añadir botones al panel
+		panel_sur.add(btnCancionAnterior);
+		panel_sur.add(btnDetenerCancion);
+		panel_sur.add(btnPausarCancion);
+		panel_sur.add(btnReproducirCancion);
+		panel_sur.add(btnCancionSiguiente);
 	}
 
 }
