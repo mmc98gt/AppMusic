@@ -1,5 +1,6 @@
 package umu.tds.AppMusic.controlador;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -126,8 +127,7 @@ public enum Controlador {
         if (usuarioActual == null || cancion == null) {
             return false;
         }
-        return usuarioActual.getPlaylists().stream()
-                .anyMatch(playlist -> playlist.getCanciones().contains(cancion));
+        return cancion.getEsFavorita();
     }
 
     /**
@@ -145,6 +145,19 @@ public enum Controlador {
                         && (titulo == null || titulo.isEmpty() || cancion.getTitulo().toLowerCase().contains(titulo.toLowerCase()))
                         && (!esFavorita || cancionEsFavorita(cancion))
                         && (estilo == null || cancion.getEstilo().equals(estilo)))
+                .collect(Collectors.toList());
+    }
+    
+    /**
+     * Obtiene todas las canciones favoritas del usuario actual.
+     * @return Lista de todas las canciones favoritas del usuario actual.
+     */
+    public List<Cancion> obtenerCancionesFavoritas() {
+        if (usuarioActual == null) {
+            return new ArrayList<>(); // Retorna una lista vacía si no hay usuario actual
+        }
+        return RepositorioCanciones.INSTANCE.findAllCanciones().stream()
+                .filter(this::cancionEsFavorita) // Filtra usando el método cancionEsFavorita
                 .collect(Collectors.toList());
     }
 

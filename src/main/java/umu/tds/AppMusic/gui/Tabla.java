@@ -9,7 +9,7 @@ import umu.tds.AppMusic.modelo.EstiloMusical;
 
 public class Tabla extends AbstractTableModel {
 	private List<Cancion> resultados;
-	private String[] columnNames = { "Título", "Intérprete", "Estilo Musical", " " };
+	private String[] columnNames = { "Título", "Intérprete", "Estilo Musical", "Favorita" };
 
 	
 	public Tabla (List<Cancion> resultados) {

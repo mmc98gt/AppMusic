@@ -117,13 +117,11 @@ public class VentanaPrincipal {
 		JLabel lblPanelgestion = new JLabel("PanelGestion");
 		panelGestion.add(lblPanelgestion);
 
-		/*
-		 * JPanel panelRecientes = new JPanel(); panelCardLayout.add(panelRecientes,
-		 * "panelRecientes");
-		 * 
-		 * JPanel panelPlaylists = new JPanel(); panelCardLayout.add(panelPlaylists,
-		 * "panelPlaylists");
-		 */
+		JPanel panelRecientes = new JPanel();
+		panelCardLayout.add(panelRecientes, "panelRecientes");
+
+		JPanel panelPlaylists = new JPanel();
+		panelCardLayout.add(panelPlaylists, "panelPlaylists");
 
 		// PANEL BOTONES
 		JPanel panelBotones = new JPanel();
@@ -157,11 +155,10 @@ public class VentanaPrincipal {
 		JButton btnGestionPlaylist = new JButton("Gestion Playlists");
 		VentanaGestion ventanaGestion = new VentanaGestion();
 		panelCardLayout.add(ventanaGestion, "panelGestion");
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CardLayout card = (CardLayout) panelCardLayout.getLayout();
-				card.show(panelCardLayout, "panelGestion");
-			}
+		btnGestionPlaylist.addActionListener(e -> {
+			ventanaGestion.rellenarCanciones();
+			CardLayout card = (CardLayout) panelCardLayout.getLayout();
+			card.show(panelCardLayout, "panelGestion");
 		});
 
 		btnGestionPlaylist.setHorizontalAlignment(SwingConstants.LEFT);
@@ -179,6 +176,11 @@ public class VentanaPrincipal {
 		btnRecientes.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRecientes.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/reloj.png")));
 		btnRecientes.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnRecientes.addActionListener(e -> {
+			CardLayout card = (CardLayout) panelCardLayout.getLayout();
+			card.show(panelCardLayout, "panelRecientes");
+		});
+
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
@@ -222,6 +224,8 @@ public class VentanaPrincipal {
 		gbc_btnNewButton_3.gridx = 1;
 		gbc_btnNewButton_3.gridy = 6;
 		panelBotones.add(btnPlaylist, gbc_btnNewButton_3);
+		
+		
 
 		JPanel panel_Listas = new JPanel();
 		GridBagConstraints gbc_panel_Listas = new GridBagConstraints();
