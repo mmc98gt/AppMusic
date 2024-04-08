@@ -33,6 +33,7 @@ public class VentanaGestion extends JPanel {
 	private JTable tablaCanciones;
 	private JTable table_1;
 	// TODO mostrar tabla con las canciones seleccionadas en la busqueda
+	//HECHO
 	private String[] columnNames = { "Título", "Artista", "Estilo" };
 	private DefaultTableModel model=new DefaultTableModel(null,columnNames){private static final long serialVersionUID=1L;
 
@@ -71,6 +72,7 @@ public class VentanaGestion extends JPanel {
 		panel_tabla = new JPanel(new BorderLayout());
 		add(panel_tabla, BorderLayout.CENTER);
 
+		
 		rellenarCanciones();
 
 		// Creación de un JScrollPane que contenga la tabla
@@ -124,24 +126,16 @@ public class VentanaGestion extends JPanel {
 	}
 
 	public void rellenarCanciones() {
-		limpiarTabla();
 		List<Cancion> canciones = Controlador.INSTANCE.obtenerCancionesFavoritas();
-		for (Cancion cancion : canciones) {
-			model.addRow(new Object[] { cancion.getTitulo(), cancion.getInterprete().getNombre(), cancion.getEstilo().getNombre() });
-		}
+		Tabla tableModel = new Tabla(canciones);
+	    JTable table = new JTable(tableModel);
 
-		tablaCanciones = new JTable(model);
-		tablaCanciones.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tablaCanciones.setPreferredScrollableViewportSize(new Dimension(500, 70));
-		tablaCanciones.setFillsViewportHeight(true);
+	    panel_tabla.removeAll();
+	    panel_tabla.add(new JScrollPane(table), BorderLayout.CENTER);
+	    panel_tabla.revalidate();
+	    panel_tabla.repaint();
+		
 	}
 
-	/**
-	 * Elimina todas las filas del modelo de la tabla.
-	 */
-	private void limpiarTabla() {
-		while (model.getRowCount() > 0) {
-			model.removeRow(0);
-		}
-	}
+	
 }
