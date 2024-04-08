@@ -3,6 +3,7 @@ package umu.tds.AppMusic.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Representa una lista de reproducción de canciones con un nombre específico.
  */
@@ -28,6 +29,16 @@ public class PlayList {
         if (cancion != null && !canciones.contains(cancion)) {
             canciones.add(cancion);
         }
+    }
+    
+    /**
+     * Incrementa el número de veces que ha sido reproduccida una canción.
+     * @param song La canción a aumentar sus reproducciones.
+     */
+    public void addReproduccion(Cancion song){
+        canciones.stream().filter(s -> s.getId() == song.getId())
+                .distinct()
+                .forEach(Cancion::addReproduccion);
     }
 
     /**

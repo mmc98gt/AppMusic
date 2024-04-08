@@ -3,6 +3,7 @@ package umu.tds.AppMusic.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Representa a un usuario de la aplicación, incluyendo información personal y de acceso,
  * estado de suscripción y listas de reproducción.
@@ -103,6 +104,15 @@ public class Usuario {
 		}
 	}
 
+	public boolean comprobarListaYaExiste(String nombre) {
+		for (PlayList playlist : getPlaylists()) {
+			if (playlist.getNombre().equals(nombre)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public String getApellidos() {
 		return apellidos;
 	}

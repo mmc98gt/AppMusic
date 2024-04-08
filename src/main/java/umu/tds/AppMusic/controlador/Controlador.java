@@ -160,5 +160,10 @@ public enum Controlador {
                 .filter(this::cancionEsFavorita) // Filtra usando el método cancionEsFavorita
                 .collect(Collectors.toList());
     }
+    
+    
+    public boolean comprobarListaYaExiste(String nombre) {
+    	return usuarioActual.comprobarListaYaExiste(nombre);
+    }
 
 }

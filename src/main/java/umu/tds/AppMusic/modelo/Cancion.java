@@ -146,5 +146,10 @@ public class Cancion {
 	public void setEsFavorita(boolean favorita) {
 		this.esFavorita = favorita;
 	}
+	
+	public void addReproduccion() {
+		numReproducciones++;
+	}
+	
 
 }

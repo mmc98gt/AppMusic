@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -32,15 +34,11 @@ public class VentanaGestion extends JPanel {
 	private JTable table_1;
 	// TODO mostrar tabla con las canciones seleccionadas en la busqueda
 	private String[] columnNames = { "Título", "Artista", "Estilo" };
-	private DefaultTableModel model = new DefaultTableModel(null, columnNames) {
-		private static final long serialVersionUID = 1L;
+	private DefaultTableModel model=new DefaultTableModel(null,columnNames){private static final long serialVersionUID=1L;
 
-		@Override
-		public boolean isCellEditable(int row, int column) {
-			// Esto hace que ninguna celda sea editable directamente
-			return false;
-		}
-	};
+	@Override public boolean isCellEditable(int row,int column){
+	// Esto hace que ninguna celda sea editable directamente
+	return false;}};
 
 	/**
 	 * Launch the application.
@@ -103,6 +101,20 @@ public class VentanaGestion extends JPanel {
 		btnCrear = new JButton("Crear");
 		btnCrear.setHorizontalAlignment(SwingConstants.LEFT);
 		panel_botones.add(btnCrear);
+		btnCrear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nombrePlaylist = txtTitulo.getText();
+				if (Controlador.INSTANCE.comprobarListaYaExiste(nombrePlaylist)) {
+					// TODO: mensaje de error diciendo que ya existe una playlist con ese nombre
+				
+				} else {
+					// TODO: aparecer ventana confirmacion
+					/*ConfirmacionPlaylist confirmacion = new ConfirmacionPlaylist();
+					confirmacion.setLocationRelativeTo(panel);
+					confirmacion.setVisible(true);*/
+				}
+			}
+		});
 
 		btnEliminar = new JButton("Eliminar");
 		panel_botones.add(btnEliminar);
