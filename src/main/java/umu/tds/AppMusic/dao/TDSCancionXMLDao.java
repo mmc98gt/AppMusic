@@ -83,4 +83,10 @@ public class TDSCancionXMLDao implements CancionDao {
         Interprete interprete = new Interprete(cancionXML.getInterprete());
         return new Cancion(cancionXML.getTitulo(), cancionXML.getURL(), estilo, interprete);
     }
+
+	@Override
+	public Cancion obtenerCancionPorId(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

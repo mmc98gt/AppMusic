@@ -18,6 +18,9 @@ public interface CancionDao {
     // Método para obtener una canción por su título
     Cancion obtenerCancionPorTitulo(String titulo);
     
+ // Método para obtener una canción por su id
+    Cancion obtenerCancionPorId(Integer id);
+    
     // Método para obtener todas las canciones
     List<Cancion> obtenerTodasLasCanciones();
     

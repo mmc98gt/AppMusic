@@ -32,8 +32,6 @@ public class VentanaGestion extends JPanel {
 	private JButton btnEliminar;
 	private JTable tablaCanciones;
 	private JTable table_1;
-	// TODO mostrar tabla con las canciones seleccionadas en la busqueda
-	//HECHO
 	private String[] columnNames = { "Título", "Artista", "Estilo" };
 	private DefaultTableModel model=new DefaultTableModel(null,columnNames){private static final long serialVersionUID=1L;
 
@@ -110,10 +108,13 @@ public class VentanaGestion extends JPanel {
 					// TODO: mensaje de error diciendo que ya existe una playlist con ese nombre
 				
 				} else {
-					// TODO: aparecer ventana confirmacion
+					// TODO: aparecer ventana confirmacion 
 					/*ConfirmacionPlaylist confirmacion = new ConfirmacionPlaylist();
 					confirmacion.setLocationRelativeTo(panel);
 					confirmacion.setVisible(true);*/
+					List<Cancion> canciones = Controlador.INSTANCE.obtenerCancionesFavoritas();
+					Controlador.INSTANCE.crearPlaylist(nombrePlaylist,canciones);
+					
 				}
 			}
 		});

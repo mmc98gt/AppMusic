@@ -20,6 +20,7 @@ import umu.tds.AppMusic.modelo.Interprete;
 public class TDSCancionDao implements CancionDao {
 
 	private static final String CANCION = "Cancion";
+	private static final String ID = "id";
 	private static final String TITULO = "titulo";
 	private static final String RUTA_FICHERO = "rutaFichero";
 	private static final String NUM_REPRODUCCIONES = "numReproducciones";
@@ -144,5 +145,19 @@ public class TDSCancionDao implements CancionDao {
 	public List<Cancion> obtenerTodasLasCanciones() {
 		return servPersistencia.recuperarEntidades(CANCION).stream().map(this::entidadToCancion)
 				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Obtiene una canción por su id.
+	 * 
+	 * @param titulo El id de la canción a buscar.
+	 * @return La canción encontrada o null si no existe.
+	 */
+
+	@Override
+	public Cancion obtenerCancionPorId(Integer id) {
+		return servPersistencia.recuperarEntidades(CANCION).stream()
+				.filter(eCancion -> servPersistencia.recuperarPropiedadEntidad(eCancion, ID).equals(id))
+				.findFirst().map(this::entidadToCancion).orElse(null);
 	}
 }

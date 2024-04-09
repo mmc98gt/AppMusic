@@ -11,7 +11,7 @@ public interface PlayListDao {
      * @param playList La playlist a insertar.
      * @return true si la inserción fue exitosa, false de lo contrario.
      */
-    boolean insertPlayList(PlayList playList);
+    void insertPlayList(PlayList playList);
 
     /**
      * Recupera una playlist de la base de datos según su nombre.
@@ -38,6 +38,6 @@ public interface PlayListDao {
      * @param nombre El nombre de la playlist a eliminar.
      * @return true si la eliminación fue exitosa, false de lo contrario.
      */
-    boolean deletePlayList(String nombre);
+    void deletePlayList(PlayList playlist);
 }
 

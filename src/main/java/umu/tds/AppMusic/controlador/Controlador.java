@@ -166,4 +166,9 @@ public enum Controlador {
     	return usuarioActual.comprobarListaYaExiste(nombre);
     }
 
+	public void crearPlaylist(String nombrePlaylist, List<Cancion> canciones) {
+		//TODO: completar
+		
+	}
+
 }
