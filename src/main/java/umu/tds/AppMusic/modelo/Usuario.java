@@ -61,18 +61,20 @@ public class Usuario {
 	 * Añade una playlist a la lista de playlists del usuario.
 	 * @param playList La playlist a añadir.
 	 */
-	public void addPlayList(PlayList playList) {
+	public boolean addPlayList(PlayList playList) {
 		if (playList != null && !this.playlists.contains(playList)) {
-			this.playlists.add(playList);
+			return this.playlists.add(playList);
 		}
+		return false;
 	}
 
 	/**
 	 * Elimina una playlist de la lista de playlists del usuario.
 	 * @param playList La playlist a eliminar.
+	 * @return 
 	 */
-	public void removePlayList(PlayList playList) {
-		this.playlists.remove(playList);
+	public boolean removePlayList(PlayList playList) {
+		return this.playlists.remove(playList);
 	}
 
 	// Getters y Setters

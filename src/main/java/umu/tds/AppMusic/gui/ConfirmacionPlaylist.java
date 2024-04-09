@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import java.awt.BorderLayout;
@@ -19,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 
 import umu.tds.AppMusic.controlador.Controlador;
 
-public class ConfirmacionPlaylist {
+public class ConfirmacionPlaylist extends JFrame {
 
 	private JFrame frame;
 
@@ -50,12 +51,30 @@ public class ConfirmacionPlaylist {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		 setTitle("Confirmación de creación de Playlist");
+	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        setBounds(100, 100, 450, 300);
+	        getContentPane().setLayout(null);
+
+	        JButton btnCrearPlaylist = new JButton("Crear Playlist");
+	        btnCrearPlaylist.setBounds(155, 105, 120, 23);
+	        getContentPane().add(btnCrearPlaylist);
+
+	        btnCrearPlaylist.addActionListener(e -> {
+	            int choice = JOptionPane.showConfirmDialog(this, "¿Desea crear la Playlist?", "Confirmación",
+	                    JOptionPane.YES_NO_OPTION);
+	            if (choice == JOptionPane.YES_OPTION) {
+	                JOptionPane.showMessageDialog(this, "Playlist creada con éxito!");
+	            } else {
+	                JOptionPane.showMessageDialog(this, "No se creó la Playlist.");
+	            }
+	        });
+	/*	frame = new JFrame();
 		frame.setBounds(100, 100, 295, 130);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 		
-		crearPanelRegistro();
+		crearPanelRegistro();*/
 	}
 	
 	private void crearPanelRegistro() {
@@ -87,4 +106,8 @@ public class ConfirmacionPlaylist {
 		//addManejadorBotonRegistro(btnRegistro);
 	}
 
+	private void crear() {
+		
+	}
+	
 }

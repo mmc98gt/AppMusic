@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -33,11 +34,15 @@ public class VentanaGestion extends JPanel {
 	private JTable tablaCanciones;
 	private JTable table_1;
 	private String[] columnNames = { "Título", "Artista", "Estilo" };
-	private DefaultTableModel model=new DefaultTableModel(null,columnNames){private static final long serialVersionUID=1L;
+	private DefaultTableModel model = new DefaultTableModel(null, columnNames) {
+		private static final long serialVersionUID = 1L;
 
-	@Override public boolean isCellEditable(int row,int column){
-	// Esto hace que ninguna celda sea editable directamente
-	return false;}};
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			// Esto hace que ninguna celda sea editable directamente
+			return false;
+		}
+	};
 
 	/**
 	 * Launch the application.
@@ -70,7 +75,6 @@ public class VentanaGestion extends JPanel {
 		panel_tabla = new JPanel(new BorderLayout());
 		add(panel_tabla, BorderLayout.CENTER);
 
-		
 		rellenarCanciones();
 
 		// Creación de un JScrollPane que contenga la tabla
@@ -104,17 +108,19 @@ public class VentanaGestion extends JPanel {
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nombrePlaylist = txtTitulo.getText();
+
 				if (Controlador.INSTANCE.comprobarListaYaExiste(nombrePlaylist)) {
-					// TODO: mensaje de error diciendo que ya existe una playlist con ese nombre
-				
+					// TODO: se cargan todos los datos de la playlist existente para poder editarla
+
 				} else {
-					// TODO: aparecer ventana confirmacion 
-					/*ConfirmacionPlaylist confirmacion = new ConfirmacionPlaylist();
-					confirmacion.setLocationRelativeTo(panel);
-					confirmacion.setVisible(true);*/
-					List<Cancion> canciones = Controlador.INSTANCE.obtenerCancionesFavoritas();
-					Controlador.INSTANCE.crearPlaylist(nombrePlaylist,canciones);
-					
+					int creacionLista = JOptionPane.showConfirmDialog(VentanaGestion.this,
+							"¿Crear la lista \"" + nombrePlaylist + "\"?", "Nueva lista",
+							JOptionPane.YES_NO_CANCEL_OPTION);
+					if (creacionLista == JOptionPane.OK_OPTION) {
+						List<Cancion> canciones = Controlador.INSTANCE.obtenerCancionesFavoritas();
+						Controlador.INSTANCE.crearPlaylist(nombrePlaylist, canciones);
+					}
+
 				}
 			}
 		});
@@ -129,14 +135,13 @@ public class VentanaGestion extends JPanel {
 	public void rellenarCanciones() {
 		List<Cancion> canciones = Controlador.INSTANCE.obtenerCancionesFavoritas();
 		Tabla tableModel = new Tabla(canciones);
-	    JTable table = new JTable(tableModel);
+		JTable table = new JTable(tableModel);
 
-	    panel_tabla.removeAll();
-	    panel_tabla.add(new JScrollPane(table), BorderLayout.CENTER);
-	    panel_tabla.revalidate();
-	    panel_tabla.repaint();
-		
+		panel_tabla.removeAll();
+		panel_tabla.add(new JScrollPane(table), BorderLayout.CENTER);
+		panel_tabla.revalidate();
+		panel_tabla.repaint();
+
 	}
 
-	
 }

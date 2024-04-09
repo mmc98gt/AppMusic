@@ -31,7 +31,7 @@ public interface PlayListDao {
      * @param playList La playlist con los datos actualizados.
      * @return true si la actualización fue exitosa, false de lo contrario.
      */
-    boolean updatePlayList(PlayList playList);
+    void updatePlayList(PlayList playList);
 
     /**
      * Elimina una playlist de la base de datos.

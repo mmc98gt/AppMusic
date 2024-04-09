@@ -21,6 +21,7 @@ public final class TDSPlayListDAO implements PlayListDao {
 	private static final String PLAYLIST = "PlayList";
 	private static final String NOMBRE = "nombre";
 	private static final String CANCIONES = "cancion";
+	private static final String ID = "id";
 	private ServicioPersistencia servPersistencia;
 
 	public TDSPlayListDAO() {
@@ -36,29 +37,40 @@ public final class TDSPlayListDAO implements PlayListDao {
 
 	@Override
 	public PlayList getPlayListByName(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
+		return servPersistencia.recuperarEntidades(PLAYLIST).stream()
+				.filter(eCancion -> servPersistencia.recuperarPropiedadEntidad(eCancion, NOMBRE).equals(nombre))
+				.findFirst().map(this::entidadToPlayList).orElse(null);
 	}
 
 	@Override
 	public List<PlayList> getAllPlayLists() {
-		// TODO Auto-generated method stub
-		return null;
+		return servPersistencia.recuperarEntidades(PLAYLIST).stream().map(this::entidadToPlayList)
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public boolean updatePlayList(PlayList playList) {
-		// TODO Auto-generated method stub
-		return false;
+	public void updatePlayList(PlayList playList) {
+		Entidad eCancion = servPersistencia.recuperarEntidad(playList.getId());
+		eCancion.getPropiedades().forEach(prop -> {
+			switch (prop.getNombre()) {
+			case NOMBRE:
+				prop.setValor(playList.getNombre());
+				break;
+			case CANCIONES:
+				prop.setValor(obtenerIdCanciones(playList.getCanciones()));
+				break;
+
+			}
+			servPersistencia.modificarPropiedad(prop);
+		});
 	}
 
 	@Override
 	public void deletePlayList(PlayList playlist) {
-		 Entidad ePlaylist = servPersistencia.recuperarEntidad(playlist.getId());
-	        if(ePlaylist == null) return;
-
-	        // Se borra la playlist
-	        servPersistencia.borrarEntidad(ePlaylist);
+		Entidad ePlaylist = servPersistencia.recuperarEntidad(playlist.getId());
+		if (ePlaylist == null)
+			return;
+		servPersistencia.borrarEntidad(ePlaylist);
 	}
 
 	private Entidad playListToEntidad(PlayList playList) {
@@ -99,6 +111,12 @@ public final class TDSPlayListDAO implements PlayListDao {
 	public List<PlayList> obtenerTodasLasPlayList() {
 		return servPersistencia.recuperarEntidades(PLAYLIST).stream().map(this::entidadToPlayList)
 				.collect(Collectors.toCollection(LinkedList::new));
+	}
+
+	public PlayList obtenerPlaylistPorId(Integer id) {
+		return servPersistencia.recuperarEntidades(PLAYLIST).stream()
+				.filter(eCancion -> servPersistencia.recuperarPropiedadEntidad(eCancion, ID).equals(id)).findFirst()
+				.map(this::entidadToPlayList).orElse(null);
 	}
 
 	private String obtenerIdCanciones(List<Cancion> canciones) {
