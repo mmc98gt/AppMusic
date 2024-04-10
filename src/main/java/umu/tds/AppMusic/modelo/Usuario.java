@@ -61,11 +61,12 @@ public class Usuario {
 	 * Añade una playlist a la lista de playlists del usuario.
 	 * @param playList La playlist a añadir.
 	 */
-	public boolean addPlayList(PlayList playList) {
+	public void addPlayList(PlayList playList) {
 		if (playList != null && !this.playlists.contains(playList)) {
-			return this.playlists.add(playList);
+			
+			this.playlists.add(playList);
+			
 		}
-		return false;
 	}
 
 	/**

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import tds.appMusic.model.music.PlaylistRepository;
-import tds.appMusic.model.users.UserRepository;
 import umu.tds.AppMusic.dao.DAOException;
 import umu.tds.AppMusic.dao.FactoriaDao;
 import umu.tds.AppMusic.dao.UsuarioDao;
@@ -119,7 +117,6 @@ public enum Controlador {
 		if (usuarioActual == null || playList == null) {
 			return false;
 		}
-
 		usuarioActual.addPlayList(playList);
 
 		UsuarioDao usuarioDAO = factoria.getUsuarioDAO();
@@ -185,19 +182,21 @@ public enum Controlador {
 
 	public void crearPlaylist(String nombrePlaylist, List<Cancion> canciones) {
 		PlayList playlist = new PlayList(nombrePlaylist, canciones);
-		RepositorioPlayList.INSTANCE.storePlaylist(usuarioActual.addPlayList(playlist));
-        UserRepository.INSTANCE.setUser(currentUser);
-		if (usuarioActual.addPlayList(playlist)) {
-			factoria.getUsuarioDAO().update(usuarioActual);
-		}
+		RepositorioPlayList.INSTANCE.addPlaylist(playlist);
+		addPlaylistToCurrentUser(playlist);
+		factoria.getUsuarioDAO().update(usuarioActual);
 
 	}
 
-	public void borrarListaCanciones(PlayList nombre){
-		if(usuarioActual.removePlayList(nombre)) {
+	public void borrarListaCanciones(PlayList nombre) {
+		if (usuarioActual.removePlayList(nombre)) {
 			factoria.getUsuarioDAO().update(usuarioActual);
-			
+
 		}
 
+	}
+	
+	public List<PlayList> obtenerPlaylist(){
+		return usuarioActual.getPlaylists();
 	}
 }

@@ -134,7 +134,8 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 			} else if (prop.getNombre().equals(LOGIN)) {
 				prop.setValor(usuario.getLogin());
 			} else if (prop.getNombre().equals(FECHA_NACIMIENTO)) {
-				prop.setValor(dateFormat.format(usuario.getFechaNacimiento()));
+				// TODO: da error esta linea cuando se crea una playlist
+			//	prop.setValor(dateFormat.format(usuario.getFechaNacimiento()));
 			} else if (prop.getNombre().equals(PLAYLISTS)) {
 				prop.setValor(obtenerIdPlaylist(usuario.getPlaylists()));
 			}

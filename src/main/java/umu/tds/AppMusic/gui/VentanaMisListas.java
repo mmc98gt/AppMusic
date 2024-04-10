@@ -20,13 +20,16 @@ import javax.swing.table.DefaultTableModel;
 import umu.tds.AppMusic.controlador.Controlador;
 import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.EstiloMusical;
+import umu.tds.AppMusic.modelo.PlayList;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import java.util.List;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -35,6 +38,7 @@ public class VentanaMisListas extends JPanel {
 	private JPanel panelb;
     private JTable tablaCanciones;
     private JTable table_1;
+    private final List<PlayList> playlists = new LinkedList<>();
 	/**
 	 * Launch the application.
 	 */
@@ -57,8 +61,23 @@ public class VentanaMisListas extends JPanel {
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		
-		JList list = new JList();
-		panel.add(list);
+		
+		
+		List<PlayList> playlists = Controlador.INSTANCE.obtenerPlaylist();
+		PlayList[] playlistsArray = playlists.toArray(new PlayList[0]);
+	        
+	        // Crear la JList con el array de objetos
+		JList<PlayList> list = new JList<>(playlistsArray);
+	        
+	     // Agregar la JList al frame
+	        panel.add(new JScrollPane(list), BorderLayout.CENTER);
+		/*if(playlists.isEmpty()) {
+			System.out.println("vacia");
+		}
+		for ( PlayList p : playlists) {
+			System.out.println(p.getNombre());
+		}*/
+		
 		setBorder(new TitledBorder(null, "Listas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		
