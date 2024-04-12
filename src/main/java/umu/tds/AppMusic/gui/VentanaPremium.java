@@ -114,7 +114,7 @@ public class VentanaPremium extends JDialog {
 		gbc_comboBox.gridx = 2;
 		gbc_comboBox.gridy = 2;
 		panel_1.add(comboBox, gbc_comboBox);
-		String[] array = { "-", "DescuentoFijo", "DescuentoJovenes" };
+		String[] array = { "-", "Descuento Fijo", "Descuento Jovenes" };
 		comboBox.setModel(new DefaultComboBoxModel<String>(array));
 
 		JLabel lblPrecio = new JLabel("Precio: ");
@@ -179,13 +179,15 @@ public class VentanaPremium extends JDialog {
 		btnDescuento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String opcionSeleccionada = (String) comboBox.getSelectedItem();
-				Boolean descontar = Controlador.INSTANCE.comprobarDescuento(opcionSeleccionada);
-				if (descontar) {
-					descuento = Controlador.INSTANCE.getDescuento(precio, opcionSeleccionada);
-					lblNewLabel_5.setText(String.valueOf(descuento));
-					lblNewLabel_3.setText(String.valueOf(precio - descuento));
-				} else {
-					JOptionPane.showMessageDialog(VentanaPremium.this, "No puedes optar a ese descuento, elige otro");
+				if(!opcionSeleccionada.equals("-")) {
+					Boolean descontar = Controlador.INSTANCE.comprobarDescuento(opcionSeleccionada);
+					if (descontar) {
+						descuento = Controlador.INSTANCE.getDescuento(precio, opcionSeleccionada);
+						lblNewLabel_5.setText(String.valueOf(descuento));
+						lblNewLabel_3.setText(String.valueOf(precio - descuento));
+					} else {
+						JOptionPane.showMessageDialog(VentanaPremium.this, "No puedes optar a ese descuento, elige otro");
+					}
 				}
 			}
 		});

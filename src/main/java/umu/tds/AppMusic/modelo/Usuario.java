@@ -1,8 +1,12 @@
 package umu.tds.AppMusic.modelo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 import umu.tds.AppMusic.modelo.Descuento;
 
 /**
@@ -16,7 +20,6 @@ public class Usuario {
 	private String email;
 	private String login;
 	private String password;
-	private String fechaNacimiento;
 	private boolean premium;
 	private List<PlayList> playlists;
 
@@ -42,7 +45,6 @@ public class Usuario {
 	 * @param fechaNacimiento La fecha de nacimiento del usuario.
 	 */
 	public Usuario(String nombre, String apellidos, String email, String login, String password,
-			String fechaNacimiento) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
@@ -136,11 +138,9 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
@@ -175,9 +175,15 @@ public class Usuario {
 	}
 
 	public Boolean comprobarDescuento(String opcionSeleccionada) {
-		// TODO: funcion para comprobar si el descuento elegido es aplicable a este
-		// usuario.
-	//	List<String> descuentos = Descuento.descuentos();
-		return true;
+		if(opcionSeleccionada.equals("-")) {
+			return true;
+		}
+		Set<Descuento> descuentos = Descuento.descuentos();
+		for(Descuento d: descuentos) {
+			if(d.getDescuento().equals(opcionSeleccionada)) {
+				return d.esAplicable(this);
+			}
+		}
+		return false;
 	}
 }

@@ -1,29 +1,43 @@
 package umu.tds.AppMusic.modelo;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 
 /**
- * Clase abstracta que representa un descuento. 
- * Proporciona la estructura básica para aplicar diferentes tipos de descuentos.
+ * Clase abstracta que representa un descuento. Proporciona la estructura básica
+ * para aplicar diferentes tipos de descuentos.
  */
-public abstract class Descuento {
-    
-    /**
-     * Constructor de Descuento.
-     */
-    public Descuento() {
-        // Constructor por defecto.
-    }
 
-    /**
-     * Método abstracto para calcular el descuento sobre un precio original.
-     * Debe ser implementado por las subclases para aplicar una política de descuento específica.
-     * @param precioOriginal El precio original antes del descuento.
-     * @return El precio después de aplicar el descuento.
-     */
-    public abstract double calcDescuento(double precioOriginal);
+public interface Descuento {
+	// Patrón estrategia
+	public double aplicarDescuento(double precio);
 
-	protected abstract List<String> descuentos();
+	/*
+	 * static List<String> descuentos() { List<String> descuentos = new
+	 * ArrayList<String>(); Collections.addAll(descuentos,"-", "descuentoJoven",
+	 * "descuentoFijo"); return descuentos; }
+	 */
+	
+	
+	static Set<Descuento> descuentos() {
+		Set<Descuento> d = new HashSet<>();
+		Collections.addAll(d, new DescuentoFijo(), new DescuentoJovenes());
+		return d;
+	}
 
-    
+	/**
+	 * Calcula el descuento aplicando una cantidad fija de descuento al precio original.
+	 * @param precioOriginal El precio original antes de aplicar el descuento.
+	 * @return El precio después de aplicar el descuento fijo.
+	 */
+	double calcDescuento(double precioOriginal);
+	
+	String getDescuento();
+	
+	boolean esAplicable(Usuario usuario);
+
+
 }
