@@ -2,12 +2,14 @@ package umu.tds.AppMusic.controlador;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import umu.tds.AppMusic.dao.DAOException;
 import umu.tds.AppMusic.dao.FactoriaDao;
 import umu.tds.AppMusic.dao.UsuarioDao;
 import umu.tds.AppMusic.modelo.Cancion;
+import umu.tds.AppMusic.modelo.Descuento;
 import umu.tds.AppMusic.modelo.EstiloMusical;
 import umu.tds.AppMusic.modelo.PlayList;
 import umu.tds.AppMusic.modelo.Usuario;
@@ -200,9 +202,15 @@ public enum Controlador {
 		return usuarioActual.getPlaylists();
 	}
 
-	public Integer getDescuento(double precio, String opcionSeleccionada) {
-		return null;
-		// TODO implementar
+	public double getDescuento(double precio, String opcionSeleccionada) {
+		double total=0;
+		Set<Descuento> descuentos = Descuento.descuentos();
+		for(Descuento d: descuentos) {
+			if(d.getDescuento().equals(opcionSeleccionada)) {
+				total= d.calcDescuento(precio);
+			}
+		}
+		return total;
 	}
 
 	public void hacerPremium() {

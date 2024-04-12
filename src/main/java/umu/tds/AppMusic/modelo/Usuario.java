@@ -20,6 +20,7 @@ public class Usuario {
 	private String email;
 	private String login;
 	private String password;
+	private String fechaNacimiento;
 	private boolean premium;
 	private List<PlayList> playlists;
 
@@ -45,6 +46,7 @@ public class Usuario {
 	 * @param fechaNacimiento La fecha de nacimiento del usuario.
 	 */
 	public Usuario(String nombre, String apellidos, String email, String login, String password,
+			String fechaNacimiento) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
@@ -138,9 +140,11 @@ public class Usuario {
 		this.email = email;
 	}
 
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

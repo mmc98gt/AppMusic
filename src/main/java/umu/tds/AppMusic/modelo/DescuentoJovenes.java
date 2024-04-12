@@ -1,5 +1,7 @@
 package umu.tds.AppMusic.modelo;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
@@ -65,11 +67,14 @@ public class DescuentoJovenes implements Descuento {
 	@Override
 	public boolean esAplicable(Usuario usuario) {
 
-		//LocalDate fechaDeNacimiento = LocalDate.parse(usuario.getFechaNacimiento());
+		//TODO: corregir, comprobar que el usuario es menor de 25 años
 		LocalDate fechaActual = LocalDate.now();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	//	Date fecha = dateFormat.parse(usuario.getFechaNacimiento());
+	
 
-		int edad = Period.between(usuario.getFechaNacimiento(), fechaActual).getYears();
-
+		//int edad = Period.between(usuario.getFechaNacimiento(), fechaActual).getYears();
+int edad = 18;
 		if (edad < 25) {
 			return true;
 		}
