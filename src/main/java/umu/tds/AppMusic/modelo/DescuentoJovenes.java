@@ -1,5 +1,7 @@
 package umu.tds.AppMusic.modelo;
 
+import java.util.List;
+
 /**
  * Clase que extiende Descuento para implementar un descuento porcentual para jóvenes.
  * Este tipo de descuento aplica un porcentaje de reducción sobre el precio original.
@@ -41,4 +43,10 @@ public class DescuentoJovenes extends Descuento {
     public void setPorcentajeDescuento(double porcentajeDescuento) {
         this.porcentajeDescuento = porcentajeDescuento;
     }
+
+	@Override
+	protected List<String> descuentos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

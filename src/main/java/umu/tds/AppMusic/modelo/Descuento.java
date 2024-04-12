@@ -1,5 +1,7 @@
 package umu.tds.AppMusic.modelo;
 
+import java.util.List;
+
 /**
  * Clase abstracta que representa un descuento. 
  * Proporciona la estructura básica para aplicar diferentes tipos de descuentos.
@@ -21,4 +23,7 @@ public abstract class Descuento {
      */
     public abstract double calcDescuento(double precioOriginal);
 
+	protected abstract List<String> descuentos();
+
+    
 }

@@ -1,12 +1,13 @@
 package umu.tds.AppMusic.modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
+import umu.tds.AppMusic.modelo.Descuento;
 
 /**
- * Representa a un usuario de la aplicación, incluyendo información personal y de acceso,
- * estado de suscripción y listas de reproducción.
+ * Representa a un usuario de la aplicación, incluyendo información personal y
+ * de acceso, estado de suscripción y listas de reproducción.
  */
 public class Usuario {
 	private int id;
@@ -21,6 +22,7 @@ public class Usuario {
 
 	/**
 	 * Constructor para crear un usuario solo con su nombre.
+	 * 
 	 * @param nombre El nombre del usuario.
 	 */
 	public Usuario(String nombre) {
@@ -31,11 +33,12 @@ public class Usuario {
 
 	/**
 	 * Constructor para crear un usuario con información completa.
-	 * @param nombre El nombre del usuario.
-	 * @param apellidos Los apellidos del usuario.
-	 * @param email El correo electrónico del usuario.
-	 * @param login El nombre de usuario para iniciar sesión.
-	 * @param password La contraseña del usuario.
+	 * 
+	 * @param nombre          El nombre del usuario.
+	 * @param apellidos       Los apellidos del usuario.
+	 * @param email           El correo electrónico del usuario.
+	 * @param login           El nombre de usuario para iniciar sesión.
+	 * @param password        La contraseña del usuario.
 	 * @param fechaNacimiento La fecha de nacimiento del usuario.
 	 */
 	public Usuario(String nombre, String apellidos, String email, String login, String password,
@@ -59,20 +62,21 @@ public class Usuario {
 
 	/**
 	 * Añade una playlist a la lista de playlists del usuario.
+	 * 
 	 * @param playList La playlist a añadir.
 	 */
 	public void addPlayList(PlayList playList) {
 		if (playList != null && !this.playlists.contains(playList)) {
-			
 			this.playlists.add(playList);
-			
+
 		}
 	}
 
 	/**
 	 * Elimina una playlist de la lista de playlists del usuario.
+	 * 
 	 * @param playList La playlist a eliminar.
-	 * @return 
+	 * @return
 	 */
 	public boolean removePlayList(PlayList playList) {
 		return this.playlists.remove(playList);
@@ -96,7 +100,7 @@ public class Usuario {
 	}
 
 	public List<PlayList> getPlaylists() {
-		return playlists;
+		return Collections.unmodifiableList(playlists);
 	}
 
 	public void setPlaylists(List<PlayList> playlists) {
@@ -115,7 +119,7 @@ public class Usuario {
 		}
 		return false;
 	}
-	
+
 	public String getApellidos() {
 		return apellidos;
 	}
@@ -145,10 +149,10 @@ public class Usuario {
 	}
 
 	public void setId(int id) {
-	    if (id < 0) {
-	        throw new IllegalArgumentException("El ID no puede ser negativo");
-	    }
-	    this.id = id;
+		if (id < 0) {
+			throw new IllegalArgumentException("El ID no puede ser negativo");
+		}
+		this.id = id;
 	}
 
 	public String getLogin() {
@@ -168,5 +172,12 @@ public class Usuario {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Boolean comprobarDescuento(String opcionSeleccionada) {
+		// TODO: funcion para comprobar si el descuento elegido es aplicable a este
+		// usuario.
+	//	List<String> descuentos = Descuento.descuentos();
+		return true;
 	}
 }

@@ -208,7 +208,9 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 			} else if (prop.getNombre().equals(FECHA_NACIMIENTO)) {
 				prop.setValor(usuario.getFechaNacimiento());
 			} else if (prop.getNombre().equals(PLAYLISTS)) {
+				System.out.println(usuario.getPlaylists().size());
 				prop.setValor(obtenerIdPlaylist(usuario.getPlaylists()));
+				System.out.println(usuario.getPlaylists().size());
 			}
 			servPersistencia.modificarPropiedad(prop);
 		}

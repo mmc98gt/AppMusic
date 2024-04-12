@@ -199,4 +199,19 @@ public enum Controlador {
 	public List<PlayList> obtenerPlaylist(){
 		return usuarioActual.getPlaylists();
 	}
+
+	public Integer getDescuento(double precio, String opcionSeleccionada) {
+		return null;
+		// TODO implementar
+	}
+
+	public void hacerPremium() {
+		usuarioActual.realizarPago();
+        RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
+		
+	}
+
+	public Boolean comprobarDescuento(String opcionSeleccionada) {
+		return usuarioActual.comprobarDescuento(opcionSeleccionada);
+	}
 }

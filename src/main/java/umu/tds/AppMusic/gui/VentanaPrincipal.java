@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AbstractDocument.Content;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -23,6 +24,8 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
@@ -35,6 +38,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class VentanaPrincipal {
@@ -214,7 +218,27 @@ public class VentanaPrincipal {
 			panelBotones.add(btnDescargarPDF, gbc_btnNewButton_6);
 		}
 
+		JPanel panel_Listas = new JPanel();
+		GridBagConstraints gbc_panel_Listas = new GridBagConstraints();
+		gbc_panel_Listas.insets = new Insets(0, 0, 0, 5);
+		gbc_panel_Listas.fill = GridBagConstraints.BOTH;
+		gbc_panel_Listas.gridx = 1;
+		gbc_panel_Listas.gridy = 7;
+		panelBotones.add(panel_Listas, gbc_panel_Listas);
+		panel_Listas.setLayout(new CardLayout(0, 0));
+
+		JPanel panelListas = new JPanel();
+		panel_Listas.add(panelListas, "panelListas");
+
 		JButton btnPlaylist = new JButton("Mis Playlists");
+		VentanaMisListas ventanaMisListas = new VentanaMisListas();
+		panel_Listas.add(ventanaMisListas, "panelListas");
+		btnPlaylist.addActionListener(e -> {
+			// ventanaMisListas.rellenarCanciones();
+			CardLayout card = (CardLayout) panel_Listas.getLayout();
+			card.show(panel_Listas, "panelListas");
+		});
+
 		btnPlaylist.setHorizontalAlignment(SwingConstants.LEFT);
 		btnPlaylist.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/playlist.png")));
 		btnPlaylist.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -224,28 +248,20 @@ public class VentanaPrincipal {
 		gbc_btnNewButton_3.gridx = 1;
 		gbc_btnNewButton_3.gridy = 6;
 		panelBotones.add(btnPlaylist, gbc_btnNewButton_3);
-		
-		
 
-		JPanel panel_Listas = new JPanel();
-		GridBagConstraints gbc_panel_Listas = new GridBagConstraints();
-		gbc_panel_Listas.insets = new Insets(0, 0, 0, 5);
-		gbc_panel_Listas.fill = GridBagConstraints.BOTH;
-		gbc_panel_Listas.gridx = 1;
-		gbc_panel_Listas.gridy = 7;
-		panelBotones.add(panel_Listas, gbc_panel_Listas);
-		panel_Listas.setLayout(new CardLayout(0, 0));
 	}
 
 	private void addManejadorBotonPremium(JButton btnPremium) {
+
 		btnPremium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaPremium registro = new VentanaPremium(frmVentanaPrincipal);
+				VentanaPremium registro = new VentanaPremium();
 				registro.setLocationRelativeTo(frmVentanaPrincipal);
-				registro.setVisible(true);
+				registro.mostrarVentana();
 				frmVentanaPrincipal.dispose();
 			}
 		});
+
 	}
 
 	// Método para reproducir una canción

@@ -1,5 +1,7 @@
 package umu.tds.AppMusic.modelo;
 
+import java.util.List;
+
 /**
  * Clase que extiende Descuento para implementar un descuento fijo.
  * Este tipo de descuento resta una cantidad fija del precio original.
@@ -25,4 +27,10 @@ public class DescuentoFijo extends Descuento {
     public double calcDescuento(double precioOriginal) {
         return precioOriginal - descuentoFijo;
     }
+
+	@Override
+	protected List<String> descuentos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

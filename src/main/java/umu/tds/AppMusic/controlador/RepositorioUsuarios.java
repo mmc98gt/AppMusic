@@ -84,4 +84,9 @@ public enum RepositorioUsuarios {
         usuariosPorID.remove(usuario.getId());
         usuariosPorLogin.remove(usuario.getLogin());
     }
+    
+    public void modificarUsuario(Usuario usuario) {
+    	//TODO hacer con java8, modificar si ha cambiado algun atributo, pj: premium
+    	
+    }
 }

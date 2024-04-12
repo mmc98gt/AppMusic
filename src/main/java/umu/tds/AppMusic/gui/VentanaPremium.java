@@ -1,13 +1,11 @@
 package umu.tds.AppMusic.gui;
 
-
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import javax.swing.JPasswordField;
 import javax.swing.table.DefaultTableModel;
 
 import umu.tds.AppMusic.controlador.Controlador;
@@ -19,12 +17,17 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.JScrollPane;
 
 public class VentanaPremium extends JDialog {
@@ -32,8 +35,9 @@ public class VentanaPremium extends JDialog {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTable tablaPrecios;
-
+	private final double precio = 10.00;
+	private double descuento = 0;
+	private JFrame frmVentanaPremium;
 	/**
 	 * Launch the application.
 	 */
@@ -51,151 +55,175 @@ public class VentanaPremium extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public VentanaPremium(JFrame owner){
+	public VentanaPremium(JFrame owner) {
 		super(owner, "Premium", true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setResizable(false);
 		this.initialize();
 	}
-	
-	public VentanaPremium(){
+
+	public VentanaPremium() {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setResizable(false);
 		this.initialize();
 	}
 	
-	
-	
-	 private void initialize() {
-		 
-		 Usuario usuarioActual = Controlador.INSTANCE.getUsuarioActual();
-		
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 40, 10, 309, 0, 40, 0 };
-		gridBagLayout.rowHeights = new int[] { 40, 0, 0, 0, 0, 40, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
-		getContentPane().setLayout(gridBagLayout);
+	public void mostrarVentana() {
+		frmVentanaPremium.setLocationRelativeTo(null);
+		frmVentanaPremium.setVisible(true);
+	}
 
-		String[] array = { "DescuentoFijo","DescuentoJovenes" };
-		
-				JLabel lblTextoMejora = new JLabel("MEJORA PREMIUM");
-				lblTextoMejora.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				GridBagConstraints gbc_lblTextoMejora = new GridBagConstraints();
-				gbc_lblTextoMejora.gridwidth = 2;
-				gbc_lblTextoMejora.insets = new Insets(0, 0, 5, 5);
-				gbc_lblTextoMejora.gridx = 2;
-				gbc_lblTextoMejora.gridy = 0;
-				getContentPane().add(lblTextoMejora, gbc_lblTextoMejora);
+	private void initialize() {
+		frmVentanaPremium = new JFrame();
+		frmVentanaPremium.getContentPane().setFont(new Font("Tahoma", Font.BOLD, 11));
+		frmVentanaPremium.setBounds(100, 100, 640, 400);
+		frmVentanaPremium.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmVentanaPremium.getContentPane().setLayout(new BorderLayout(0, 0));
+		frmVentanaPremium.setTitle("Compra AppMusic Premium");
+		frmVentanaPremium.setResizable(false);
+
+		JPanel panel = new JPanel();
+		frmVentanaPremium.getContentPane().add(panel, BorderLayout.NORTH);
+
+		JLabel lblNewLabel_4 = new JLabel("Hazte premium");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 20));
+		panel.add(lblNewLabel_4);
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(UIManager.getBorder("List.noFocusBorder"));
+		frmVentanaPremium.getContentPane().add(panel_1, BorderLayout.CENTER);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[] { 110, 0, 200, 0, 110, 0 };
+		gbl_panel_1.rowHeights = new int[] { 80, 0, 0, 30, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panel_1.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel_1.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		panel_1.setLayout(gbl_panel_1);
+
+		JLabel lblChooseDescuento = new JLabel("Elige un descuento");
+		lblChooseDescuento.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 2;
+		gbc_lblNewLabel.gridy = 1;
+		panel_1.add(lblChooseDescuento, gbc_lblNewLabel);
+
 		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(array));
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 3;
+		gbc_comboBox.gridx = 2;
 		gbc_comboBox.gridy = 2;
-		getContentPane().add(comboBox, gbc_comboBox);
+		panel_1.add(comboBox, gbc_comboBox);
+		String[] array = { "-", "DescuentoFijo", "DescuentoJovenes" };
+		comboBox.setModel(new DefaultComboBoxModel<String>(array));
 
-		JPanel panel_1 = new JPanel();
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 2;
-		gbc_panel_1.gridy = 3;
-		getContentPane().add(panel_1, gbc_panel_1);
-		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[] { 0, 0 };
-		gbl_panel_1.rowHeights = new int[] { 25, 25, 0, 20, 0, 0 };
-		gbl_panel_1.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panel_1.rowWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
-		panel_1.setLayout(gbl_panel_1);
-		GridBagConstraints gbc_tablaPrecios = new GridBagConstraints();
-		gbc_tablaPrecios.insets = new Insets(0, 0, 5, 5);
-		gbc_tablaPrecios.fill = GridBagConstraints.BOTH;
-		gbc_tablaPrecios.gridx = 9;
-		gbc_tablaPrecios.gridy = 5;
+		JLabel lblPrecio = new JLabel("Precio: ");
+		lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_lblPrecio = new GridBagConstraints();
+		gbc_lblPrecio.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPrecio.gridx = 1;
+		gbc_lblPrecio.gridy = 4;
+		panel_1.add(lblPrecio, gbc_lblPrecio);
 
-		JScrollPane scrollPane = new JScrollPane();
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.gridheight = 5;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 0;
-		gbc_scrollPane.gridy = 0;
-		panel_1.add(scrollPane, gbc_scrollPane);
+		JLabel lblNewLabel_6 = new JLabel(String.valueOf(precio));
+		lblNewLabel_6.setForeground(Color.black);
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
+		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_6.gridx = 2;
+		gbc_lblNewLabel_6.gridy = 4;
+		panel_1.add(lblNewLabel_6, gbc_lblNewLabel_6);
 
-		tablaPrecios = new JTable();
-		tablaPrecios.setModel(new DefaultTableModel(new Object[][] {
+		JLabel lblDescuento = new JLabel("Descuento:");
+		lblDescuento.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_lblDescuento = new GridBagConstraints();
+		gbc_lblDescuento.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDescuento.gridx = 1;
+		gbc_lblDescuento.gridy = 5;
+		panel_1.add(lblDescuento, gbc_lblDescuento);
 
-		}, new String[] { "PRECIO INICIAL", "DESCUENTO", "PRECIO FINAL" }));
-		scrollPane.setViewportView(tablaPrecios);
+		JLabel lblNewLabel_5 = new JLabel(String.valueOf(descuento));
+		lblNewLabel_5.setForeground(Color.RED);
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
+		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_5.gridx = 2;
+		gbc_lblNewLabel_5.gridy = 5;
+		panel_1.add(lblNewLabel_5, gbc_lblNewLabel_5);
 
-		JButton btnCancelar = new JButton("CANCELAR SUSCRIPCIÓN");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (usuarioActual.isPremium()) {
-					JOptionPane.showMessageDialog(btnCancelar, "Has cancelado tu suscripcion","Premium",
-							JOptionPane.INFORMATION_MESSAGE, null);
-					Controlador.INSTANCE.getUsuarioActual().setPremium(false);
+		JLabel lblNewLabel_2 = new JLabel("Precio final:");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setForeground(Color.BLACK);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
+		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_2.gridx = 1;
+		gbc_lblNewLabel_2.gridy = 6;
+		panel_1.add(lblNewLabel_2, gbc_lblNewLabel_2);
+
+		JLabel lblNewLabel_3 = new JLabel(String.valueOf(precio - descuento));
+		lblNewLabel_3.setForeground(new Color(50, 205, 50));
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
+		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_3.gridx = 2;
+		gbc_lblNewLabel_3.gridy = 6;
+		panel_1.add(lblNewLabel_3, gbc_lblNewLabel_3);
+
+		JButton btnDescuento = new JButton("Calcular Descuento");
+		GridBagConstraints gbc_btnDescuento = new GridBagConstraints();
+		gbc_btnDescuento.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDescuento.gridx = 3;
+		gbc_btnDescuento.gridy = 2;
+		panel_1.add(btnDescuento, gbc_btnDescuento);
+		btnDescuento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String opcionSeleccionada = (String) comboBox.getSelectedItem();
+				Boolean descontar = Controlador.INSTANCE.comprobarDescuento(opcionSeleccionada);
+				if (descontar) {
+					descuento = Controlador.INSTANCE.getDescuento(precio, opcionSeleccionada);
+					lblNewLabel_5.setText(String.valueOf(descuento));
+					lblNewLabel_3.setText(String.valueOf(precio - descuento));
 				} else {
-					JOptionPane.showMessageDialog(btnCancelar, "Tienes que estar suscrito para poder cancelar tu suscripion",
-							"Premium", JOptionPane.INFORMATION_MESSAGE, null);
+					JOptionPane.showMessageDialog(VentanaPremium.this, "No puedes optar a ese descuento, elige otro");
 				}
-
-			}
-		});
-		
-		JButton btnCalcularDescuento = new JButton("Calcular Descuento");
-		//TODO funcionalidad boton calcular descuento
-		btnCalcularDescuento.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		GridBagConstraints gbc_btnCalcularDescuento = new GridBagConstraints();
-		gbc_btnCalcularDescuento.insets = new Insets(0, 0, 5, 5);
-		gbc_btnCalcularDescuento.gridx = 3;
-		gbc_btnCalcularDescuento.gridy = 3;
-		getContentPane().add(btnCalcularDescuento, gbc_btnCalcularDescuento);
-
-		JButton btnPagar = new JButton("PAGAR");
-		btnPagar.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent arg0) {
-
-				if (usuarioActual.isPremium()) {
-					JOptionPane.showMessageDialog(btnPagar,
-							"Ya eras premium!", "Premium",
-							JOptionPane.INFORMATION_MESSAGE, null);
-					VentanaPrincipal principal = new VentanaPrincipal();
-					principal.mostrarVentana();
-					VentanaPremium.this.dispose();
-				} else {
-					JOptionPane.showMessageDialog(btnPagar, "Ya eres premium!",
-							"Premium", JOptionPane.INFORMATION_MESSAGE, null);
-					VentanaPrincipal principal = new VentanaPrincipal();
-					principal.mostrarVentana();
-					VentanaPremium.this.dispose();
-				}
-				Controlador.INSTANCE.getUsuarioActual().setPremium(true);
-
 			}
 		});
 
-		btnPagar.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_btnPagar = new GridBagConstraints();
-		gbc_btnPagar.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnPagar.anchor = GridBagConstraints.NORTH;
-		gbc_btnPagar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnPagar.gridx = 2;
-		gbc_btnPagar.gridy = 4;
-		getContentPane().add(btnPagar, gbc_btnPagar);
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Controlador.INSTANCE.hacerPremium();
+				JOptionPane.showMessageDialog(frmVentanaPremium, "¡Enhorabuena!\nAhora eres usuario premium",
+						"Pago completado", JOptionPane.INFORMATION_MESSAGE);
+				frmVentanaPremium.dispose();
+				VentanaPrincipal principal = new VentanaPrincipal();
+				principal.mostrarVentana();
 
+			}
+		});
+		btnAceptar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
+		gbc_btnAceptar.anchor = GridBagConstraints.WEST;
+		gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAceptar.gridx = 2;
+		gbc_btnAceptar.gridy = 8;
+		panel_1.add(btnAceptar, gbc_btnAceptar);
+
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
-		gbc_btnCancelar.anchor = GridBagConstraints.NORTH;
 		gbc_btnCancelar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnCancelar.gridx = 3;
-		gbc_btnCancelar.gridy = 4;
-		getContentPane().add(btnCancelar, gbc_btnCancelar);
-
-	
+		gbc_btnCancelar.gridy = 8;
+		panel_1.add(btnCancelar, gbc_btnCancelar);
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				frmVentanaPremium.dispose();
+				VentanaPrincipal principal = new VentanaPrincipal();
+				principal.mostrarVentana();
+			}
+		});
 	}
-	
 
 }
