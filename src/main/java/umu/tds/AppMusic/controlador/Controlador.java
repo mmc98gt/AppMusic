@@ -186,13 +186,13 @@ public enum Controlador {
 		PlayList playlist = new PlayList(nombrePlaylist, canciones);
 		RepositorioPlayList.INSTANCE.addPlaylist(playlist);
 		addPlaylistToCurrentUser(playlist);
-		factoria.getUsuarioDAO().update(usuarioActual);
+		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 
 	}
 
 	public void borrarListaCanciones(PlayList nombre) {
 		if (usuarioActual.removePlayList(nombre)) {
-			factoria.getUsuarioDAO().update(usuarioActual);
+			factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 
 		}
 

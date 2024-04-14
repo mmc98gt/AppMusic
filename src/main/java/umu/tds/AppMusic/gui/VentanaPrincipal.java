@@ -255,7 +255,7 @@ public class VentanaPrincipal {
 
 		btnPremium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaPremium registro = new VentanaPremium();
+				VentanaPremium registro = new VentanaPremium(frmVentanaPrincipal);
 				registro.setLocationRelativeTo(frmVentanaPrincipal);
 				registro.mostrarVentana();
 				frmVentanaPrincipal.dispose();

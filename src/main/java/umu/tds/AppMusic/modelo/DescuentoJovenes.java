@@ -1,10 +1,9 @@
 package umu.tds.AppMusic.modelo;
 
-import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.List;
+import java.util.Date;
 
 /**
  * Clase que extiende Descuento para implementar un descuento porcentual para
@@ -70,14 +69,21 @@ public class DescuentoJovenes implements Descuento {
 		//TODO: corregir, comprobar que el usuario es menor de 25 años
 		LocalDate fechaActual = LocalDate.now();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	//	Date fecha = dateFormat.parse(usuario.getFechaNacimiento());
+		try {
+			Date fecha = dateFormat.parse(usuario.getFechaNacimiento());
+			Date fecha2 = dateFormat.parse(usuario.getFechaNacimiento());
+			return fecha.before(fecha2);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
-
+/*
 		//int edad = Period.between(usuario.getFechaNacimiento(), fechaActual).getYears();
 int edad = 18;
 		if (edad < 25) {
 			return true;
-		}
+		}*/
 		return false;
 	}
 
