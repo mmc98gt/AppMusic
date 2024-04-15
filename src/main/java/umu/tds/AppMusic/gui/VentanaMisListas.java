@@ -2,6 +2,7 @@ package umu.tds.AppMusic.gui;
 
 import java.awt.EventQueue;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -58,13 +59,14 @@ public class VentanaMisListas extends JPanel {
 
 		setLayout(new BorderLayout(0, 0));
 
-		JPanel panel = new JPanel();
+	/*	JPanel panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		
 		
 		
 		List<PlayList> playlists = Controlador.INSTANCE.obtenerPlaylist();
 		PlayList[] playlistsArray = playlists.toArray(new PlayList[0]);
+		
 	        
 	        // Crear la JList con el array de objetos
 		JList<PlayList> list = new JList<>(playlistsArray);
@@ -81,6 +83,33 @@ public class VentanaMisListas extends JPanel {
 		setBorder(new TitledBorder(null, "Listas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		
+		  // Crear una lista de nombres de playlist
+		List<PlayList> playlists = Controlador.INSTANCE.obtenerPlaylist();
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (PlayList playlist : playlists) {
+            listModel.addElement(playlist.getNombre());
+        }
+
+        // Crear el componente JList y configurarlo
+        JList<String> playlistList = new JList<>(listModel);
+        playlistList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Agregar la lista a un JScrollPane para permitir desplazamiento si hay muchos elementos
+        JScrollPane scrollPane = new JScrollPane(playlistList);
+
+        // Agregar el JScrollPane al panel
+        setLayout(new BorderLayout());
+        add(scrollPane, BorderLayout.CENTER);
+        
+        
+     // Obtener el objeto seleccionado de la lista
+        String selectedPlaylist = playlistList.getSelectedValue();
+
+        if (selectedPlaylist != null) {
+            
+        } else {
+          
+        }
 	}
 	
 

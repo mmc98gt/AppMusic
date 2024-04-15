@@ -84,6 +84,7 @@ public class TDSCancionDao implements CancionDao {
 	public void agregarCancion(Cancion cancion) {
 		Entidad eCancion = this.cancionToEntidad(cancion);
 		servPersistencia.registrarEntidad(eCancion);
+		cancion.setId(eCancion.getId());
 	}
 
 	/**

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import umu.tds.AppMusic.dao.DAOException;
 import umu.tds.AppMusic.dao.FactoriaDao;
+import umu.tds.AppMusic.dao.PlayListDao;
 import umu.tds.AppMusic.dao.UsuarioDao;
 import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.Descuento;
@@ -184,6 +185,10 @@ public enum Controlador {
 
 	public void crearPlaylist(String nombrePlaylist, List<Cancion> canciones) {
 		PlayList playlist = new PlayList(nombrePlaylist, canciones);
+		PlayListDao playlistDAO = factoria.getPlayListDAO();
+		playlistDAO.agregarPlaylist(playlist);
+		playlistDAO.updatePlayList(playlist);
+
 		RepositorioPlayList.INSTANCE.addPlaylist(playlist);
 		addPlaylistToCurrentUser(playlist);
 		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);

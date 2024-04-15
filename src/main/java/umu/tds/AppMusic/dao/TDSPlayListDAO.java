@@ -50,8 +50,8 @@ public final class TDSPlayListDAO implements PlayListDao {
 
 	@Override
 	public void updatePlayList(PlayList playList) {
-		Entidad eCancion = servPersistencia.recuperarEntidad(playList.getId());
-		eCancion.getPropiedades().forEach(prop -> {
+		Entidad ePlaylist = servPersistencia.recuperarEntidad(playList.getId());
+	/*	eCancion.getPropiedades().forEach(prop -> {
 			switch (prop.getNombre()) {
 			case NOMBRE:
 				prop.setValor(playList.getNombre());
@@ -62,7 +62,19 @@ public final class TDSPlayListDAO implements PlayListDao {
 
 			}
 			servPersistencia.modificarPropiedad(prop);
-		});
+		});*/
+		
+
+			for (Propiedad prop : ePlaylist.getPropiedades()) {
+				if (prop.getNombre().equals(NOMBRE)) {
+					prop.setValor(playList.getNombre());
+				} else if (prop.getNombre().equals(CANCIONES)) {
+					prop.setValor(obtenerIdCanciones(playList.getCanciones()));
+				}
+				servPersistencia.modificarPropiedad(prop);
+			}
+		
+
 	}
 
 	@Override
@@ -76,7 +88,7 @@ public final class TDSPlayListDAO implements PlayListDao {
 	private Entidad playListToEntidad(PlayList playList) {
 		Entidad ePlayList = new Entidad();
 		ePlayList.setNombre(PLAYLIST);
-		ePlayList.setPropiedades(new ArrayList<Propiedad>(Arrays.asList(new Propiedad(PLAYLIST, playList.getNombre()),
+		ePlayList.setPropiedades(new ArrayList<Propiedad>(Arrays.asList(new Propiedad(NOMBRE, playList.getNombre()),
 				new Propiedad(CANCIONES, obtenerIdCanciones(playList.getCanciones())))));
 
 		return ePlayList;
@@ -108,19 +120,52 @@ public final class TDSPlayListDAO implements PlayListDao {
 		return playlist;
 	}
 
+	public void agregarPlaylist(PlayList playlist) {
+		Entidad ePlaylist = playListToEntidad(playlist);
+		ePlaylist = servPersistencia.registrarEntidad(ePlaylist);
+		playlist.setId(ePlaylist.getId());
+	}
+
 	public List<PlayList> obtenerTodasLasPlayList() {
 		return servPersistencia.recuperarEntidades(PLAYLIST).stream().map(this::entidadToPlayList)
 				.collect(Collectors.toCollection(LinkedList::new));
 	}
 
-	public PlayList obtenerPlaylistPorId(Integer id) {
-		return servPersistencia.recuperarEntidades(PLAYLIST).stream()
-				.filter(eCancion -> servPersistencia.recuperarPropiedadEntidad(eCancion, ID).equals(id)).findFirst()
-				.map(this::entidadToPlayList).orElse(null);
-	}
-
 	private String obtenerIdCanciones(List<Cancion> canciones) {
 		return canciones.stream().map(song -> Integer.toString(song.getId())).collect(Collectors.joining(" "));
+	}
+
+	public PlayList obtenerPlaylistPorId(int id) {
+
+		Entidad entidad = servPersistencia.recuperarEntidad(id);
+		String nombre = servPersistencia.recuperarPropiedadEntidad(entidad, NOMBRE);
+		String cancionesId = servPersistencia.recuperarPropiedadEntidad(entidad, CANCIONES);
+		LinkedList<Cancion> canciones = new LinkedList<>();
+
+		if (cancionesId != null) {
+			for (String c : cancionesId.trim().split(" ")) {
+				try {
+					if (!c.equals("")) {
+						Cancion cancionBd = FactoriaDao.getInstancia().getCancionDAO()
+								.obtenerCancionPorId(Integer.parseInt(c));
+						if (cancionBd != null)
+							canciones.add(cancionBd);
+					}
+				} catch (DAOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		PlayList playlist = new PlayList(nombre, canciones);
+		playlist.setId(id);
+
+		return playlist;
+	}
+	
+	public PlayList obtenerPlaylistPorNombre(String nombre) {
+		return servPersistencia.recuperarEntidades(PLAYLIST).stream()
+				.filter(ePlaylist -> servPersistencia.recuperarPropiedadEntidad(ePlaylist, NOMBRE).equals(nombre))
+				.map(this::entidadToPlayList).findFirst().orElse(null);
 	}
 
 }

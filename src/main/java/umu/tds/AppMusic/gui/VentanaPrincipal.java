@@ -235,8 +235,10 @@ public class VentanaPrincipal {
 		panel_Listas.add(ventanaMisListas, "panelListas");
 		btnPlaylist.addActionListener(e -> {
 			// ventanaMisListas.rellenarCanciones();
-			CardLayout card = (CardLayout) panel_Listas.getLayout();
-			card.show(panel_Listas, "panelListas");
+			CardLayout card = (CardLayout) panelCardLayout.getLayout();
+			card.show(panelCardLayout, "panelBuscar");
+			CardLayout card2 = (CardLayout) panel_Listas.getLayout();
+			card2.show(panel_Listas, "panelListas");
 		});
 
 		btnPlaylist.setHorizontalAlignment(SwingConstants.LEFT);

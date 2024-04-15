@@ -39,5 +39,7 @@ public interface PlayListDao {
      * @return true si la eliminación fue exitosa, false de lo contrario.
      */
     void deletePlayList(PlayList playlist);
+
+	void agregarPlaylist(PlayList playlist);
 }
 

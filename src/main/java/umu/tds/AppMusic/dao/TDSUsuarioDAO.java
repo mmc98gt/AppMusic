@@ -11,6 +11,7 @@ import beans.Entidad;
 import beans.Propiedad;
 import tds.driver.FactoriaServicioPersistencia;
 import tds.driver.ServicioPersistencia;
+import umu.tds.AppMusic.controlador.Controlador;
 import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.PlayList;
 import umu.tds.AppMusic.modelo.Usuario;
@@ -54,8 +55,7 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 			for (String c : playlistID.trim().split(" ")) {
 				try {
 					if (!c.equals("")) {
-						PlayList playlist = FactoriaDao.getInstancia().getPlayListDAO()
-								.obtenerPlaylistPorId(Integer.parseInt(c));
+						PlayList playlist = FactoriaDao.getInstancia().getPlayListDAO().obtenerPlaylistPorId(Integer.parseInt(c));
 						if (playlist != null)
 							playlists.add(playlist);
 					}
@@ -63,12 +63,12 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 					e.printStackTrace();
 				}
 			}
+				
 		}
 
 		Usuario usuario = new Usuario(nombre, apellidos, email, login, password, fechaNacimientoStr);
 		usuario.setId(eUsuario.getId());
 		usuario.setPlaylists(playlists);
-
 		return usuario;
 	}
 
@@ -114,35 +114,6 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 		return servPersistencia.borrarEntidad(eUsuario);
 	}
 
-	/**
-	 * Actualiza la información de un usuario en la base de datos.
-	 * 
-	 * @param usuario Usuario con la información actualizada.
-	 */
-	public void update(Usuario usuario) {
-		Entidad eUsuario = servPersistencia.recuperarEntidad(usuario.getId());
-
-		for (Propiedad prop : eUsuario.getPropiedades()) {
-			if (prop.getNombre().equals(PASSWORD)) {
-				prop.setValor(usuario.getPassword());
-			} else if (prop.getNombre().equals(EMAIL)) {
-				prop.setValor(usuario.getEmail());
-			} else if (prop.getNombre().equals(NOMBRE)) {
-				prop.setValor(usuario.getNombre());
-			} else if (prop.getNombre().equals(APELLIDOS)) {
-				prop.setValor(usuario.getApellidos());
-			} else if (prop.getNombre().equals(LOGIN)) {
-				prop.setValor(usuario.getLogin());
-			} else if (prop.getNombre().equals(FECHA_NACIMIENTO)) {
-				// TODO: da error esta linea cuando se crea una playlist
-			//	prop.setValor(dateFormat.format(usuario.getFechaNacimiento()));
-			} else if (prop.getNombre().equals(PLAYLISTS)) {
-				prop.setValor(obtenerIdPlaylist(usuario.getPlaylists()));
-			}
-			servPersistencia.modificarPropiedad(prop);
-		}
-
-	}
 
 	/**
 	 * Recupera un usuario basado en su identificador.
@@ -192,7 +163,6 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 	@Override
 	public void actualizarUsuario(Usuario usuario) {
 		Entidad eUsuario = servPersistencia.recuperarEntidad(usuario.getId());
-//TODO: es la misma funcion que update?????
 
 		for (Propiedad prop : eUsuario.getPropiedades()) {
 			if (prop.getNombre().equals(PASSWORD)) {

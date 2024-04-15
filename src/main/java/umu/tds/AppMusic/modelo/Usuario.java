@@ -117,7 +117,10 @@ public class Usuario {
 
 	public boolean comprobarListaYaExiste(String nombre) {
 		for (PlayList playlist : getPlaylists()) {
-			if (playlist.getNombre().equals(nombre)) {
+			if(playlist.getNombre()==null) {
+				return false;
+			}
+			if(playlist.getNombre().equals(nombre)) {
 				return true;
 			}
 		}
