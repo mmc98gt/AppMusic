@@ -53,7 +53,7 @@ public class PlayList {
 	 * @return Una lista de canciones.
 	 */
 	public List<Cancion> getCanciones() {
-		return canciones;
+		return new ArrayList<Cancion> (canciones);
 	}
 
 	/**

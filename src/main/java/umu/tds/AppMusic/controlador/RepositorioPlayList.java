@@ -40,5 +40,9 @@ public enum RepositorioPlayList {
 
 		this.playlist.put(playlist.getId(), playlist);
 	}
+	
+	public PlayList obtenerPlaylist(int id) {
+		return factoria.getPlayListDAO().obtenerPlaylistPorId(id);
+	}
 
 }

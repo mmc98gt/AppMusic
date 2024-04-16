@@ -12,6 +12,7 @@ import umu.tds.AppMusic.dao.UsuarioDao;
 import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.Descuento;
 import umu.tds.AppMusic.modelo.EstiloMusical;
+import umu.tds.AppMusic.modelo.Interprete;
 import umu.tds.AppMusic.modelo.PlayList;
 import umu.tds.AppMusic.modelo.Usuario;
 
@@ -202,17 +203,21 @@ public enum Controlador {
 		}
 
 	}
-	
-	public List<PlayList> obtenerPlaylist(){
+
+	public List<PlayList> obtenerPlaylistsUsuario() {
 		return usuarioActual.getPlaylists();
 	}
 
+	public PlayList obtenerPlaylist(int id) {
+		return RepositorioPlayList.INSTANCE.obtenerPlaylist(id);
+	}
+
 	public double getDescuento(double precio, String opcionSeleccionada) {
-		double total=0;
+		double total = 0;
 		Set<Descuento> descuentos = Descuento.descuentos();
-		for(Descuento d: descuentos) {
-			if(d.getDescuento().equals(opcionSeleccionada)) {
-				total= d.calcDescuento(precio);
+		for (Descuento d : descuentos) {
+			if (d.getDescuento().equals(opcionSeleccionada)) {
+				total = d.calcDescuento(precio);
 			}
 		}
 		return total;
@@ -220,11 +225,16 @@ public enum Controlador {
 
 	public void hacerPremium() {
 		usuarioActual.realizarPago();
-        RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
-		
+		RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
+
 	}
 
 	public Boolean comprobarDescuento(String opcionSeleccionada) {
 		return usuarioActual.comprobarDescuento(opcionSeleccionada);
 	}
+	
+	
+	//TODO: si ponemos los metodos de reproduccion de playlist aqui, poner en play() q se actualice la lista de canciones 
+	//mas reproducidas
+	//TODO: crear lista dentro de esta clase para añadir las mas escuchadas y borrar metodos de canciones favoritas???
 }

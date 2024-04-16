@@ -138,18 +138,17 @@ public class Cancion {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public boolean getEsFavorita() {
 		return esFavorita;
 	}
-	
+
 	public void setEsFavorita(boolean favorita) {
 		this.esFavorita = favorita;
 	}
-	
+
 	public void addReproduccion() {
 		numReproducciones++;
 	}
-	
 
 }

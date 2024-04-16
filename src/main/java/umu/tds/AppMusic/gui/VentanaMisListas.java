@@ -84,20 +84,17 @@ public class VentanaMisListas extends JPanel {
 		
 		
 		  // Crear una lista de nombres de playlist
-		List<PlayList> playlists = Controlador.INSTANCE.obtenerPlaylist();
+		List<PlayList> playlists = Controlador.INSTANCE.obtenerPlaylistsUsuario();
         DefaultListModel<String> listModel = new DefaultListModel<>();
         for (PlayList playlist : playlists) {
             listModel.addElement(playlist.getNombre());
         }
 
-        // Crear el componente JList y configurarlo
         JList<String> playlistList = new JList<>(listModel);
         playlistList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         // Agregar la lista a un JScrollPane para permitir desplazamiento si hay muchos elementos
         JScrollPane scrollPane = new JScrollPane(playlistList);
-
-        // Agregar el JScrollPane al panel
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
         
@@ -106,7 +103,12 @@ public class VentanaMisListas extends JPanel {
         String selectedPlaylist = playlistList.getSelectedValue();
 
         if (selectedPlaylist != null) {
-            
+        	for (PlayList playlist : playlists) {
+                if(playlist.getNombre().equals(selectedPlaylist)) {
+                //	Controlador.INSTANCE.obtenerPlaylist(playlist.getId());
+                	
+                }
+            }
         } else {
           
         }

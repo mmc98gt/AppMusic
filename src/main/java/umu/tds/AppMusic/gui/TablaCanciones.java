@@ -3,37 +3,32 @@ package umu.tds.AppMusic.gui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridBagLayout;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import umu.tds.AppMusic.modelo.Cancion;
 
 public class TablaCanciones extends JPanel{
 
 	private JFrame frame;
 	 private JPanel panel_tabla;
+	 private List<Cancion> resultados;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TablaCanciones window = new TablaCanciones();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
 	 */
-	public TablaCanciones() {
+	public TablaCanciones(List<Cancion> resultados) {
 		initialize();
+		this.resultados=resultados;
 	}
 
 	/**
@@ -53,6 +48,31 @@ public class TablaCanciones extends JPanel{
 		panel.setLayout(gbl_panel);
         panel_tabla = new JPanel(new BorderLayout());
         add(panel_tabla, BorderLayout.CENTER);
+        mostrarResultadosEnTabla();
+        
+        
+	}
+	
+	private void mostrarResultadosEnTabla() {
+		Tabla tableModel = new Tabla(resultados);
+	    JTable table = new JTable(tableModel);
+
+	    panel_tabla.removeAll();
+	    panel_tabla.add(new JScrollPane(table), BorderLayout.CENTER);
+	    panel_tabla.revalidate();
+	    panel_tabla.repaint();
+
+	    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+	        public void valueChanged(ListSelectionEvent event) {
+	            if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
+	                // Obtener la canción seleccionada
+	                int selectedRowIndex = table.getSelectedRow();
+	                Cancion cancionSeleccionada = resultados.get(selectedRowIndex);
+	            //    setCancionActual(cancionSeleccionada);
+	                // Aquí puedes llamar a cualquier método que necesites para reproducir la canción
+	            }
+	        }
+	    });
 	}
 
 }

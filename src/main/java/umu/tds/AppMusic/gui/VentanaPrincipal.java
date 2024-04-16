@@ -5,13 +5,19 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.AbstractDocument.Content;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import umu.tds.AppMusic.controlador.Controlador;
 import umu.tds.AppMusic.modelo.Cancion;
+import umu.tds.AppMusic.modelo.PlayList;
 import umu.tds.AppMusic.modelo.Usuario;
 
 import java.awt.GridBagLayout;
@@ -20,10 +26,13 @@ import javax.swing.JDialog;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import java.awt.FlowLayout;
@@ -48,6 +57,7 @@ public class VentanaPrincipal {
 	private JPanel panelCardLayout;
 	private String textoBienvenida;
 	private Usuario usuarioActual;
+	private JPanel panel_Listas = new JPanel();
 
 	private MediaPlayer mediaPlayer;
 	private String tempPath;
@@ -108,6 +118,7 @@ public class VentanaPrincipal {
 
 		JButton btnSalir = new JButton("Salir");
 		panel_norte.add(btnSalir);
+		//TODO: implementar funcionalidad salir  
 
 		panelCardLayout = new JPanel();
 		panelCentro.add(panelCardLayout, BorderLayout.CENTER);
@@ -204,6 +215,14 @@ public class VentanaPrincipal {
 			gbc_btnNewButton_5.gridx = 1;
 			gbc_btnNewButton_5.gridy = 4;
 			panelBotones.add(btnMasEscuchadas, gbc_btnNewButton_5);
+			btnMasEscuchadas.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					//TODO: hay que hacer la lista de canciones mas escuchadas y obtenerla con el controlador
+					List<Cancion> resultado = Controlador.INSTANCE.obtenerCancionesFavoritas();
+					actualizarTabla(resultado);
+
+				}
+			});
 
 			JButton btnDescargarPDF = new JButton("Descargar PFD");
 			btnDescargarPDF.setHorizontalAlignment(SwingConstants.LEFT);
@@ -216,9 +235,13 @@ public class VentanaPrincipal {
 			gbc_btnNewButton_6.gridx = 1;
 			gbc_btnNewButton_6.gridy = 5;
 			panelBotones.add(btnDescargarPDF, gbc_btnNewButton_6);
+			btnDescargarPDF.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					//TODO:implementar
+				}
+			});
 		}
 
-		JPanel panel_Listas = new JPanel();
 		GridBagConstraints gbc_panel_Listas = new GridBagConstraints();
 		gbc_panel_Listas.insets = new Insets(0, 0, 0, 5);
 		gbc_panel_Listas.fill = GridBagConstraints.BOTH;
@@ -226,19 +249,14 @@ public class VentanaPrincipal {
 		gbc_panel_Listas.gridy = 7;
 		panelBotones.add(panel_Listas, gbc_panel_Listas);
 		panel_Listas.setLayout(new CardLayout(0, 0));
-
-		JPanel panelListas = new JPanel();
-		panel_Listas.add(panelListas, "panelListas");
-
 		JButton btnPlaylist = new JButton("Mis Playlists");
-		VentanaMisListas ventanaMisListas = new VentanaMisListas();
-		panel_Listas.add(ventanaMisListas, "panelListas");
 		btnPlaylist.addActionListener(e -> {
-			// ventanaMisListas.rellenarCanciones();
-			CardLayout card = (CardLayout) panelCardLayout.getLayout();
-			card.show(panelCardLayout, "panelBuscar");
-			CardLayout card2 = (CardLayout) panel_Listas.getLayout();
-			card2.show(panel_Listas, "panelListas");
+			/*
+			 * CardLayout card = (CardLayout) panelCardLayout.getLayout();
+			 * card.show(panelCardLayout, "panelBuscar");
+			 */
+			obtenerListaPlaylist();
+
 		});
 
 		btnPlaylist.setHorizontalAlignment(SwingConstants.LEFT);
@@ -359,4 +377,45 @@ public class VentanaPrincipal {
 		panel_sur.add(btnCancionSiguiente);
 	}
 
+	public void obtenerListaPlaylist() {
+
+		panel_Listas.setBorder(new TitledBorder(null, "Listas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+
+		// Crear una lista de nombres de playlist
+		List<PlayList> playlists = Controlador.INSTANCE.obtenerPlaylistsUsuario();
+		DefaultListModel<String> listModel = new DefaultListModel<>();
+		for (PlayList playlist : playlists) {
+			listModel.addElement(playlist.getNombre());
+		}
+
+		JList<String> playlistList = new JList<>(listModel);
+		playlistList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		// Agregar la lista a un JScrollPane para permitir desplazamiento si hay muchos
+		// elementos
+		JScrollPane scrollPane = new JScrollPane(playlistList);
+		panel_Listas.setLayout(new BorderLayout());
+		panel_Listas.add(scrollPane, BorderLayout.CENTER);
+
+		playlistList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent event) {
+				if (!event.getValueIsAdjusting() && playlistList.getSelectedIndex() != -1) {
+					int selectedRowIndex = playlistList.getSelectedIndex();
+					PlayList playlistSeleccionada = playlists.get(selectedRowIndex);
+					if (!playlistSeleccionada.getCanciones().isEmpty()) {
+						actualizarTabla(playlistSeleccionada.getCanciones());
+					}
+
+				}
+			}
+		});
+
+	}
+
+	public void actualizarTabla(List<Cancion> resultados) {
+		TablaCanciones tablaCanciones = new TablaCanciones(resultados);
+		panelCardLayout.add(tablaCanciones, "panelTabla");
+		CardLayout card = (CardLayout) panelCardLayout.getLayout();
+		card.show(panelCardLayout, "panelTabla");
+	}
 }
