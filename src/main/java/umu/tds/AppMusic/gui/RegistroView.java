@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -56,6 +58,7 @@ public class RegistroView extends JDialog {
 	private JLabel lblNombreError;
 	private JLabel lblApellidosError;
 	private JLabel lblFechaNacimientoError;
+	private JLabel lblFechaNacimientoError2;
 	private JLabel lblEmailError;
 	private JLabel lblUsuarioError;
 	private JLabel lblPasswordError;
@@ -247,9 +250,12 @@ public class RegistroView extends JDialog {
 		selectorFecha.setDateFormatString("dd/MMM/yyyy");
 		panelCamposFechaNacimiento.add(selectorFecha);
 		lblFechaNacimientoError = new JLabel("Introduce la fecha de nacimiento", SwingConstants.CENTER);
+		lblFechaNacimientoError2 = new JLabel("La fecha de nacimiento debe ser anterior a la fecha actual ", SwingConstants.CENTER);
 		fixedSize(lblFechaNacimientoError, 150, 15);
 		lblFechaNacimientoError.setForeground(Color.RED);
+		lblFechaNacimientoError2.setForeground(Color.RED);
 		lineaFechaNacimiento.add(lblFechaNacimientoError, BorderLayout.SOUTH);
+		lineaFechaNacimiento.add(lblFechaNacimientoError2, BorderLayout.SOUTH);
 		
 		return lineaFechaNacimiento;
 	}
@@ -383,6 +389,12 @@ public class RegistroView extends JDialog {
 			selectorFecha.setBorder(BorderFactory.createLineBorder(Color.RED));
 			salida = false;
 		}
+		if (selectorFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(LocalDate.now())) {
+			lblFechaNacimientoError2.setVisible(true);
+			lblFechaNacimiento.setForeground(Color.RED);
+			selectorFecha.setBorder(BorderFactory.createLineBorder(Color.RED));
+			salida = false;
+		}
 
 		this.revalidate();
 		this.pack();
@@ -400,7 +412,7 @@ public class RegistroView extends JDialog {
 		lblEmailError.setVisible(false);
 		lblUsuarioError.setVisible(false);
 		lblPasswordError.setVisible(false);
-		lblFechaNacimientoError.setVisible(false);
+		lblFechaNacimientoError2.setVisible(false);
 		
 		Border border = new JTextField().getBorder();
 		txtNombre.setBorder(border);
