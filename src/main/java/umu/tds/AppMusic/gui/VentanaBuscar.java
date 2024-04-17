@@ -157,7 +157,7 @@ public class VentanaBuscar extends JPanel {
 		panelControlMusica.add(btnAnadirLista);
 		btnAnadirLista.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
-	        	VentanaMisListas misListas = new VentanaMisListas();
+	        	VentanaMisListas misListas = new VentanaMisListas(false);
 	        	misListas.mostrarVentana();
 	        }
 	    });

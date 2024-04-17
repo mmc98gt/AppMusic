@@ -46,6 +46,7 @@ public class VentanaMisListas extends JPanel {
 	private JTable table_1;
 	private final List<PlayList> playlists = new LinkedList<>();
 	private List<Cancion> canciones = new LinkedList<>();
+	private boolean eliminar;
 
 	/**
 	 * Launch the application.
@@ -54,11 +55,12 @@ public class VentanaMisListas extends JPanel {
 	/**
 	 * Create the application.
 	 */
-	public VentanaMisListas() {
-
-		initialize();
+	public VentanaMisListas(boolean eliminar) {
 		List<Cancion> canciones = Controlador.INSTANCE.obtenerCancionesFavoritas();
 		this.canciones = canciones;
+		this.eliminar = eliminar;
+		initialize();
+
 	}
 
 	public void mostrarVentana() {
@@ -99,7 +101,7 @@ public class VentanaMisListas extends JPanel {
 		JPanel panel = new JPanel();
 		scrollPane.setColumnHeaderView(panel);
 
-		JLabel lblTextoAnadir = new JLabel("Elige la playlist a la que desea añadir");
+		JLabel lblTextoAnadir = new JLabel("Elige la playlist que desea modificar");
 		panel.add(lblTextoAnadir);
 
 		playlistList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -107,13 +109,26 @@ public class VentanaMisListas extends JPanel {
 				if (!event.getValueIsAdjusting() && playlistList.getSelectedIndex() != -1) {
 					int selectedRowIndex = playlistList.getSelectedIndex();
 					PlayList playlistSeleccionada = playlists.get(selectedRowIndex);
-					int respuesta = JOptionPane.showConfirmDialog(null,
-							"¿Quieres añadir canciones a la playlist \"" + playlistSeleccionada.getNombre() + "\"?",
-							"Añadir Canciones", JOptionPane.YES_NO_OPTION);
-					if (respuesta == JOptionPane.YES_OPTION) {
-						Controlador.INSTANCE.addCancionesToPlaylist(playlistSeleccionada, canciones);
-						JOptionPane.showMessageDialog(frmVentanaMisListas, "Se han añadido las canciones",
-								"Canciones añadidas", JOptionPane.INFORMATION_MESSAGE);
+					if (eliminar) {
+						int respuesta = JOptionPane
+								.showConfirmDialog(null,
+										"¿Quieres eliminar canciones de la playlist \""
+												+ playlistSeleccionada.getNombre() + "\"?",
+										"Eliminar Canciones", JOptionPane.YES_NO_OPTION);
+						if (respuesta == JOptionPane.YES_OPTION) {
+							Controlador.INSTANCE.deleteCancionesToPlaylist(playlistSeleccionada, canciones);
+							JOptionPane.showMessageDialog(frmVentanaMisListas, "Se han eliminado las canciones",
+									"Canciones eliminadas", JOptionPane.INFORMATION_MESSAGE);
+						}
+					} else {
+						int respuesta = JOptionPane.showConfirmDialog(null,
+								"¿Quieres añadir canciones a la playlist \"" + playlistSeleccionada.getNombre() + "\"?",
+								"Añadir Canciones", JOptionPane.YES_NO_OPTION);
+						if (respuesta == JOptionPane.YES_OPTION) {
+							Controlador.INSTANCE.addCancionesToPlaylist(playlistSeleccionada, canciones);
+							JOptionPane.showMessageDialog(frmVentanaMisListas, "Se han añadido las canciones",
+									"Canciones añadidas", JOptionPane.INFORMATION_MESSAGE);
+						}
 					}
 					frmVentanaMisListas.dispose();
 				}

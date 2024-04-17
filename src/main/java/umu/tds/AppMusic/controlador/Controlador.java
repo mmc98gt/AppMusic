@@ -252,6 +252,18 @@ public enum Controlador {
 		
 	}
 
+	public void deleteCancionesToPlaylist(PlayList playlist, List<Cancion> canciones) {
+		for(Cancion c : canciones) {
+			playlist.borrarCancion(c);
+		}
+		RepositorioPlayList.INSTANCE.modificarPlaylist(playlist);
+		factoria.getPlayListDAO().updatePlayList(playlist);
+		usuarioActual.actualizarPlaylist(playlist);
+		RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
+		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
+		
+	}
+
 	// TODO: si ponemos los metodos de reproduccion de playlist aqui, poner en
 	// play() q se actualice la lista de canciones
 	// mas reproducidas

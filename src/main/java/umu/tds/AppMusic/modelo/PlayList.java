@@ -106,4 +106,10 @@ public class PlayList {
 	public String toString() {
 		return "PlayList{" + "nombre='" + nombre + '\'' + ", canciones=" + canciones + '}';
 	}
+
+	public void borrarCancion(Cancion c) {
+		if(canciones.contains(c)) {
+			canciones.remove(c);
+		}
+	}
 }

@@ -130,6 +130,15 @@ public class VentanaGestion extends JPanel {
 
 		JPanel panelControlMusica = new JPanel();
 		add(panelControlMusica, BorderLayout.SOUTH);
+		JButton btnEliminarLista = new JButton("Eliminar Lista");
+		btnEliminarLista.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelControlMusica.add(btnEliminarLista);
+		btnEliminarLista.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	VentanaMisListas misListas = new VentanaMisListas(true);
+	        	misListas.mostrarVentana();
+	        }
+	    });
 	}
 
 	public void rellenarCanciones() {
