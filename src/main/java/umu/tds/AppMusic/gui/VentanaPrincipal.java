@@ -117,8 +117,20 @@ public class VentanaPrincipal {
 		agregarBotonesControlMusica(panel_sur);
 
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				usuarioActual = Controlador.INSTANCE.getUsuarioActual();
+				int salir = JOptionPane.showConfirmDialog(null, "¿Desea salir de la aplicación?", "Salir", JOptionPane.YES_NO_OPTION);
+				if (salir == JOptionPane.YES_OPTION) {
+					//Controlador.INSTANCE.salir();
+					LoginView login = new LoginView();
+					login.mostrarVentana();
+					frmVentanaPrincipal.dispose();
+				}
+
+			}
+		});
 		panel_norte.add(btnSalir);
-		//TODO: implementar funcionalidad salir  
 
 		panelCardLayout = new JPanel();
 		panelCentro.add(panelCardLayout, BorderLayout.CENTER);
@@ -217,7 +229,8 @@ public class VentanaPrincipal {
 			panelBotones.add(btnMasEscuchadas, gbc_btnNewButton_5);
 			btnMasEscuchadas.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//TODO: hay que hacer la lista de canciones mas escuchadas y obtenerla con el controlador
+					// TODO: hay que hacer la lista de canciones mas escuchadas y obtenerla con el
+					// controlador
 					List<Cancion> resultado = Controlador.INSTANCE.obtenerCancionesFavoritas();
 					actualizarTabla(resultado);
 
@@ -237,7 +250,7 @@ public class VentanaPrincipal {
 			panelBotones.add(btnDescargarPDF, gbc_btnNewButton_6);
 			btnDescargarPDF.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//TODO:implementar
+					// TODO:implementar
 				}
 			});
 		}

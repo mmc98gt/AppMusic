@@ -9,6 +9,8 @@ import umu.tds.AppMusic.dao.DAOException;
 import umu.tds.AppMusic.dao.FactoriaDao;
 import umu.tds.AppMusic.dao.PlayListDao;
 import umu.tds.AppMusic.dao.UsuarioDao;
+import umu.tds.AppMusic.gui.LoginView;
+import umu.tds.AppMusic.gui.VentanaPrincipal;
 import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.Descuento;
 import umu.tds.AppMusic.modelo.EstiloMusical;
@@ -231,6 +233,10 @@ public enum Controlador {
 
 	public Boolean comprobarDescuento(String opcionSeleccionada) {
 		return usuarioActual.comprobarDescuento(opcionSeleccionada);
+	}
+
+	public void salir() {
+		
 	}
 	
 	
