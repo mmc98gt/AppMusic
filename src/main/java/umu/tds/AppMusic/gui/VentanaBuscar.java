@@ -2,6 +2,7 @@ package umu.tds.AppMusic.gui;
 
 import java.awt.EventQueue;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -12,6 +13,7 @@ import javax.swing.JTable;
 
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -21,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import umu.tds.AppMusic.controlador.Controlador;
 import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.EstiloMusical;
+import umu.tds.AppMusic.modelo.PlayList;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -30,6 +33,7 @@ import java.util.List;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JLabel;
+import javax.swing.JList;
 
 public class VentanaBuscar extends JPanel {
 
@@ -43,6 +47,7 @@ public class VentanaBuscar extends JPanel {
     private JTable table;
     private List<Cancion> resultadoActual;
     private static Cancion cancionActual;
+    private JButton btnAnadirLista;
 	/**
 	 * Launch the application.
 	 */
@@ -138,13 +143,22 @@ public class VentanaBuscar extends JPanel {
 		gbc_btnBuscar.gridx = 3;
 		gbc_btnBuscar.gridy = 3;
 		panel.add(btnBuscar, gbc_btnBuscar);
-
-		JPanel panelControlMusica = new JPanel();
-		add(panelControlMusica, BorderLayout.SOUTH);
-
 		btnBuscar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
 	            realizarBusqueda();
+	        }
+	    });
+
+		JPanel panelControlMusica = new JPanel();
+		add(panelControlMusica, BorderLayout.SOUTH);
+		
+		btnAnadirLista = new JButton("Añadir Lista");
+		btnAnadirLista.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelControlMusica.add(btnAnadirLista);
+		btnAnadirLista.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	VentanaMisListas misListas = new VentanaMisListas();
+	        	misListas.mostrarVentana();
 	        }
 	    });
 	}
@@ -208,5 +222,7 @@ public class VentanaBuscar extends JPanel {
 	public void setCancionActual(Cancion cancionActual) {
 		VentanaBuscar.cancionActual = cancionActual;
 	}
+
+	
 
 }

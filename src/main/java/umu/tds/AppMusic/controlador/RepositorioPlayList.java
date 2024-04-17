@@ -40,9 +40,13 @@ public enum RepositorioPlayList {
 
 		this.playlist.put(playlist.getId(), playlist);
 	}
-	
+
 	public PlayList obtenerPlaylist(int id) {
 		return factoria.getPlayListDAO().obtenerPlaylistPorId(id);
+	}
+
+	public void modificarPlaylist(PlayList playlist) {
+		this.playlist.put(playlist.getId(), playlist);
 	}
 
 }

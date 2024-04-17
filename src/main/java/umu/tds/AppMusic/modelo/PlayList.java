@@ -55,6 +55,10 @@ public class PlayList {
 	public List<Cancion> getCanciones() {
 		return new ArrayList<Cancion> (canciones);
 	}
+	
+	public void setCanciones(List<Cancion> canciones) {
+		this.canciones = canciones;
+	}
 
 	/**
 	 * Obtiene el nombre de la playlist.

@@ -240,9 +240,21 @@ public enum Controlador {
 
 	}
 
+	public void addCancionesToPlaylist(PlayList playlist, List<Cancion> canciones) {
+		for(Cancion c : canciones) {
+			playlist.addCancion(c);
+		}
+		RepositorioPlayList.INSTANCE.modificarPlaylist(playlist);
+		factoria.getPlayListDAO().updatePlayList(playlist);
+		usuarioActual.actualizarPlaylist(playlist);
+		RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
+		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
+		
+	}
+
 	// TODO: si ponemos los metodos de reproduccion de playlist aqui, poner en
 	// play() q se actualice la lista de canciones
 	// mas reproducidas
-	// TODO: crear lista dentro de esta clase para añadir las mas escuchadas y
-	// borrar metodos de canciones favoritas???
+	// TODO: crear lista dentro de esta clase para añadir las mas escuchadas
+	
 }

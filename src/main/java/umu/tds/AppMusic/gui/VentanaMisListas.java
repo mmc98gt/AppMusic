@@ -15,7 +15,10 @@ import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import umu.tds.AppMusic.controlador.Controlador;
@@ -34,12 +37,16 @@ import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 public class VentanaMisListas extends JPanel {
+	private JFrame frmVentanaMisListas;
 	private JPanel panelb;
-    private JTable tablaCanciones;
-    private JTable table_1;
-    private final List<PlayList> playlists = new LinkedList<>();
+	private JTable tablaCanciones;
+	private JTable table_1;
+	private final List<PlayList> playlists = new LinkedList<>();
+	private List<Cancion> canciones = new LinkedList<>();
+
 	/**
 	 * Launch the application.
 	 */
@@ -50,6 +57,13 @@ public class VentanaMisListas extends JPanel {
 	public VentanaMisListas() {
 
 		initialize();
+		List<Cancion> canciones = Controlador.INSTANCE.obtenerCancionesFavoritas();
+		this.canciones = canciones;
+	}
+
+	public void mostrarVentana() {
+		frmVentanaMisListas.setLocationRelativeTo(null);
+		frmVentanaMisListas.setVisible(true);
 	}
 
 	/**
@@ -57,62 +71,55 @@ public class VentanaMisListas extends JPanel {
 	 */
 	private void initialize() {
 
-		setLayout(new BorderLayout(0, 0));
+		frmVentanaMisListas = new JFrame();
+		frmVentanaMisListas.setTitle("AppMusic");
+		frmVentanaMisListas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmVentanaMisListas.setBounds(100, 100, 249, 245);
+		JPanel contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		frmVentanaMisListas.setContentPane(contentPane);
 
-	/*	JPanel panel = new JPanel();
-		add(panel, BorderLayout.CENTER);
-		
-		
-		
-		List<PlayList> playlists = Controlador.INSTANCE.obtenerPlaylist();
-		PlayList[] playlistsArray = playlists.toArray(new PlayList[0]);
-		
-	        
-	        // Crear la JList con el array de objetos
-		JList<PlayList> list = new JList<>(playlistsArray);
-	        
-	     // Agregar la JList al frame
-	        panel.add(new JScrollPane(list), BorderLayout.CENTER);
-		/*if(playlists.isEmpty()) {
-			System.out.println("vacia");
-		}
-		for ( PlayList p : playlists) {
-			System.out.println(p.getNombre());
-		}*/
-		
-		setBorder(new TitledBorder(null, "Listas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		
-		
-		  // Crear una lista de nombres de playlist
+		// Crear una lista de nombres de playlist
 		List<PlayList> playlists = Controlador.INSTANCE.obtenerPlaylistsUsuario();
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (PlayList playlist : playlists) {
-            listModel.addElement(playlist.getNombre());
-        }
+		DefaultListModel<String> listModel = new DefaultListModel<>();
+		for (PlayList playlist : playlists) {
+			listModel.addElement(playlist.getNombre());
+		}
 
-        JList<String> playlistList = new JList<>(listModel);
-        playlistList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		JList<String> playlistList = new JList<>(listModel);
+		playlistList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Agregar la lista a un JScrollPane para permitir desplazamiento si hay muchos elementos
-        JScrollPane scrollPane = new JScrollPane(playlistList);
-        setLayout(new BorderLayout());
-        add(scrollPane, BorderLayout.CENTER);
-        
-        
-     // Obtener el objeto seleccionado de la lista
-        String selectedPlaylist = playlistList.getSelectedValue();
+		// Agregar la lista a un JScrollPane para permitir desplazamiento si hay muchos
+		// elementos
+		JScrollPane scrollPane = new JScrollPane(playlistList);
+		contentPane.setLayout(new BorderLayout());
+		contentPane.add(scrollPane, BorderLayout.CENTER);
 
-        if (selectedPlaylist != null) {
-        	for (PlayList playlist : playlists) {
-                if(playlist.getNombre().equals(selectedPlaylist)) {
-                //	Controlador.INSTANCE.obtenerPlaylist(playlist.getId());
-                	
-                }
-            }
-        } else {
-          
-        }
+		JPanel panel = new JPanel();
+		scrollPane.setColumnHeaderView(panel);
+
+		JLabel lblTextoAnadir = new JLabel("Elige la playlist a la que desea añadir");
+		panel.add(lblTextoAnadir);
+
+		playlistList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent event) {
+				if (!event.getValueIsAdjusting() && playlistList.getSelectedIndex() != -1) {
+					int selectedRowIndex = playlistList.getSelectedIndex();
+					PlayList playlistSeleccionada = playlists.get(selectedRowIndex);
+					int respuesta = JOptionPane.showConfirmDialog(null,
+							"¿Quieres añadir canciones a la playlist \"" + playlistSeleccionada.getNombre() + "\"?",
+							"Añadir Canciones", JOptionPane.YES_NO_OPTION);
+					if (respuesta == JOptionPane.YES_OPTION) {
+						Controlador.INSTANCE.addCancionesToPlaylist(playlistSeleccionada, canciones);
+						JOptionPane.showMessageDialog(frmVentanaMisListas, "Se han añadido las canciones",
+								"Canciones añadidas", JOptionPane.INFORMATION_MESSAGE);
+					}
+					frmVentanaMisListas.dispose();
+				}
+			}
+		});
+
 	}
-	
 
 }

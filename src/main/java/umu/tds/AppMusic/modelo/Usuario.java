@@ -72,8 +72,15 @@ public class Usuario {
 	public void addPlayList(PlayList playList) {
 		if (playList != null && !this.playlists.contains(playList)) {
 			this.playlists.add(playList);
-
 		}
+	}
+
+	public void actualizarPlaylist(PlayList playlist) {
+		/*for (PlayList p : playlists)
+			if (p.getNombre().equals(playlist.getNombre())) {
+				p.setCanciones(playlist.getCanciones());
+			}*/
+		//TODO
 	}
 
 	/**
@@ -117,10 +124,10 @@ public class Usuario {
 
 	public boolean comprobarListaYaExiste(String nombre) {
 		for (PlayList playlist : getPlaylists()) {
-			if(playlist.getNombre()==null) {
+			if (playlist.getNombre() == null) {
 				return false;
 			}
-			if(playlist.getNombre().equals(nombre)) {
+			if (playlist.getNombre().equals(nombre)) {
 				return true;
 			}
 		}
@@ -182,12 +189,12 @@ public class Usuario {
 	}
 
 	public Boolean comprobarDescuento(String opcionSeleccionada) {
-		if(opcionSeleccionada.equals("-")) {
+		if (opcionSeleccionada.equals("-")) {
 			return true;
 		}
 		Set<Descuento> descuentos = Descuento.descuentos();
-		for(Descuento d: descuentos) {
-			if(d.getDescuento().equals(opcionSeleccionada)) {
+		for (Descuento d : descuentos) {
+			if (d.getDescuento().equals(opcionSeleccionada)) {
 				return d.esAplicable(this);
 			}
 		}
