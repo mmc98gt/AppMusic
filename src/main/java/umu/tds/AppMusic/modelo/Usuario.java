@@ -45,7 +45,7 @@ public class Usuario {
 	 * @param password        La contraseña del usuario.
 	 * @param fechaNacimiento La fecha de nacimiento del usuario.
 	 */
-	public Usuario(String nombre, String apellidos, String email, String login, String password,
+	public Usuario(String nombre, String apellidos, String email, String login, boolean premium, String password,
 			String fechaNacimiento) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -53,7 +53,7 @@ public class Usuario {
 		this.login = login;
 		this.password = password;
 		this.fechaNacimiento = fechaNacimiento;
-		this.premium = false; // Por defecto, el usuario no es premium
+		this.premium = premium; // Por defecto, el usuario no es premium
 		this.playlists = new ArrayList<>();
 	}
 

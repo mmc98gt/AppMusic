@@ -29,6 +29,7 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 	private static final String APELLIDOS = "apellidos";
 	private static final String EMAIL = "email";
 	private static final String LOGIN = "login";
+	private static final String PREMIUM = "premium";
 	private static final String PASSWORD = "password";
 	private static final String FECHA_NACIMIENTO = "fechaNacimiento";
 	private static final String PLAYLISTS = "playlists";
@@ -46,6 +47,7 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 		String apellidos = servPersistencia.recuperarPropiedadEntidad(eUsuario, APELLIDOS);
 		String email = servPersistencia.recuperarPropiedadEntidad(eUsuario, EMAIL);
 		String login = servPersistencia.recuperarPropiedadEntidad(eUsuario, LOGIN);
+		String premium = servPersistencia.recuperarPropiedadEntidad(eUsuario, PREMIUM);
 		String password = servPersistencia.recuperarPropiedadEntidad(eUsuario, PASSWORD);
 		String fechaNacimientoStr = servPersistencia.recuperarPropiedadEntidad(eUsuario, FECHA_NACIMIENTO);
 		String playlistID = servPersistencia.recuperarPropiedadEntidad(eUsuario, PLAYLISTS);
@@ -55,7 +57,8 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 			for (String c : playlistID.trim().split(" ")) {
 				try {
 					if (!c.equals("")) {
-						PlayList playlist = FactoriaDao.getInstancia().getPlayListDAO().obtenerPlaylistPorId(Integer.parseInt(c));
+						PlayList playlist = FactoriaDao.getInstancia().getPlayListDAO()
+								.obtenerPlaylistPorId(Integer.parseInt(c));
 						if (playlist != null)
 							playlists.add(playlist);
 					}
@@ -63,10 +66,10 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 					e.printStackTrace();
 				}
 			}
-				
-		}
 
-		Usuario usuario = new Usuario(nombre, apellidos, email, login, password, fechaNacimientoStr);
+		}
+		boolean prem = Boolean.parseBoolean(premium);
+		Usuario usuario = new Usuario(nombre, apellidos, email, login, prem, password, fechaNacimientoStr);
 		usuario.setId(eUsuario.getId());
 		usuario.setPlaylists(playlists);
 		return usuario;
@@ -84,8 +87,8 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 
 		eUsuario.setPropiedades(new ArrayList<Propiedad>(Arrays.asList(new Propiedad(NOMBRE, usuario.getNombre()),
 				new Propiedad(APELLIDOS, usuario.getApellidos()), new Propiedad(EMAIL, usuario.getEmail()),
-				new Propiedad(LOGIN, usuario.getLogin()), new Propiedad(PASSWORD, usuario.getPassword()),
-				new Propiedad(FECHA_NACIMIENTO, fechaNacimientoStr),
+				new Propiedad(LOGIN, usuario.getLogin()), new Propiedad(PREMIUM, Boolean.toString(usuario.isPremium())),
+				new Propiedad(PASSWORD, usuario.getPassword()), new Propiedad(FECHA_NACIMIENTO, fechaNacimientoStr),
 				new Propiedad(PLAYLISTS, obtenerIdPlaylist(usuario.getPlaylists())))));
 		return eUsuario;
 	}
@@ -113,7 +116,6 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 
 		return servPersistencia.borrarEntidad(eUsuario);
 	}
-
 
 	/**
 	 * Recupera un usuario basado en su identificador.
@@ -175,6 +177,8 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 				prop.setValor(usuario.getApellidos());
 			} else if (prop.getNombre().equals(LOGIN)) {
 				prop.setValor(usuario.getLogin());
+			} else if (prop.getNombre().equals(PREMIUM)) {
+				prop.setValor(Boolean.toString(usuario.isPremium()));
 			} else if (prop.getNombre().equals(FECHA_NACIMIENTO)) {
 				prop.setValor(usuario.getFechaNacimiento());
 			} else if (prop.getNombre().equals(PLAYLISTS)) {

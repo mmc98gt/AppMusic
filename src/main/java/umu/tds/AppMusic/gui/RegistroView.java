@@ -288,6 +288,7 @@ public class RegistroView extends JDialog {
 							txtApellidos.getText(), 
 							txtEmail.getText(), 
 							txtUsuario.getText(),
+							false,
 							new String(txtPassword.getPassword()), 
 							selectorFecha.getDate().toString()
 					);

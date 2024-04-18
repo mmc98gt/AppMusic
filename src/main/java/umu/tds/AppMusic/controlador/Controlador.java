@@ -84,11 +84,11 @@ public enum Controlador {
 	 * @param fechaNacimiento Fecha de nacimiento del usuario.
 	 * @return true si el registro es exitoso, false en caso contrario.
 	 */
-	public boolean registrarUsuario(String nombre, String apellidos, String email, String login, String password,
-			String fechaNacimiento) {
+	public boolean registrarUsuario(String nombre, String apellidos, String email, String login, boolean premium,
+			String password, String fechaNacimiento) {
 		if (esUsuarioRegistrado(login))
 			return false;
-		Usuario usuario = new Usuario(nombre, apellidos, email, login, password, fechaNacimiento);
+		Usuario usuario = new Usuario(nombre, apellidos, email, login, premium, password, fechaNacimiento);
 
 		UsuarioDao usuarioDAO = factoria.getUsuarioDAO();
 		usuarioDAO.agregarUsuario(usuario);
@@ -228,8 +228,14 @@ public enum Controlador {
 
 	public void hacerPremium() {
 		usuarioActual.realizarPago();
-		RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
+		//RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
+		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
+	}
 
+	public void salirPremium() {
+		usuarioActual.setPremium(false);
+		//RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
+		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 	}
 
 	public Boolean comprobarDescuento(String opcionSeleccionada) {
@@ -241,7 +247,7 @@ public enum Controlador {
 	}
 
 	public void addCancionesToPlaylist(PlayList playlist, List<Cancion> canciones) {
-		for(Cancion c : canciones) {
+		for (Cancion c : canciones) {
 			playlist.addCancion(c);
 		}
 		RepositorioPlayList.INSTANCE.modificarPlaylist(playlist);
@@ -249,11 +255,11 @@ public enum Controlador {
 		usuarioActual.actualizarPlaylist(playlist);
 		RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
 		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
-		
+
 	}
 
 	public void deleteCancionesToPlaylist(PlayList playlist, List<Cancion> canciones) {
-		for(Cancion c : canciones) {
+		for (Cancion c : canciones) {
 			playlist.borrarCancion(c);
 		}
 		RepositorioPlayList.INSTANCE.modificarPlaylist(playlist);
@@ -261,12 +267,12 @@ public enum Controlador {
 		usuarioActual.actualizarPlaylist(playlist);
 		RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
 		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
-		
+
 	}
 
 	// TODO: si ponemos los metodos de reproduccion de playlist aqui, poner en
 	// play() q se actualice la lista de canciones
 	// mas reproducidas
 	// TODO: crear lista dentro de esta clase para añadir las mas escuchadas
-	
+
 }

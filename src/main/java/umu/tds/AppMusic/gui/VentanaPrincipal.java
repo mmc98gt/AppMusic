@@ -120,9 +120,10 @@ public class VentanaPrincipal {
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				usuarioActual = Controlador.INSTANCE.getUsuarioActual();
-				int salir = JOptionPane.showConfirmDialog(null, "¿Desea salir de la aplicación?", "Salir", JOptionPane.YES_NO_OPTION);
+				int salir = JOptionPane.showConfirmDialog(null, "¿Desea salir de la aplicación?", "Salir",
+						JOptionPane.YES_NO_OPTION);
 				if (salir == JOptionPane.YES_OPTION) {
-					//Controlador.INSTANCE.salir();
+					// Controlador.INSTANCE.salir();
 					LoginView login = new LoginView();
 					login.mostrarVentana();
 					frmVentanaPrincipal.dispose();
@@ -231,8 +232,8 @@ public class VentanaPrincipal {
 				public void actionPerformed(ActionEvent e) {
 					// TODO: hay que hacer la lista de canciones mas escuchadas y obtenerla con el
 					// controlador
-					List<Cancion> resultado = Controlador.INSTANCE.obtenerCancionesFavoritas();
-					actualizarTabla(resultado);
+					// List<Cancion> resultado = Controlador.INSTANCE.();
+					// actualizarTabla(resultado);
 
 				}
 			});
@@ -288,10 +289,21 @@ public class VentanaPrincipal {
 
 		btnPremium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaPremium registro = new VentanaPremium(frmVentanaPrincipal);
-				registro.setLocationRelativeTo(frmVentanaPrincipal);
-				registro.mostrarVentana();
-				frmVentanaPrincipal.dispose();
+				if (!usuarioActual.isPremium()) {
+					VentanaPremium registro = new VentanaPremium(frmVentanaPrincipal);
+					registro.setLocationRelativeTo(frmVentanaPrincipal);
+					registro.mostrarVentana();
+					frmVentanaPrincipal.dispose();
+				}else {
+					int salir = JOptionPane.showConfirmDialog(null, "¿Desea dejar de ser premium?", "Premium",
+							JOptionPane.YES_NO_OPTION);
+					if (salir == JOptionPane.YES_OPTION) {
+						Controlador.INSTANCE.salirPremium();
+						frmVentanaPrincipal.dispose();
+						VentanaPrincipal principal = new VentanaPrincipal();
+						principal.mostrarVentana();
+					}
+				}
 			}
 		});
 
