@@ -159,7 +159,7 @@ public enum Controlador {
 	public List<Cancion> buscarCanciones(String interprete, String titulo, boolean esFavorita, EstiloMusical estilo) {
 		return RepositorioCanciones.INSTANCE.findAllCanciones().stream()
 				.filter(cancion -> (interprete == null || interprete.isEmpty()
-						|| cancion.getInterprete().getNombre().toLowerCase().contains(interprete.toLowerCase()))
+						|| cancion.getInterprete().toLowerCase().contains(interprete.toLowerCase()))
 						&& (titulo == null || titulo.isEmpty()
 								|| cancion.getTitulo().toLowerCase().contains(titulo.toLowerCase()))
 						&& (!esFavorita || cancionEsFavorita(cancion))
@@ -191,18 +191,17 @@ public enum Controlador {
 		PlayList playlist = new PlayList(nombrePlaylist, canciones);
 		PlayListDao playlistDAO = factoria.getPlayListDAO();
 		playlistDAO.agregarPlaylist(playlist);
-		playlistDAO.updatePlayList(playlist);
+		//playlistDAO.updatePlayList(playlist);
 
 		RepositorioPlayList.INSTANCE.addPlaylist(playlist);
 		addPlaylistToCurrentUser(playlist);
-		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
+		//factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 
 	}
 
 	public void borrarListaCanciones(PlayList nombre) {
 		if (usuarioActual.removePlayList(nombre)) {
 			factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
-
 		}
 
 	}
@@ -242,9 +241,6 @@ public enum Controlador {
 		return usuarioActual.comprobarDescuento(opcionSeleccionada);
 	}
 
-	public void salir() {
-
-	}
 
 	public void addCancionesToPlaylist(PlayList playlist, List<Cancion> canciones) {
 		for (Cancion c : canciones) {

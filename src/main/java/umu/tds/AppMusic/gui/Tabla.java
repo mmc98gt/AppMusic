@@ -47,10 +47,10 @@ public class Tabla extends AbstractTableModel {
 			valor = cancion.getTitulo();
 			break;
 		case 1:
-			valor = cancion.getInterprete().getNombre();
+			valor = cancion.getInterprete();
 			break;
 		case 2:
-			valor = cancion.getEstilo().getNombre();
+			valor = cancion.getEstilo();
 			break;
 		case 3:
 			valor = cancion.getEsFavorita();

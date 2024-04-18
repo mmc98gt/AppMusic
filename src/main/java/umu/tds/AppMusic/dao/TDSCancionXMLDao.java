@@ -81,7 +81,7 @@ public class TDSCancionXMLDao implements CancionDao {
         // Debes implementar la lógica de conversión aquí, por ejemplo:
         EstiloMusical estilo = new EstiloMusical(cancionXML.getEstilo());
         Interprete interprete = new Interprete(cancionXML.getInterprete());
-        return new Cancion(cancionXML.getTitulo(), cancionXML.getURL(), estilo, interprete);
+        return new Cancion(cancionXML.getTitulo(), cancionXML.getURL(), estilo.getNombre(), interprete.getNombre());
     }
 
 	@Override

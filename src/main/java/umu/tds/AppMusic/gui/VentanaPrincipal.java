@@ -265,10 +265,7 @@ public class VentanaPrincipal {
 		panel_Listas.setLayout(new CardLayout(0, 0));
 		JButton btnPlaylist = new JButton("Mis Playlists");
 		btnPlaylist.addActionListener(e -> {
-			/*
-			 * CardLayout card = (CardLayout) panelCardLayout.getLayout();
-			 * card.show(panelCardLayout, "panelBuscar");
-			 */
+
 			obtenerListaPlaylist();
 
 		});
@@ -294,7 +291,7 @@ public class VentanaPrincipal {
 					registro.setLocationRelativeTo(frmVentanaPrincipal);
 					registro.mostrarVentana();
 					frmVentanaPrincipal.dispose();
-				}else {
+				} else {
 					int salir = JOptionPane.showConfirmDialog(null, "¿Desea dejar de ser premium?", "Premium",
 							JOptionPane.YES_NO_OPTION);
 					if (salir == JOptionPane.YES_OPTION) {
@@ -424,10 +421,13 @@ public class VentanaPrincipal {
 
 		playlistList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
+				System.out.println("ZZZZZZZZ");
 				if (!event.getValueIsAdjusting() && playlistList.getSelectedIndex() != -1) {
 					int selectedRowIndex = playlistList.getSelectedIndex();
 					PlayList playlistSeleccionada = playlists.get(selectedRowIndex);
+					System.out.println("AAAAA");
 					if (!playlistSeleccionada.getCanciones().isEmpty()) {
+						System.out.println("gsdfs");
 						actualizarTabla(playlistSeleccionada.getCanciones());
 					}
 

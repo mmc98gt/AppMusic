@@ -43,18 +43,19 @@ public class TDSCancionDao implements CancionDao {
 		String titulo = servPersistencia.recuperarPropiedadEntidad(eCancion, TITULO);
 		String rutaFichero = servPersistencia.recuperarPropiedadEntidad(eCancion, RUTA_FICHERO);
 		String numReproduccionesStr = servPersistencia.recuperarPropiedadEntidad(eCancion, NUM_REPRODUCCIONES);
-	//	String estilo = servPersistencia.recuperarPropiedadEntidad(eCancion, ESTILO_MUSICAL);
-//		String interprete = servPersistencia.recuperarPropiedadEntidad(eCancion, INTERPRETE);
+		String estilo = servPersistencia.recuperarPropiedadEntidad(eCancion, ESTILO_MUSICAL);
+		String interprete = servPersistencia.recuperarPropiedadEntidad(eCancion, INTERPRETE);
 		int numReproducciones = Integer.parseInt(numReproduccionesStr);
 
 		//TODO
-		EstiloMusical estilo = new EstiloMusical(""); // Lógica pendiente
-		Interprete interprete = new Interprete(""); // Lógica pendiente
+	//	EstiloMusical estilo = new EstiloMusical(""); // Lógica pendiente
+	//	Interprete interprete = new Interprete(""); // Lógica pendiente
 
 		Cancion cancion = new Cancion(titulo, rutaFichero, estilo, interprete);
 		for (int i = 0; i < numReproducciones; i++) {
 			cancion.incrementarReproducciones();
 		}
+		
 
 		cancion.setId(eCancion.getId());
 		return cancion;
@@ -76,7 +77,7 @@ public class TDSCancionDao implements CancionDao {
 		eCancion.setPropiedades(new ArrayList<>(Arrays.asList(new Propiedad(TITULO, cancion.getTitulo()),
 				new Propiedad(RUTA_FICHERO, cancion.getRutaFichero()),
 				new Propiedad(NUM_REPRODUCCIONES, String.valueOf(cancion.getNumReproducciones())),
-				new Propiedad(ESTILO_MUSICAL, cancion.getEstilo().getNombre()), new Propiedad(INTERPRETE, cancion.getInterprete().getNombre()))));
+				new Propiedad(ESTILO_MUSICAL, cancion.getEstilo()), new Propiedad(INTERPRETE, cancion.getInterprete()))));
 		return eCancion;
 	}
 
@@ -110,10 +111,10 @@ public class TDSCancionDao implements CancionDao {
 				prop.setValor(String.valueOf(cancion.getNumReproducciones()));
 				break;
 			case ESTILO_MUSICAL:
-				prop.setValor(cancion.getEstilo().getNombre());
+				prop.setValor(cancion.getEstilo());
 				break;
 			case INTERPRETE:
-				prop.setValor(cancion.getInterprete().getNombre());
+				prop.setValor(cancion.getInterprete());
 				break;
 				
 				

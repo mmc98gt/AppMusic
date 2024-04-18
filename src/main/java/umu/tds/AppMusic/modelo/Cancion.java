@@ -10,8 +10,8 @@ public class Cancion {
 	private String titulo;
 	private String rutaFichero;
 	private int numReproducciones;
-	private EstiloMusical estilo;
-	private Interprete interprete;
+	private String estilo;
+	private String interprete;
 	private boolean esFavorita;
 
 	/**
@@ -22,7 +22,7 @@ public class Cancion {
 	 * @param estilo      El estilo musical de la canción.
 	 * @param interprete  El intérprete de la canción.
 	 */
-	public Cancion(String titulo, String rutaFichero, EstiloMusical estilo, Interprete interprete) {
+	public Cancion(String titulo, String rutaFichero, String estilo, String interprete) {
 		this.titulo = titulo;
 		this.rutaFichero = rutaFichero;
 		this.numReproducciones = 0; // inicialmente la canción no ha sido reproducida
@@ -90,7 +90,7 @@ public class Cancion {
 	 * 
 	 * @return El estilo musical de la canción.
 	 */
-	public EstiloMusical getEstilo() {
+	public String getEstilo() {
 		return estilo;
 	}
 
@@ -99,7 +99,7 @@ public class Cancion {
 	 * 
 	 * @param estilo El nuevo estilo musical de la canción.
 	 */
-	public void setEstilo(EstiloMusical estilo) {
+	public void setEstilo(String estilo) {
 		this.estilo = estilo;
 	}
 
@@ -108,7 +108,7 @@ public class Cancion {
 	 * 
 	 * @return El intérprete de la canción.
 	 */
-	public Interprete getInterprete() {
+	public String getInterprete() {
 		return interprete;
 	}
 
@@ -117,7 +117,7 @@ public class Cancion {
 	 * 
 	 * @param interprete El nuevo intérprete de la canción.
 	 */
-	public void setInterprete(Interprete interprete) {
+	public void setInterprete(String interprete) {
 		this.interprete = interprete;
 	}
 

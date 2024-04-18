@@ -29,13 +29,6 @@ public final class TDSPlayListDAO implements PlayListDao {
 	}
 
 	@Override
-	public void insertPlayList(PlayList playList) {
-		Entidad ePlayList = this.playListToEntidad(playList);
-		ePlayList = servPersistencia.registrarEntidad(ePlayList);
-		playList.setId(ePlayList.getId());
-	}
-
-	@Override
 	public PlayList getPlayListByName(String nombre) {
 		return servPersistencia.recuperarEntidades(PLAYLIST).stream()
 				.filter(eCancion -> servPersistencia.recuperarPropiedadEntidad(eCancion, NOMBRE).equals(nombre))
@@ -51,29 +44,22 @@ public final class TDSPlayListDAO implements PlayListDao {
 	@Override
 	public void updatePlayList(PlayList playList) {
 		Entidad ePlaylist = servPersistencia.recuperarEntidad(playList.getId());
-	/*	eCancion.getPropiedades().forEach(prop -> {
-			switch (prop.getNombre()) {
-			case NOMBRE:
-				prop.setValor(playList.getNombre());
-				break;
-			case CANCIONES:
-				prop.setValor(obtenerIdCanciones(playList.getCanciones()));
-				break;
+		/*
+		 * eCancion.getPropiedades().forEach(prop -> { switch (prop.getNombre()) { case
+		 * NOMBRE: prop.setValor(playList.getNombre()); break; case CANCIONES:
+		 * prop.setValor(obtenerIdCanciones(playList.getCanciones())); break;
+		 * 
+		 * } servPersistencia.modificarPropiedad(prop); });
+		 */
 
+		for (Propiedad prop : ePlaylist.getPropiedades()) {
+			if (prop.getNombre().equals(NOMBRE)) {
+				prop.setValor(playList.getNombre());
+			} else if (prop.getNombre().equals(CANCIONES)) {
+				prop.setValor(obtenerIdCanciones(playList.getCanciones()));
 			}
 			servPersistencia.modificarPropiedad(prop);
-		});*/
-		
-
-			for (Propiedad prop : ePlaylist.getPropiedades()) {
-				if (prop.getNombre().equals(NOMBRE)) {
-					prop.setValor(playList.getNombre());
-				} else if (prop.getNombre().equals(CANCIONES)) {
-					prop.setValor(obtenerIdCanciones(playList.getCanciones()));
-				}
-				servPersistencia.modificarPropiedad(prop);
-			}
-		
+		}
 
 	}
 
@@ -161,11 +147,12 @@ public final class TDSPlayListDAO implements PlayListDao {
 
 		return playlist;
 	}
-	
+
 	public PlayList obtenerPlaylistPorNombre(String nombre) {
 		return servPersistencia.recuperarEntidades(PLAYLIST).stream()
 				.filter(ePlaylist -> servPersistencia.recuperarPropiedadEntidad(ePlaylist, NOMBRE).equals(nombre))
 				.map(this::entidadToPlayList).findFirst().orElse(null);
 	}
+
 
 }
