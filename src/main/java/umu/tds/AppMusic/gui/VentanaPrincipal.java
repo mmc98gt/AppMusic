@@ -58,6 +58,9 @@ public class VentanaPrincipal {
 	private String textoBienvenida;
 	private Usuario usuarioActual;
 	private JPanel panel_Listas = new JPanel();
+	private JList<String> playlistList;
+	private JScrollPane scrollPane;
+	private DefaultListModel<String> listModel;
 
 	private MediaPlayer mediaPlayer;
 	private String tempPath;
@@ -184,7 +187,8 @@ public class VentanaPrincipal {
 		VentanaGestion ventanaGestion = new VentanaGestion();
 		panelCardLayout.add(ventanaGestion, "panelGestion");
 		btnGestionPlaylist.addActionListener(e -> {
-			ventanaGestion.rellenarCanciones();
+			List<Cancion> canciones = Controlador.INSTANCE.obtenerCancionesFavoritas();
+			ventanaGestion.rellenarCanciones(canciones);
 			CardLayout card = (CardLayout) panelCardLayout.getLayout();
 			card.show(panelCardLayout, "panelGestion");
 		});
@@ -262,7 +266,11 @@ public class VentanaPrincipal {
 		gbc_panel_Listas.gridx = 1;
 		gbc_panel_Listas.gridy = 7;
 		panelBotones.add(panel_Listas, gbc_panel_Listas);
-		panel_Listas.setLayout(new CardLayout(0, 0));
+		listModel = new DefaultListModel<>();
+		playlistList = new JList<>(listModel);
+		scrollPane = new JScrollPane(playlistList);
+		panel_Listas.setLayout(new BorderLayout(0, 0));
+		panel_Listas.add(scrollPane, BorderLayout.CENTER);
 		JButton btnPlaylist = new JButton("Mis Playlists");
 		btnPlaylist.addActionListener(e -> {
 
@@ -403,32 +411,23 @@ public class VentanaPrincipal {
 
 		panel_Listas.setBorder(new TitledBorder(null, "Listas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
-		// Crear una lista de nombres de playlist
+		listModel.clear();
 		List<PlayList> playlists = Controlador.INSTANCE.obtenerPlaylistsUsuario();
-		DefaultListModel<String> listModel = new DefaultListModel<>();
 		for (PlayList playlist : playlists) {
 			listModel.addElement(playlist.getNombre());
+			System.out.println(playlist.getNombre());
 		}
 
-		JList<String> playlistList = new JList<>(listModel);
 		playlistList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-		// Agregar la lista a un JScrollPane para permitir desplazamiento si hay muchos
-		// elementos
-		JScrollPane scrollPane = new JScrollPane(playlistList);
-		panel_Listas.setLayout(new BorderLayout());
-		panel_Listas.add(scrollPane, BorderLayout.CENTER);
+		panel_Listas.repaint();
 
 		playlistList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
-				System.out.println("ZZZZZZZZ");
 				if (!event.getValueIsAdjusting() && playlistList.getSelectedIndex() != -1) {
 					int selectedRowIndex = playlistList.getSelectedIndex();
 					PlayList playlistSeleccionada = playlists.get(selectedRowIndex);
 					Controlador.INSTANCE.establecerPlaylistActual(playlistSeleccionada);
-					System.out.println("AAAAA");
 					if (!playlistSeleccionada.getCanciones().isEmpty()) {
-						System.out.println("gsdfs");
 						actualizarTabla(playlistSeleccionada.getCanciones());
 					}
 

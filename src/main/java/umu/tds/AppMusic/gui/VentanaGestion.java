@@ -76,7 +76,8 @@ public class VentanaGestion extends JPanel {
 		panel_tabla = new JPanel(new BorderLayout());
 		add(panel_tabla, BorderLayout.CENTER);
 
-		rellenarCanciones();
+		List<Cancion> canciones = Controlador.INSTANCE.obtenerCancionesFavoritas();
+		rellenarCanciones(canciones);
 
 		// Creación de un JScrollPane que contenga la tabla
 		JScrollPane scrollPane = new JScrollPane(tablaCanciones);
@@ -111,8 +112,8 @@ public class VentanaGestion extends JPanel {
 				String nombrePlaylist = txtTitulo.getText();
 
 				if (Controlador.INSTANCE.comprobarListaYaExiste(nombrePlaylist)) {
-					// TODO: se cargan todos los datos de la playlist existente para poder editarla
-
+					List<Cancion> canciones = Controlador.INSTANCE.cancionesPlaylistNombre(nombrePlaylist);
+					rellenarCanciones(canciones);
 				} else {
 					int creacionLista = JOptionPane.showConfirmDialog(VentanaGestion.this,
 							"¿Crear la lista \"" + nombrePlaylist + "\"?", "Nueva lista",
@@ -130,9 +131,8 @@ public class VentanaGestion extends JPanel {
 		panel_botones.add(btnEliminar);
 		btnEliminar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
-	        	if(Controlador.INSTANCE.obtenerPlaylistActual()!=null) {
-	        		//TODO:hacer que se elimine la playlist seleccionada
-		        	PlayList p = Controlador.INSTANCE.obtenerPlaylistActual();
+				if (Controlador.INSTANCE.obtenerPlaylistActual() != null) {
+					PlayList p = Controlador.INSTANCE.obtenerPlaylistActual();
 		        	int respuesta = JOptionPane
 							.showConfirmDialog(null,
 									"¿Quieres eliminar playlist \""
@@ -165,8 +165,8 @@ public class VentanaGestion extends JPanel {
 	    });
 	}
 
-	public void rellenarCanciones() {
-		List<Cancion> canciones = Controlador.INSTANCE.obtenerCancionesFavoritas();
+	public void rellenarCanciones(List<Cancion> canciones) {
+		
 		Tabla tableModel = new Tabla(canciones);
 		JTable table = new JTable(tableModel);
 

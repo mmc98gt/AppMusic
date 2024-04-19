@@ -279,6 +279,18 @@ public enum Controlador {
 		
 	}
 
+	public List<Cancion> cancionesPlaylistNombre(String nombrePlaylist) {
+		 List<PlayList> playlists = obtenerPlaylistsUsuario();{
+			 for(PlayList p : playlists) {
+				 if(p.getNombre().equals(nombrePlaylist)) {
+					 return p.getCanciones();
+				 }
+			 }
+		 }
+		 return null;
+		 
+	}
+
 
 	
 	
