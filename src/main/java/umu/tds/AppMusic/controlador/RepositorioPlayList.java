@@ -49,4 +49,9 @@ public enum RepositorioPlayList {
 		this.playlist.put(playlist.getId(), playlist);
 	}
 
+	public void deletePlaylist(PlayList playlist) {
+		this.playlist.remove(playlist.getId());
+		
+	}
+
 }

@@ -28,6 +28,7 @@ public enum Controlador {
 
 	private Usuario usuarioActual;
 	private FactoriaDao factoria;
+	private PlayList playlistActual;
 
 	private Controlador() {
 		usuarioActual = null;
@@ -191,16 +192,19 @@ public enum Controlador {
 		PlayList playlist = new PlayList(nombrePlaylist, canciones);
 		PlayListDao playlistDAO = factoria.getPlayListDAO();
 		playlistDAO.agregarPlaylist(playlist);
-		//playlistDAO.updatePlayList(playlist);
+		// playlistDAO.updatePlayList(playlist);
 
 		RepositorioPlayList.INSTANCE.addPlaylist(playlist);
 		addPlaylistToCurrentUser(playlist);
-		//factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
+		// factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 
 	}
 
-	public void borrarListaCanciones(PlayList nombre) {
-		if (usuarioActual.removePlayList(nombre)) {
+	public void borrarListaCanciones(PlayList playlist) {
+		if (usuarioActual.removePlayList(playlist)) {
+			RepositorioPlayList.INSTANCE.deletePlaylist(playlist);
+			playlistActual = null;
+			usuarioActual.borrarPlaylist(playlist);
 			factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 		}
 
@@ -227,20 +231,19 @@ public enum Controlador {
 
 	public void hacerPremium() {
 		usuarioActual.realizarPago();
-		//RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
+		// RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
 		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 	}
 
 	public void salirPremium() {
 		usuarioActual.setPremium(false);
-		//RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
+		// RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
 		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 	}
 
 	public Boolean comprobarDescuento(String opcionSeleccionada) {
 		return usuarioActual.comprobarDescuento(opcionSeleccionada);
 	}
-
 
 	public void addCancionesToPlaylist(PlayList playlist, List<Cancion> canciones) {
 		for (Cancion c : canciones) {
@@ -265,6 +268,20 @@ public enum Controlador {
 		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 
 	}
+
+	public PlayList obtenerPlaylistActual() {
+
+		return playlistActual;
+	}
+
+	public void establecerPlaylistActual(PlayList playlistSeleccionada) {
+		this.playlistActual = playlistSeleccionada;
+		
+	}
+
+
+	
+	
 
 	// TODO: si ponemos los metodos de reproduccion de playlist aqui, poner en
 	// play() q se actualice la lista de canciones

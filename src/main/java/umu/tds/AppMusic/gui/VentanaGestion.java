@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 import umu.tds.AppMusic.controlador.Controlador;
 import umu.tds.AppMusic.modelo.Cancion;
+import umu.tds.AppMusic.modelo.PlayList;
 
 public class VentanaGestion extends JPanel {
 
@@ -127,6 +128,29 @@ public class VentanaGestion extends JPanel {
 
 		btnEliminar = new JButton("Eliminar");
 		panel_botones.add(btnEliminar);
+		btnEliminar.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	if(Controlador.INSTANCE.obtenerPlaylistActual()!=null) {
+	        		//TODO:hacer que se elimine la playlist seleccionada
+		        	PlayList p = Controlador.INSTANCE.obtenerPlaylistActual();
+		        	int respuesta = JOptionPane
+							.showConfirmDialog(null,
+									"¿Quieres eliminar playlist \""
+											+ p.getNombre() + "\"?",
+									"Eliminar Canciones", JOptionPane.YES_NO_OPTION);
+					if (respuesta == JOptionPane.YES_OPTION) {
+						Controlador.INSTANCE.borrarListaCanciones(p);
+						JOptionPane.showMessageDialog(panel, "La playlist se ha eliminado",
+								"Playlist eliminada", JOptionPane.INFORMATION_MESSAGE);
+					}
+	        	}
+	        	else {
+	        		JOptionPane.showMessageDialog(panel, "No hay ninguna playlist seleccionada",
+							"Error", JOptionPane.INFORMATION_MESSAGE);
+	        	}
+	        	
+	        }
+	    });
 
 		JPanel panelControlMusica = new JPanel();
 		add(panelControlMusica, BorderLayout.SOUTH);

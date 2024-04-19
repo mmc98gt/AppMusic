@@ -425,6 +425,7 @@ public class VentanaPrincipal {
 				if (!event.getValueIsAdjusting() && playlistList.getSelectedIndex() != -1) {
 					int selectedRowIndex = playlistList.getSelectedIndex();
 					PlayList playlistSeleccionada = playlists.get(selectedRowIndex);
+					Controlador.INSTANCE.establecerPlaylistActual(playlistSeleccionada);
 					System.out.println("AAAAA");
 					if (!playlistSeleccionada.getCanciones().isEmpty()) {
 						System.out.println("gsdfs");

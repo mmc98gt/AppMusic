@@ -200,4 +200,8 @@ public class Usuario {
 		}
 		return false;
 	}
+	
+	public void borrarPlaylist(PlayList playlist) {
+        playlists.remove(playlist);
+    }
 }
