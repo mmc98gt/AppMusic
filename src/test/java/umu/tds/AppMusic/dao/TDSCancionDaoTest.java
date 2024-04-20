@@ -32,7 +32,7 @@ public class TDSCancionDaoTest {
     public void testAgregarCancion() {
         EstiloMusical estilo = new EstiloMusical("Rock");
         Interprete interprete = new Interprete("Interprete Test");
-        Cancion cancion = new Cancion("Titulo Test", "Ruta Test", estilo, interprete);
+        Cancion cancion = new Cancion("Titulo Test", "Ruta Test", estilo.getNombre(), interprete.getNombre());
         cancionDao.agregarCancion(cancion);
 
         Cancion retrievedCancion = cancionDao.obtenerCancionPorTitulo("Titulo Test");
@@ -43,7 +43,7 @@ public class TDSCancionDaoTest {
     public void testActualizarCancion() {
         EstiloMusical estilo = new EstiloMusical("Pop");
         Interprete interprete = new Interprete("Interprete Test");
-        Cancion cancion = new Cancion("Titulo Test2", "Ruta Test", estilo, interprete);
+        Cancion cancion = new Cancion("Titulo Test2", "Ruta Test", estilo.getNombre(), interprete.getNombre());
         cancionDao.agregarCancion(cancion);
 
         cancion.setRutaFichero("Ruta Actualizada");
@@ -57,7 +57,7 @@ public class TDSCancionDaoTest {
     public void testEliminarCancion() {
         EstiloMusical estilo = new EstiloMusical("Jazz");
         Interprete interprete = new Interprete("Interprete Test");
-        Cancion cancion = new Cancion("Titulo Test3", "Ruta Test", estilo, interprete);
+        Cancion cancion = new Cancion("Titulo Test3", "Ruta Test", estilo.getNombre(), interprete.getNombre());
         cancionDao.agregarCancion(cancion);
 
         cancionDao.eliminarCancion(cancion);

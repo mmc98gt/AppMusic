@@ -22,7 +22,7 @@ public class RepositorioUsuariosTest {
 	@Before
 	public void setUp() {
 		repositorio = RepositorioUsuarios.INSTANCE;
-		usuarioTest = new Usuario("testUser", "Test", "test.user@example.com", "testuser", "testpass", "01/01/1990");
+		usuarioTest = new Usuario("testUser", "Test", "test.user@example.com", "testuser",false, "testpass", "01/01/1990");
 		usuarioTest.setId(999);
 		repositorio.addUsuario(usuarioTest);
 	}

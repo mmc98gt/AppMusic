@@ -26,7 +26,7 @@ public class TDSUsuarioDAOTest {
 
     @Test
     public void testAgregarUsuario() {
-        Usuario usuario = new Usuario("nombreTest2", "apellidosTest2", "emailTest2@test.com", "loginTest2", "passwordTest2", "02/02/2000");
+        Usuario usuario = new Usuario("nombreTest2", "apellidosTest2", "emailTest2@test.com", "loginTest2",false, "passwordTest2", "02/02/2000");
 		UsuarioDao usuarioDAO = factoria.getUsuarioDAO();
         usuarioDAO.agregarUsuario(usuario);
 
@@ -38,7 +38,7 @@ public class TDSUsuarioDAOTest {
     public void testActualizarUsuario() {
         UsuarioDao usuarioDAO = factoria.getUsuarioDAO();
 
-        Usuario usuario = new Usuario("nombreTest3", "apellidosTest3", "emailTest3@test.com", "loginTest3", "passwordTest3", "03/03/2000");
+        Usuario usuario = new Usuario("nombreTest3", "apellidosTest3", "emailTest3@test.com", "loginTest3",false,"passwordTest3", "03/03/2000");
         usuarioDAO.agregarUsuario(usuario);
 
         usuario.setNombre("nombreTest3Updated");
@@ -53,7 +53,7 @@ public class TDSUsuarioDAOTest {
     public void testEliminarUsuario() {
         UsuarioDao usuarioDAO = factoria.getUsuarioDAO();
 
-        Usuario usuario = new Usuario("nombreTest4", "apellidosTest4", "emailTest4@test.com", "loginTest4", "passwordTest4", "04/04/2000");
+        Usuario usuario = new Usuario("nombreTest4", "apellidosTest4", "emailTest4@test.com", "loginTest4",false, "passwordTest4", "04/04/2000");
         usuarioDAO.agregarUsuario(usuario);
 
         usuarioDAO.eliminarUsuario("nombreTest4");
@@ -66,7 +66,7 @@ public class TDSUsuarioDAOTest {
     public void testObtenerUsuarioPorNombre() {
         UsuarioDao usuarioDAO = factoria.getUsuarioDAO();
 
-        Usuario usuario = new Usuario("nombreTest5", "apellidosTest5", "emailTest5@test.com", "loginTest5", "passwordTest5", "05/05/2000");
+        Usuario usuario = new Usuario("nombreTest5", "apellidosTest5", "emailTest5@test.com", "loginTest5",false, "passwordTest5", "05/05/2000");
         usuarioDAO.agregarUsuario(usuario);
 
         Usuario retrievedUser = usuarioDAO.obtenerUsuarioPorNombre("nombreTest5");

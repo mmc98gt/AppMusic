@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AbstractDocument.Content;
 
 import javafx.scene.media.Media;
@@ -23,6 +24,7 @@ import umu.tds.AppMusic.modelo.Usuario;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -255,7 +257,18 @@ public class VentanaPrincipal {
 			panelBotones.add(btnDescargarPDF, gbc_btnNewButton_6);
 			btnDescargarPDF.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// TODO:implementar
+
+					boolean success = Controlador.INSTANCE.crearPDF();
+
+					if (!success) {
+						JOptionPane.showMessageDialog(frmVentanaPrincipal, "Error al generar PDF", "Fallo PDF",
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+					else {
+						JOptionPane.showMessageDialog(frmVentanaPrincipal, "PDF generado correctamente", "Descarga PDF",
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+
 				}
 			});
 		}

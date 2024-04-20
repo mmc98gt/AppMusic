@@ -16,7 +16,7 @@ public class UsuarioTest {
 
 	@Before
 	public void setUp() {
-		usuario = new Usuario("Juan", "Pérez", "juan.perez@example.com", "juanperez", "1234", "01/01/2000");
+		usuario = new Usuario("Juan", "Pérez", "juan.perez@example.com", "juanperez",false, "1234", "01/01/2000");
 	}
 
 	@Test

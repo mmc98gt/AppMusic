@@ -1,6 +1,14 @@
 package umu.tds.AppMusic.controlador;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
+
+import org.kohsuke.github.GHUser;
+import org.kohsuke.github.GitHub;
+import org.kohsuke.github.GitHubBuilder;
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -13,6 +21,7 @@ import umu.tds.AppMusic.dao.UsuarioDao;
 import umu.tds.AppMusic.gui.LoginView;
 import umu.tds.AppMusic.gui.VentanaPrincipal;
 import umu.tds.AppMusic.modelo.Cancion;
+import umu.tds.AppMusic.modelo.CreadorPDF;
 import umu.tds.AppMusic.modelo.Descuento;
 import umu.tds.AppMusic.modelo.EstiloMusical;
 import umu.tds.AppMusic.modelo.Interprete;
@@ -73,6 +82,25 @@ public enum Controlador {
 		}
 		return false;
 	}
+	
+	public boolean loginUsuarioGitHub(String nombre, String password) {
+		//TODO: acepta cualquier usuario
+		GitHub github;
+		try {
+			github = new GitHubBuilder().withPassword(nombre, password).build();
+			System.out.println("¿Login válido?:" + github.isCredentialValid());
+			if(github.isCredentialValid()) {
+				GHUser user = github.getUser(nombre);
+				System.out.println(user.getEmail()); 
+				return true;
+			}return false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 
 	/**
 	 * Registra un nuevo usuario en el sistema.
@@ -291,6 +319,16 @@ public enum Controlador {
 		 
 	}
 
+	public boolean crearPDF(){
+        CreadorPDF creador = new CreadorPDF(usuarioActual);
+       
+        try {
+        	creador.crearPDF();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 
 	
 	
