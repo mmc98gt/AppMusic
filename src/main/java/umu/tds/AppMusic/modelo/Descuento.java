@@ -13,13 +13,7 @@ import java.util.Set;
 
 public interface Descuento {
 	// Patrón estrategia
-	public double aplicarDescuento(double precio);
-
-	/*
-	 * static List<String> descuentos() { List<String> descuentos = new
-	 * ArrayList<String>(); Collections.addAll(descuentos,"-", "descuentoJoven",
-	 * "descuentoFijo"); return descuentos; }
-	 */
+	
 	
 	
 	static Set<Descuento> descuentos() {

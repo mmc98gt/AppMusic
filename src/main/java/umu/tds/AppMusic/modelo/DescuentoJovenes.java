@@ -52,11 +52,7 @@ public class DescuentoJovenes implements Descuento {
 		this.porcentajeDescuento = porcentajeDescuento;
 	}
 
-	@Override
-	public double aplicarDescuento(double precio) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 	@Override
 	public String getDescuento() {
@@ -74,7 +70,6 @@ public class DescuentoJovenes implements Descuento {
 			Date fecha2 = dateFormat.parse(usuario.getFechaNacimiento());
 			return fecha.before(fecha2);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	

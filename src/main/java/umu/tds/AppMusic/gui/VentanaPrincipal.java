@@ -84,6 +84,7 @@ public class VentanaPrincipal {
 	}
 
 	private void initialize() {
+
 		frmVentanaPrincipal = new JFrame();
 		frmVentanaPrincipal.setTitle("AppMusic");
 		frmVentanaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,6 +94,7 @@ public class VentanaPrincipal {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		frmVentanaPrincipal.setContentPane(contentPane);
+		panel_Listas.setVisible(false);
 
 		usuarioActual = Controlador.INSTANCE.getUsuarioActual();
 		textoBienvenida = "Bienvenido, " + (usuarioActual != null ? usuarioActual.getNombre() : "Invitado");
@@ -145,16 +147,7 @@ public class VentanaPrincipal {
 		///////////////////////////////////////////
 
 		JPanel panelGestion = new JPanel();
-		panelCardLayout.add(panelGestion, "panelGestion");
-
-		JLabel lblPanelgestion = new JLabel("PanelGestion");
-		panelGestion.add(lblPanelgestion);
-
-		JPanel panelRecientes = new JPanel();
-		panelCardLayout.add(panelRecientes, "panelRecientes");
-
-		JPanel panelPlaylists = new JPanel();
-		panelCardLayout.add(panelPlaylists, "panelPlaylists");
+		panelCardLayout.add(panelGestion, " ");
 
 		// PANEL BOTONES
 		JPanel panelBotones = new JPanel();
@@ -263,8 +256,7 @@ public class VentanaPrincipal {
 					if (!success) {
 						JOptionPane.showMessageDialog(frmVentanaPrincipal, "Error al generar PDF", "Fallo PDF",
 								JOptionPane.INFORMATION_MESSAGE);
-					}
-					else {
+					} else {
 						JOptionPane.showMessageDialog(frmVentanaPrincipal, "PDF generado correctamente", "Descarga PDF",
 								JOptionPane.INFORMATION_MESSAGE);
 					}
@@ -286,7 +278,7 @@ public class VentanaPrincipal {
 		panel_Listas.add(scrollPane, BorderLayout.CENTER);
 		JButton btnPlaylist = new JButton("Mis Playlists");
 		btnPlaylist.addActionListener(e -> {
-
+			panel_Listas.setVisible(true);
 			obtenerListaPlaylist();
 
 		});
@@ -428,7 +420,6 @@ public class VentanaPrincipal {
 		List<PlayList> playlists = Controlador.INSTANCE.obtenerPlaylistsUsuario();
 		for (PlayList playlist : playlists) {
 			listModel.addElement(playlist.getNombre());
-			System.out.println(playlist.getNombre());
 		}
 
 		playlistList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

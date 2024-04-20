@@ -31,11 +31,7 @@ public class DescuentoFijo implements Descuento {
 		return precio*porcentajeDescuento;
 	}
 
-	@Override
-	public double aplicarDescuento(double precio) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 	@Override
 	public String getDescuento() {
