@@ -63,6 +63,7 @@ public class VentanaPrincipal {
 	private JList<String> playlistList;
 	private JScrollPane scrollPane;
 	private DefaultListModel<String> listModel;
+	private TablaCanciones tablaCanciones = new TablaCanciones();
 
 	private MediaPlayer mediaPlayer;
 	private String tempPath;
@@ -414,6 +415,7 @@ public class VentanaPrincipal {
 
 	public void obtenerListaPlaylist() {
 
+		List<Cancion> canciones;
 		panel_Listas.setBorder(new TitledBorder(null, "Listas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
 		listModel.clear();
@@ -431,10 +433,10 @@ public class VentanaPrincipal {
 					int selectedRowIndex = playlistList.getSelectedIndex();
 					PlayList playlistSeleccionada = playlists.get(selectedRowIndex);
 					Controlador.INSTANCE.establecerPlaylistActual(playlistSeleccionada);
-					if (!playlistSeleccionada.getCanciones().isEmpty()) {
-						actualizarTabla(playlistSeleccionada.getCanciones());
-					}
-
+					tablaCanciones.mostrarResultadosEnTabla(playlistSeleccionada.getCanciones());
+					panelCardLayout.add(tablaCanciones, "panelTabla");
+					CardLayout card = (CardLayout) panelCardLayout.getLayout();
+					card.show(panelCardLayout, "panelTabla");
 				}
 			}
 		});
@@ -442,9 +444,12 @@ public class VentanaPrincipal {
 	}
 
 	public void actualizarTabla(List<Cancion> resultados) {
-		TablaCanciones tablaCanciones = new TablaCanciones(resultados);
-		panelCardLayout.add(tablaCanciones, "panelTabla");
-		CardLayout card = (CardLayout) panelCardLayout.getLayout();
-		card.show(panelCardLayout, "panelTabla");
+
+		/*
+		 * TablaCanciones tablaCanciones = new TablaCanciones();
+		 * panelCardLayout.add(tablaCanciones, "panelTabla"); CardLayout card =
+		 * (CardLayout) panelCardLayout.getLayout(); card.show(panelCardLayout,
+		 * "panelTabla");
+		 */
 	}
 }

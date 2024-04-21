@@ -19,16 +19,14 @@ public class TablaCanciones extends JPanel{
 
 	private JFrame frame;
 	 private JPanel panel_tabla;
-	 private List<Cancion> resultados;
 
 	
 
 	/**
 	 * Create the application.
 	 */
-	public TablaCanciones(List<Cancion> resultados) {
+	public TablaCanciones() {
 		initialize();
-		this.resultados=resultados;
 	}
 
 	/**
@@ -48,13 +46,13 @@ public class TablaCanciones extends JPanel{
 		panel.setLayout(gbl_panel);
         panel_tabla = new JPanel(new BorderLayout());
         add(panel_tabla, BorderLayout.CENTER);
-        mostrarResultadosEnTabla();
+        
         
         
 	}
 	
-	private void mostrarResultadosEnTabla() {
-		Tabla tableModel = new Tabla(resultados);
+	public void mostrarResultadosEnTabla(List<Cancion> canciones) {
+		Tabla tableModel = new Tabla(canciones);
 	    JTable table = new JTable(tableModel);
 
 	    panel_tabla.removeAll();
@@ -67,7 +65,7 @@ public class TablaCanciones extends JPanel{
 	            if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
 	                // Obtener la canción seleccionada
 	                int selectedRowIndex = table.getSelectedRow();
-	                Cancion cancionSeleccionada = resultados.get(selectedRowIndex);
+	                Cancion cancionSeleccionada = canciones.get(selectedRowIndex);
 	            //    setCancionActual(cancionSeleccionada);
 	                // Aquí puedes llamar a cualquier método que necesites para reproducir la canción
 	            }
