@@ -162,25 +162,11 @@ public class TDSCancionDao implements CancionDao {
 
 	@Override
 	public Cancion obtenerCancionPorId(Integer id) {
-		return servPersistencia.recuperarEntidades(CANCION).stream()
-				.filter(eCancion -> servPersistencia.recuperarPropiedadEntidad(eCancion, ID).equals(id))
-				.findFirst().map(this::entidadToCancion).orElse(null);
-	/*	Entidad entidad = servPersistencia.recuperarEntidad(id);
-		String titulo = servPersistencia.recuperarPropiedadEntidad(entidad, TITULO);
-		String rutaFichero = servPersistencia.recuperarPropiedadEntidad(entidad, RUTA_FICHERO);
-		String numReproduccionesStr = servPersistencia.recuperarPropiedadEntidad(entidad, NUM_REPRODUCCIONES);
-		String estilo = servPersistencia.recuperarPropiedadEntidad(entidad, ESTILO_MUSICAL);
-		String interprete = servPersistencia.recuperarPropiedadEntidad(entidad, INTERPRETE);
-		int numReproducciones = Integer.parseInt(numReproduccionesStr);
-
-
-		Cancion cancion = new Cancion(titulo, rutaFichero, estilo, interprete);
-		for (int i = 0; i < numReproducciones; i++) {
-			cancion.incrementarReproducciones();
-		}
-		
-
-		cancion.setId(id);
-		return cancion;*/
+	    Entidad entidad = servPersistencia.recuperarEntidad(id);
+	    if (entidad == null) {
+	        // Handle this case, maybe log an error or throw
+	        return null;
+	    }
+	    return entidadToCancion(entidad);
 	}
 }
