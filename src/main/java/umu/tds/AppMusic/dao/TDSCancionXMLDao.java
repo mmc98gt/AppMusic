@@ -6,6 +6,7 @@ import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.EstiloMusical;
 import umu.tds.AppMusic.modelo.Interprete;
 import umu.tds.AppMusic.cargadorCanciones.MapperCancionesXMLtoJava;
+import umu.tds.AppMusic.controlador.Controlador;
 import umu.tds.AppMusic.cargadorCanciones.CancionXml;
 import umu.tds.AppMusic.cargadorCanciones.Canciones;
 
@@ -81,7 +82,9 @@ public class TDSCancionXMLDao implements CancionDao {
         // Debes implementar la lógica de conversión aquí, por ejemplo:
         EstiloMusical estilo = new EstiloMusical(cancionXML.getEstilo());
         Interprete interprete = new Interprete(cancionXML.getInterprete());
-        return new Cancion(cancionXML.getTitulo(), cancionXML.getURL(), estilo.getNombre(), interprete.getNombre());
+        Cancion cancion = new Cancion(cancionXML.getTitulo(), cancionXML.getURL(), estilo.getNombre(), interprete.getNombre());
+        Controlador.INSTANCE.agregarCancion(cancion);
+        return cancion;
     }
 
 	@Override

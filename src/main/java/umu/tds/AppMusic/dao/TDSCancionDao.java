@@ -47,9 +47,6 @@ public class TDSCancionDao implements CancionDao {
 		String interprete = servPersistencia.recuperarPropiedadEntidad(eCancion, INTERPRETE);
 		int numReproducciones = Integer.parseInt(numReproduccionesStr);
 
-		//TODO
-	//	EstiloMusical estilo = new EstiloMusical(""); // Lógica pendiente
-	//	Interprete interprete = new Interprete(""); // Lógica pendiente
 
 		Cancion cancion = new Cancion(titulo, rutaFichero, estilo, interprete);
 		for (int i = 0; i < numReproducciones; i++) {
@@ -70,9 +67,7 @@ public class TDSCancionDao implements CancionDao {
 	private Entidad cancionToEntidad(Cancion cancion) {
 		Entidad eCancion = new Entidad();
 		eCancion.setNombre(CANCION);
-//TODO
-		String estiloId = ""; // Lógica pendiente
-		String interpreteId = ""; // Lógica pendiente 
+
 
 		eCancion.setPropiedades(new ArrayList<>(Arrays.asList(new Propiedad(TITULO, cancion.getTitulo()),
 				new Propiedad(RUTA_FICHERO, cancion.getRutaFichero()),
@@ -88,7 +83,7 @@ public class TDSCancionDao implements CancionDao {
 	 */
 	public void agregarCancion(Cancion cancion) {
 		Entidad eCancion = this.cancionToEntidad(cancion);
-		servPersistencia.registrarEntidad(eCancion);
+		eCancion = servPersistencia.registrarEntidad(eCancion);
 		cancion.setId(eCancion.getId());
 	}
 
@@ -170,5 +165,22 @@ public class TDSCancionDao implements CancionDao {
 		return servPersistencia.recuperarEntidades(CANCION).stream()
 				.filter(eCancion -> servPersistencia.recuperarPropiedadEntidad(eCancion, ID).equals(id))
 				.findFirst().map(this::entidadToCancion).orElse(null);
+	/*	Entidad entidad = servPersistencia.recuperarEntidad(id);
+		String titulo = servPersistencia.recuperarPropiedadEntidad(entidad, TITULO);
+		String rutaFichero = servPersistencia.recuperarPropiedadEntidad(entidad, RUTA_FICHERO);
+		String numReproduccionesStr = servPersistencia.recuperarPropiedadEntidad(entidad, NUM_REPRODUCCIONES);
+		String estilo = servPersistencia.recuperarPropiedadEntidad(entidad, ESTILO_MUSICAL);
+		String interprete = servPersistencia.recuperarPropiedadEntidad(entidad, INTERPRETE);
+		int numReproducciones = Integer.parseInt(numReproduccionesStr);
+
+
+		Cancion cancion = new Cancion(titulo, rutaFichero, estilo, interprete);
+		for (int i = 0; i < numReproducciones; i++) {
+			cancion.incrementarReproducciones();
+		}
+		
+
+		cancion.setId(id);
+		return cancion;*/
 	}
 }

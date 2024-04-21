@@ -223,6 +223,33 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 		return servPersistencia.recuperarEntidades(USUARIO).stream().map(this::entidadToUsuario)
 				.collect(Collectors.toCollection(LinkedList::new));
 	}
+	
+	/**
+	 
+	Elimina todos los usuarios de la base de datos.
+	@return Verdadero si todos los usuarios fueron eliminados con éxito, falso si ocurrió algún error.
+	*/
+	public boolean eliminarTodosLosUsuarios() {
+	    try {
+	        // Recupera todas las entidades de tipo "Usuario"
+	        List<Entidad> entidades = servPersistencia.recuperarEntidades(USUARIO);
+
+	        // Elimina cada entidad correspondiente a un usuario
+	        for (Entidad eUsuario : entidades) {
+	            if (!servPersistencia.borrarEntidad(eUsuario)) {
+	                // Si no se pudo eliminar alguna entidad, retorna falso
+	                return false;
+	            }
+	        }
+
+	        // Si todas las entidades fueron eliminadas correctamente, retorna verdadero
+	        return true;
+	    } catch (Exception e) {
+	        // En caso de excepción, imprime la pila de excepción y retorna falso
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
 
 	private String obtenerIdPlaylist(List<PlayList> list) {
 		return list.stream().map(song -> Integer.toString(song.getId())).collect(Collectors.joining(" "));

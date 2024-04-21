@@ -329,6 +329,13 @@ public enum Controlador {
         return true;
     }
 
+	public void agregarCancion(Cancion cancion) {
+		factoria.getCancionDAO().agregarCancion(cancion);
+		
+	}
+
+	
+
 	
 	
 
