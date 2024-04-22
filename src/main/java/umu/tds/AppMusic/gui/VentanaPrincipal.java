@@ -321,13 +321,15 @@ public class VentanaPrincipal {
 	}
 
 	// Método para reproducir una canción
-	private void playCancion() {
+/*	private void playCancion() throws FileNotFoundException {
 		if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED) {
 			mediaPlayer.play();
 			return;
 		}
 		stopCancion();
-		String url = VentanaBuscar.getDirecion();
+	//TODO	String url = VentanaBuscar.getDirecion();
+		Cancion c = Controlador.INSTANCE.obtenerCancionActual();
+		String url = c.getRutaFichero();
 		try {
 			com.sun.javafx.application.PlatformImpl.startup(() -> {
 			});
@@ -355,10 +357,10 @@ public class VentanaPrincipal {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	// Método para detener la reproducción
-	private void stopCancion() {
+/*	private void stopCancion() {
 		if (mediaPlayer != null) {
 			mediaPlayer.stop();
 			mediaPlayer.dispose();
@@ -374,14 +376,14 @@ public class VentanaPrincipal {
 				}
 			}
 		}
-	}
+	}*/
 
 	// Método para pausar la reproducción de la canción
-	private void pauseCancion() {
+/*	private void pauseCancion() {
 		if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
 			mediaPlayer.pause();
 		}
-	}
+	}*/
 
 	// Añadir botones de control de música en el panel sur
 	private void agregarBotonesControlMusica(JPanel panel_sur) {
@@ -401,9 +403,31 @@ public class VentanaPrincipal {
 		btnCancionSiguiente
 				.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/siguiente32.png")));
 
-		btnReproducirCancion.addActionListener(e -> playCancion());
-		btnDetenerCancion.addActionListener(e -> stopCancion());
-		btnPausarCancion.addActionListener(e -> pauseCancion());
+		btnReproducirCancion.addActionListener(e -> {
+			try {
+				Controlador.INSTANCE.play();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		btnDetenerCancion.addActionListener(e -> Controlador.INSTANCE.stop());
+		btnPausarCancion.addActionListener(e -> Controlador.INSTANCE.pause());
+		btnCancionSiguiente.addActionListener(e -> {
+			try {
+				Controlador.INSTANCE.siguiente();
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+		});
+		btnCancionAnterior.addActionListener(e -> {
+			try {
+				Controlador.INSTANCE.anterior();
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+		});
+		
 
 		// Añadir botones al panel
 		panel_sur.add(btnCancionAnterior);
@@ -415,7 +439,6 @@ public class VentanaPrincipal {
 
 	public void obtenerListaPlaylist() {
 
-		List<Cancion> canciones;
 		panel_Listas.setBorder(new TitledBorder(null, "Listas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
 		listModel.clear();
@@ -443,13 +466,5 @@ public class VentanaPrincipal {
 
 	}
 
-	public void actualizarTabla(List<Cancion> resultados) {
 
-		/*
-		 * TablaCanciones tablaCanciones = new TablaCanciones();
-		 * panelCardLayout.add(tablaCanciones, "panelTabla"); CardLayout card =
-		 * (CardLayout) panelCardLayout.getLayout(); card.show(panelCardLayout,
-		 * "panelTabla");
-		 */
-	}
 }

@@ -78,13 +78,7 @@ public class VentanaBuscar extends JPanel {
 		panel.setLayout(gbl_panel);
         panel_tabla = new JPanel(new BorderLayout());
         add(panel_tabla, BorderLayout.CENTER);
-		/*
-		 * GridBagLayout gbl_panel = new GridBagLayout(); gbl_panel.columnWidths = new
-		 * int[]{10, 186, 186, 10, 0}; gbl_panel.rowHeights = new int[]{10, 50, 50, 50,
-		 * 10, 0}; gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0,
-		 * Double.MIN_VALUE}; gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0,
-		 * 0.0, Double.MIN_VALUE}; setLayout(gbl_panel);
-		 */
+		
 
         // Etiqueta para Intérprete
         JLabel lblInterprete = new JLabel("Intérprete");
@@ -189,7 +183,8 @@ public class VentanaBuscar extends JPanel {
 	                // Obtener la canción seleccionada
 	                int selectedRowIndex = table.getSelectedRow();
 	                Cancion cancionSeleccionada = resultados.get(selectedRowIndex);
-	                setCancionActual(cancionSeleccionada);
+	             //TODO   setCancionActual(cancionSeleccionada);
+	                Controlador.INSTANCE.establecerCancionActual(cancionSeleccionada,selectedRowIndex);
 	                // Aquí puedes llamar a cualquier método que necesites para reproducir la canción
 	            }
 	        }

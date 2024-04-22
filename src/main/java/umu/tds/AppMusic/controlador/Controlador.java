@@ -1,6 +1,7 @@
 package umu.tds.AppMusic.controlador;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Date;
 
@@ -26,6 +27,7 @@ import umu.tds.AppMusic.modelo.Descuento;
 import umu.tds.AppMusic.modelo.EstiloMusical;
 import umu.tds.AppMusic.modelo.Interprete;
 import umu.tds.AppMusic.modelo.PlayList;
+import umu.tds.AppMusic.modelo.Reproductor;
 import umu.tds.AppMusic.modelo.Usuario;
 
 /**
@@ -38,6 +40,8 @@ public enum Controlador {
 	private Usuario usuarioActual;
 	private FactoriaDao factoria;
 	private PlayList playlistActual;
+	private Cancion cancionActual;
+	private int indexCancion;
 
 	private Controlador() {
 		usuarioActual = null;
@@ -185,7 +189,7 @@ public enum Controlador {
 	 * @return Lista de canciones que coinciden con los criterios.
 	 */
 	public List<Cancion> buscarCanciones(String interprete, String titulo, boolean esFavorita, EstiloMusical estilo) {
-		return RepositorioCanciones.INSTANCE.findAllCanciones().stream()
+		 List<Cancion> canciones = RepositorioCanciones.INSTANCE.findAllCanciones().stream()
 				.filter(cancion -> (interprete == null || interprete.isEmpty()
 						|| cancion.getInterprete().toLowerCase().contains(interprete.toLowerCase()))
 						&& (titulo == null || titulo.isEmpty()
@@ -193,6 +197,9 @@ public enum Controlador {
 						&& (!esFavorita || cancionEsFavorita(cancion))
 						&& (estilo == null || cancion.getEstilo().equals(estilo)))
 				.collect(Collectors.toList());
+		 PlayList busqueda = new PlayList("busqueda", canciones);
+		 playlistActual = busqueda;
+		 return canciones;
 	}
 
 	/**
@@ -334,7 +341,37 @@ public enum Controlador {
 		
 	}
 
+	public Cancion obtenerCancionActual() {
+
+		return cancionActual;
+	}
+
+	public void establecerCancionActual(Cancion cancion, int i) {
+		this.cancionActual = cancion;
+		this.indexCancion = i;
+		
+	}
 	
+	public void play() throws FileNotFoundException {
+		Reproductor.INSTANCE.play(cancionActual);
+	}
+	
+	public void stop() {
+		Reproductor.INSTANCE.stop();
+	}
+	
+	public void pause() {
+		Reproductor.INSTANCE.pauseCancion();
+	}
+	
+	public void siguiente() throws FileNotFoundException {
+		 Reproductor.INSTANCE.siguiente(playlistActual, indexCancion);
+		
+	}
+
+	public void anterior() throws FileNotFoundException {
+		 Reproductor.INSTANCE.anterior(playlistActual, indexCancion);	
+	}
 
 	
 	

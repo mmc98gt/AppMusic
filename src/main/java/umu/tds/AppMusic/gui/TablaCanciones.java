@@ -13,6 +13,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import umu.tds.AppMusic.controlador.Controlador;
 import umu.tds.AppMusic.modelo.Cancion;
 
 public class TablaCanciones extends JPanel{
@@ -67,6 +68,7 @@ public class TablaCanciones extends JPanel{
 	                int selectedRowIndex = table.getSelectedRow();
 	                Cancion cancionSeleccionada = canciones.get(selectedRowIndex);
 	            //    setCancionActual(cancionSeleccionada);
+	                Controlador.INSTANCE.establecerCancionActual(cancionSeleccionada,selectedRowIndex);
 	                // Aquí puedes llamar a cualquier método que necesites para reproducir la canción
 	            }
 	        }
