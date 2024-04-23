@@ -1,53 +1,43 @@
 package umu.tds.AppMusic.gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 
 import umu.tds.AppMusic.controlador.Controlador;
 import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.EstiloMusical;
-import umu.tds.AppMusic.modelo.PlayList;
-
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import javax.swing.JLabel;
-import javax.swing.JList;
 
 public class VentanaBuscar extends JPanel {
 
 	private JTextField txtIntrprete;
 	private JTextField txtTtulo;
-	private JComboBox comboBox;
 	private JCheckBox chckbxFavoritas;
+	private JComboBox comboBox;
 	private JButton btnBuscar;
-	private JPanel panelb;
-    private JPanel panel_tabla;
-    private JTable table;
-    private List<Cancion> resultadoActual;
-    private static Cancion cancionActual;
-    private JButton btnAnadirLista;
+	private JPanel panel_tabla;
+	private JTable table;
+	private List<Cancion> resultadoActual;
+	private static Cancion cancionActual;
+	private JButton btnAnadirLista;
+
 	/**
 	 * Launch the application.
 	 */
@@ -76,45 +66,44 @@ public class VentanaBuscar extends JPanel {
 		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0 };
 		gbl_panel.rowWeights = new double[] { Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
-        panel_tabla = new JPanel(new BorderLayout());
-        add(panel_tabla, BorderLayout.CENTER);
-		
+		panel_tabla = new JPanel(new BorderLayout());
+		add(panel_tabla, BorderLayout.CENTER);
 
-        // Etiqueta para Intérprete
-        JLabel lblInterprete = new JLabel("Intérprete");
-        GridBagConstraints gbc_lblInterprete = new GridBagConstraints();
-        gbc_lblInterprete.insets = new Insets(0, 0, 5, 5);
-        gbc_lblInterprete.gridx = 1;
-        gbc_lblInterprete.gridy = 0;
-        panel.add(lblInterprete, gbc_lblInterprete);
+		// Etiqueta para Intérprete
+		JLabel lblInterprete = new JLabel("Intérprete");
+		GridBagConstraints gbc_lblInterprete = new GridBagConstraints();
+		gbc_lblInterprete.insets = new Insets(0, 0, 5, 5);
+		gbc_lblInterprete.gridx = 1;
+		gbc_lblInterprete.gridy = 0;
+		panel.add(lblInterprete, gbc_lblInterprete);
 
-        // Campo de texto para Intérprete
-        txtIntrprete = new JTextField();
-        GridBagConstraints gbc_txtIntrprete = new GridBagConstraints();
-        gbc_txtIntrprete.insets = new Insets(0, 0, 5, 5);
-        gbc_txtIntrprete.fill = GridBagConstraints.HORIZONTAL;
-        gbc_txtIntrprete.gridx = 1;
-        gbc_txtIntrprete.gridy = 1;
-        panel.add(txtIntrprete, gbc_txtIntrprete);
-        txtIntrprete.setColumns(10);
+		// Campo de texto para Intérprete
+		txtIntrprete = new JTextField();
+		GridBagConstraints gbc_txtIntrprete = new GridBagConstraints();
+		gbc_txtIntrprete.insets = new Insets(0, 0, 5, 5);
+		gbc_txtIntrprete.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtIntrprete.gridx = 1;
+		gbc_txtIntrprete.gridy = 1;
+		panel.add(txtIntrprete, gbc_txtIntrprete);
+		txtIntrprete.setColumns(10);
 
-        // Etiqueta para Título
-        JLabel lblTitulo = new JLabel("Título");
-        GridBagConstraints gbc_lblTitulo = new GridBagConstraints();
-        gbc_lblTitulo.insets = new Insets(0, 0, 5, 5);
-        gbc_lblTitulo.gridx = 3;
-        gbc_lblTitulo.gridy = 0;
-        panel.add(lblTitulo, gbc_lblTitulo);
+		// Etiqueta para Título
+		JLabel lblTitulo = new JLabel("Título");
+		GridBagConstraints gbc_lblTitulo = new GridBagConstraints();
+		gbc_lblTitulo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTitulo.gridx = 3;
+		gbc_lblTitulo.gridy = 0;
+		panel.add(lblTitulo, gbc_lblTitulo);
 
-        // Campo de texto para Título
-        txtTtulo = new JTextField();
-        GridBagConstraints gbc_txtTtulo = new GridBagConstraints();
-        gbc_txtTtulo.insets = new Insets(0, 0, 5, 5);
-        gbc_txtTtulo.fill = GridBagConstraints.HORIZONTAL;
-        gbc_txtTtulo.gridx = 3;
-        gbc_txtTtulo.gridy = 1;
-        panel.add(txtTtulo, gbc_txtTtulo);
-        txtTtulo.setColumns(10);
+		// Campo de texto para Título
+		txtTtulo = new JTextField();
+		GridBagConstraints gbc_txtTtulo = new GridBagConstraints();
+		gbc_txtTtulo.insets = new Insets(0, 0, 5, 5);
+		gbc_txtTtulo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtTtulo.gridx = 3;
+		gbc_txtTtulo.gridy = 1;
+		panel.add(txtTtulo, gbc_txtTtulo);
+		txtTtulo.setColumns(10);
 
 		chckbxFavoritas = new JCheckBox("Favoritas");
 		GridBagConstraints gbc_chckbxFavoritas = new GridBagConstraints();
@@ -138,23 +127,23 @@ public class VentanaBuscar extends JPanel {
 		gbc_btnBuscar.gridy = 3;
 		panel.add(btnBuscar, gbc_btnBuscar);
 		btnBuscar.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	            realizarBusqueda();
-	        }
-	    });
+			public void actionPerformed(ActionEvent e) {
+				realizarBusqueda();
+			}
+		});
 
 		JPanel panelControlMusica = new JPanel();
 		add(panelControlMusica, BorderLayout.SOUTH);
-		
+
 		btnAnadirLista = new JButton("Añadir Lista");
 		btnAnadirLista.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelControlMusica.add(btnAnadirLista);
 		btnAnadirLista.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	        	VentanaMisListas misListas = new VentanaMisListas(false);
-	        	misListas.mostrarVentana();
-	        }
-	    });
+			public void actionPerformed(ActionEvent e) {
+				VentanaMisListas misListas = new VentanaMisListas(false);
+				misListas.mostrarVentana();
+			}
+		});
 	}
 
 	private void realizarBusqueda() {
@@ -170,41 +159,42 @@ public class VentanaBuscar extends JPanel {
 
 	private void mostrarResultadosEnTabla(List<Cancion> resultados) {
 		Tabla tableModel = new Tabla(resultados);
-	    JTable table = new JTable(tableModel);
+		JTable table = new JTable(tableModel);
 
-	    panel_tabla.removeAll();
-	    panel_tabla.add(new JScrollPane(table), BorderLayout.CENTER);
-	    panel_tabla.revalidate();
-	    panel_tabla.repaint();
+		panel_tabla.removeAll();
+		panel_tabla.add(new JScrollPane(table), BorderLayout.CENTER);
+		panel_tabla.revalidate();
+		panel_tabla.repaint();
 
-	    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-	        public void valueChanged(ListSelectionEvent event) {
-	            if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
-	                // Obtener la canción seleccionada
-	                int selectedRowIndex = table.getSelectedRow();
-	                Cancion cancionSeleccionada = resultados.get(selectedRowIndex);
-	             //TODO   setCancionActual(cancionSeleccionada);
-	                Controlador.INSTANCE.establecerCancionActual(cancionSeleccionada,selectedRowIndex);
-	                // Aquí puedes llamar a cualquier método que necesites para reproducir la canción
-	            }
-	        }
-	    });
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent event) {
+				if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
+					// Obtener la canción seleccionada
+					int selectedRowIndex = table.getSelectedRow();
+					Cancion cancionSeleccionada = resultados.get(selectedRowIndex);
+					// TODO setCancionActual(cancionSeleccionada);
+					Controlador.INSTANCE.establecerCancionActual(cancionSeleccionada, selectedRowIndex);
+					// Aquí puedes llamar a cualquier método que necesites para reproducir la
+					// canción
+				}
+			}
+		});
 	}
 
 	public static Cancion getCancionActual() {
 		return cancionActual;
 	}
-	
+
 	public Cancion getCancionAnterior() {
 		int num = table.getSelectedRow();
-		if(num-1 != -1) {
-			Cancion cancion = resultadoActual.get(num-1);
+		if (num - 1 != -1) {
+			Cancion cancion = resultadoActual.get(num - 1);
 			return cancion;
 		}
 		return null;
-		
+
 	}
-	
+
 	public static String getDirecion() {
 		try {
 			return cancionActual.getRutaFichero();
@@ -217,7 +207,5 @@ public class VentanaBuscar extends JPanel {
 	public void setCancionActual(Cancion cancionActual) {
 		VentanaBuscar.cancionActual = cancionActual;
 	}
-
-	
 
 }

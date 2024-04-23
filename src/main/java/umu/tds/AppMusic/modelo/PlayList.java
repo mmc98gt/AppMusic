@@ -2,6 +2,8 @@ package umu.tds.AppMusic.modelo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 
 /**
  * Representa una lista de reproducción de canciones con un nombre específico.
@@ -53,9 +55,9 @@ public class PlayList {
 	 * @return Una lista de canciones.
 	 */
 	public List<Cancion> getCanciones() {
-		return new ArrayList<Cancion> (canciones);
+		return new ArrayList<Cancion>(canciones);
 	}
-	
+
 	public void setCanciones(List<Cancion> canciones) {
 		this.canciones = canciones;
 	}
@@ -108,8 +110,21 @@ public class PlayList {
 	}
 
 	public void borrarCancion(Cancion c) {
-		if(canciones.contains(c)) {
+		if (canciones.contains(c)) {
 			canciones.remove(c);
 		}
+	}
+
+	public void addCancionReciente(Cancion cancion) {
+		Optional<Cancion> duplicada = canciones.stream().filter(s -> s.getId() == cancion.getId()).findAny();
+		if (duplicada.isPresent()) {
+			canciones.remove(duplicada.get());
+			canciones.add(0, cancion);
+		}
+
+		canciones.add(0, cancion);
+		while (canciones.size() > 10)
+			canciones.remove(canciones.size() - 1);
+
 	}
 }

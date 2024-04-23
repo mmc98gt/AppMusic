@@ -9,8 +9,6 @@ import beans.Propiedad;
 import tds.driver.FactoriaServicioPersistencia;
 import tds.driver.ServicioPersistencia;
 import umu.tds.AppMusic.modelo.Cancion;
-import umu.tds.AppMusic.modelo.EstiloMusical;
-import umu.tds.AppMusic.modelo.Interprete;
 
 /**
  * Clase que implementa el Adaptador DAO concreto de Cancion para el tipo H2. Se
@@ -20,7 +18,6 @@ import umu.tds.AppMusic.modelo.Interprete;
 public class TDSCancionDao implements CancionDao {
 
 	private static final String CANCION = "Cancion";
-	private static final String ID = "id";
 	private static final String TITULO = "titulo";
 	private static final String RUTA_FICHERO = "rutaFichero";
 	private static final String NUM_REPRODUCCIONES = "numReproducciones";

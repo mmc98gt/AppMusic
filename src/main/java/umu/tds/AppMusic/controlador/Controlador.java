@@ -1,31 +1,27 @@
 package umu.tds.AppMusic.controlador;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Date;
 
 import org.kohsuke.github.GHUser;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 
-
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import umu.tds.AppMusic.dao.CancionDao;
 import umu.tds.AppMusic.dao.DAOException;
 import umu.tds.AppMusic.dao.FactoriaDao;
 import umu.tds.AppMusic.dao.PlayListDao;
 import umu.tds.AppMusic.dao.UsuarioDao;
-import umu.tds.AppMusic.gui.LoginView;
-import umu.tds.AppMusic.gui.VentanaPrincipal;
 import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.CreadorPDF;
 import umu.tds.AppMusic.modelo.Descuento;
 import umu.tds.AppMusic.modelo.EstiloMusical;
-import umu.tds.AppMusic.modelo.Interprete;
 import umu.tds.AppMusic.modelo.PlayList;
 import umu.tds.AppMusic.modelo.Reproductor;
 import umu.tds.AppMusic.modelo.Usuario;
@@ -42,6 +38,7 @@ public enum Controlador {
 	private PlayList playlistActual;
 	private Cancion cancionActual;
 	private int indexCancion;
+	private List<Cancion> masReproducidas = new ArrayList<Cancion>();
 
 	private Controlador() {
 		usuarioActual = null;
@@ -86,24 +83,24 @@ public enum Controlador {
 		}
 		return false;
 	}
-	
+
 	public boolean loginUsuarioGitHub(String nombre, String password) {
-		//TODO: acepta cualquier usuario
+		// TODO: acepta cualquier usuario
 		GitHub github;
 		try {
 			github = new GitHubBuilder().withPassword(nombre, password).build();
 			System.out.println("¿Login válido?:" + github.isCredentialValid());
-			if(github.isCredentialValid()) {
+			if (github.isCredentialValid()) {
 				GHUser user = github.getUser(nombre);
-				System.out.println(user.getEmail()); 
+				System.out.println(user.getEmail());
 				return true;
-			}return false;
+			}
+			return false;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
-	
 
 	/**
 	 * Registra un nuevo usuario en el sistema.
@@ -189,7 +186,7 @@ public enum Controlador {
 	 * @return Lista de canciones que coinciden con los criterios.
 	 */
 	public List<Cancion> buscarCanciones(String interprete, String titulo, boolean esFavorita, EstiloMusical estilo) {
-		 List<Cancion> canciones = RepositorioCanciones.INSTANCE.findAllCanciones().stream()
+		List<Cancion> canciones = RepositorioCanciones.INSTANCE.findAllCanciones().stream()
 				.filter(cancion -> (interprete == null || interprete.isEmpty()
 						|| cancion.getInterprete().toLowerCase().contains(interprete.toLowerCase()))
 						&& (titulo == null || titulo.isEmpty()
@@ -197,9 +194,9 @@ public enum Controlador {
 						&& (!esFavorita || cancionEsFavorita(cancion))
 						&& (estilo == null || cancion.getEstilo().equals(estilo)))
 				.collect(Collectors.toList());
-		 PlayList busqueda = new PlayList("busqueda", canciones);
-		 playlistActual = busqueda;
-		 return canciones;
+		PlayList busqueda = new PlayList("busqueda", canciones);
+		playlistActual = busqueda;
+		return canciones;
 	}
 
 	/**
@@ -310,35 +307,36 @@ public enum Controlador {
 
 	public void establecerPlaylistActual(PlayList playlistSeleccionada) {
 		this.playlistActual = playlistSeleccionada;
-		
+
 	}
 
 	public List<Cancion> cancionesPlaylistNombre(String nombrePlaylist) {
-		 List<PlayList> playlists = obtenerPlaylistsUsuario();{
-			 for(PlayList p : playlists) {
-				 if(p.getNombre().equals(nombrePlaylist)) {
-					 return p.getCanciones();
-				 }
-			 }
-		 }
-		 return null;
-		 
+		List<PlayList> playlists = obtenerPlaylistsUsuario();
+		{
+			for (PlayList p : playlists) {
+				if (p.getNombre().equals(nombrePlaylist)) {
+					return p.getCanciones();
+				}
+			}
+		}
+		return null;
+
 	}
 
-	public boolean crearPDF(){
-        CreadorPDF creador = new CreadorPDF(usuarioActual);
-       
-        try {
-        	creador.crearPDF();
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
+	public boolean crearPDF() {
+		CreadorPDF creador = new CreadorPDF(usuarioActual);
+
+		try {
+			creador.crearPDF();
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
 
 	public void agregarCancion(Cancion cancion) {
 		factoria.getCancionDAO().agregarCancion(cancion);
-		
+
 	}
 
 	public Cancion obtenerCancionActual() {
@@ -349,36 +347,60 @@ public enum Controlador {
 	public void establecerCancionActual(Cancion cancion, int i) {
 		this.cancionActual = cancion;
 		this.indexCancion = i;
-		
+
 	}
-	
+
 	public void play() throws FileNotFoundException {
 		Reproductor.INSTANCE.play(cancionActual);
 	}
-	
+
 	public void stop() {
 		Reproductor.INSTANCE.stop();
 	}
-	
+
 	public void pause() {
 		Reproductor.INSTANCE.pauseCancion();
 	}
-	
+
 	public void siguiente() throws FileNotFoundException {
-		 Reproductor.INSTANCE.siguiente(playlistActual, indexCancion);
-		
+		if (playlistActual != null && indexCancion != -1) {
+			int i = (indexCancion + 1) % playlistActual.getCanciones().size();
+			Reproductor.INSTANCE.siguiente(playlistActual, i);
+		}
+
 	}
 
 	public void anterior() throws FileNotFoundException {
-		 Reproductor.INSTANCE.anterior(playlistActual, indexCancion);	
+		if (playlistActual != null && indexCancion != -1) {
+			int i = (indexCancion - 1) % playlistActual.getCanciones().size();
+			Reproductor.INSTANCE.anterior(playlistActual, i);
+		}
+
 	}
 
-	
-	
+	public void addReciente() {
 
-	// TODO: si ponemos los metodos de reproduccion de playlist aqui, poner en
-	// play() q se actualice la lista de canciones
-	// mas reproducidas
-	// TODO: crear lista dentro de esta clase para añadir las mas escuchadas
+		usuarioActual.anadirCancionReciente(cancionActual);
+
+	}
+
+	public List<Cancion> getRecientes() {
+		return usuarioActual.getRecientes().getCanciones();
+	}
+
+	public List<Cancion> getMasReproducidas() {
+		masReproducidas.clear();
+		masReproducidas.addAll(
+				factoria.getCancionDAO().obtenerTodasLasCanciones().stream().filter(c -> c.getNumReproducciones() != 0)
+						.sorted(Comparator.comparing(Cancion::getNumReproducciones).reversed()).limit(10)
+						.collect(Collectors.toList()));
+		return masReproducidas;
+	}
+
+	public void addReproduccion(Cancion cancion) {
+		cancion.addReproduccion();
+		CancionDao cancionDAO = factoria.getCancionDAO();
+		cancionDAO.actualizarCancion(cancion);
+	}
 
 }

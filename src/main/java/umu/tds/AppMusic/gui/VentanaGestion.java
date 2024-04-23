@@ -1,7 +1,6 @@
 package umu.tds.AppMusic.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -15,10 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
 
 import umu.tds.AppMusic.controlador.Controlador;
 import umu.tds.AppMusic.modelo.Cancion;
@@ -27,23 +24,11 @@ import umu.tds.AppMusic.modelo.PlayList;
 public class VentanaGestion extends JPanel {
 
 	private JTextField txtTitulo;
-	private JPanel panelb;
 	private JPanel panel_tabla;
 	private JPanel panel_botones;
 	private JButton btnCrear;
 	private JButton btnEliminar;
 	private JTable tablaCanciones;
-	private JTable table_1;
-	private String[] columnNames = { "Título", "Artista", "Estilo" };
-	private DefaultTableModel model = new DefaultTableModel(null, columnNames) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isCellEditable(int row, int column) {
-			// Esto hace que ninguna celda sea editable directamente
-			return false;
-		}
-	};
 
 	/**
 	 * Launch the application.

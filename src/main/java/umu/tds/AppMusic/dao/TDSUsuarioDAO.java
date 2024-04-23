@@ -33,13 +33,15 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 	private static final String PASSWORD = "password";
 	private static final String FECHA_NACIMIENTO = "fechaNacimiento";
 	private static final String PLAYLISTS = "playlists";
+	private static final String RECIENTES = "recientes";
 
 	private ServicioPersistencia servPersistencia;
-	private SimpleDateFormat dateFormat;
+	
+	//private SimpleDateFormat dateFormat;
 
 	public TDSUsuarioDAO() {
 		servPersistencia = FactoriaServicioPersistencia.getInstance().getServicioPersistencia();
-		dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		//dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	}
 
 	private Usuario entidadToUsuario(Entidad eUsuario) {
@@ -51,6 +53,7 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 		String password = servPersistencia.recuperarPropiedadEntidad(eUsuario, PASSWORD);
 		String fechaNacimientoStr = servPersistencia.recuperarPropiedadEntidad(eUsuario, FECHA_NACIMIENTO);
 		String playlistID = servPersistencia.recuperarPropiedadEntidad(eUsuario, PLAYLISTS);
+		int recientes = Integer.parseInt(servPersistencia.recuperarPropiedadEntidad(eUsuario, RECIENTES));
 		List<PlayList> playlists = new LinkedList<>();
 
 		if (playlistID != null) {
@@ -70,6 +73,14 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 		}
 		boolean prem = Boolean.parseBoolean(premium);
 		Usuario usuario = new Usuario(nombre, apellidos, email, login, prem, password, fechaNacimientoStr);
+		PlayList recent = Controlador.INSTANCE.obtenerPlaylist(recientes);
+		if (recent != null) {
+			usuario.setRecientesId(recientes);
+			List<Cancion> rCanciones = recent.getCanciones();
+			for (Cancion c : rCanciones)
+				usuario.anadirCancionReciente(c);
+		}
+
 		usuario.setId(eUsuario.getId());
 		usuario.setPlaylists(playlists);
 		return usuario;
@@ -89,7 +100,8 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 				new Propiedad(APELLIDOS, usuario.getApellidos()), new Propiedad(EMAIL, usuario.getEmail()),
 				new Propiedad(LOGIN, usuario.getLogin()), new Propiedad(PREMIUM, Boolean.toString(usuario.isPremium())),
 				new Propiedad(PASSWORD, usuario.getPassword()), new Propiedad(FECHA_NACIMIENTO, fechaNacimientoStr),
-				new Propiedad(PLAYLISTS, obtenerIdPlaylist(usuario.getPlaylists())))));
+				new Propiedad(PLAYLISTS, obtenerIdPlaylist(usuario.getPlaylists())),
+				new Propiedad(RECIENTES, Integer.toString(usuario.getRecientes().getId())))));
 		return eUsuario;
 	}
 
@@ -183,7 +195,10 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 				prop.setValor(usuario.getFechaNacimiento());
 			} else if (prop.getNombre().equals(PLAYLISTS)) {
 				prop.setValor(obtenerIdPlaylist(usuario.getPlaylists()));
+			} else if (prop.getNombre().equals(RECIENTES)) {
+				prop.setValor(Integer.toString(usuario.getRecientes().getId()));
 			}
+
 			servPersistencia.modificarPropiedad(prop);
 		}
 	}
@@ -223,32 +238,34 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 		return servPersistencia.recuperarEntidades(USUARIO).stream().map(this::entidadToUsuario)
 				.collect(Collectors.toCollection(LinkedList::new));
 	}
-	
+
 	/**
-	 
-	Elimina todos los usuarios de la base de datos.
-	@return Verdadero si todos los usuarios fueron eliminados con éxito, falso si ocurrió algún error.
-	*/
+	 * 
+	 * Elimina todos los usuarios de la base de datos.
+	 * 
+	 * @return Verdadero si todos los usuarios fueron eliminados con éxito, falso si
+	 *         ocurrió algún error.
+	 */
 	public boolean eliminarTodosLosUsuarios() {
-	    try {
-	        // Recupera todas las entidades de tipo "Usuario"
-	        List<Entidad> entidades = servPersistencia.recuperarEntidades(USUARIO);
+		try {
+			// Recupera todas las entidades de tipo "Usuario"
+			List<Entidad> entidades = servPersistencia.recuperarEntidades(USUARIO);
 
-	        // Elimina cada entidad correspondiente a un usuario
-	        for (Entidad eUsuario : entidades) {
-	            if (!servPersistencia.borrarEntidad(eUsuario)) {
-	                // Si no se pudo eliminar alguna entidad, retorna falso
-	                return false;
-	            }
-	        }
+			// Elimina cada entidad correspondiente a un usuario
+			for (Entidad eUsuario : entidades) {
+				if (!servPersistencia.borrarEntidad(eUsuario)) {
+					// Si no se pudo eliminar alguna entidad, retorna falso
+					return false;
+				}
+			}
 
-	        // Si todas las entidades fueron eliminadas correctamente, retorna verdadero
-	        return true;
-	    } catch (Exception e) {
-	        // En caso de excepción, imprime la pila de excepción y retorna falso
-	        e.printStackTrace();
-	        return false;
-	    }
+			// Si todas las entidades fueron eliminadas correctamente, retorna verdadero
+			return true;
+		} catch (Exception e) {
+			// En caso de excepción, imprime la pila de excepción y retorna falso
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	private String obtenerIdPlaylist(List<PlayList> list) {

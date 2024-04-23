@@ -1,7 +1,6 @@
 package umu.tds.AppMusic.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,10 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.text.AbstractDocument.Content;
 
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import umu.tds.AppMusic.controlador.Controlador;
 import umu.tds.AppMusic.modelo.Cancion;
@@ -23,8 +19,6 @@ import umu.tds.AppMusic.modelo.Usuario;
 
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -40,15 +34,7 @@ import javax.swing.JOptionPane;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -64,9 +50,6 @@ public class VentanaPrincipal {
 	private JScrollPane scrollPane;
 	private DefaultListModel<String> listModel;
 	private TablaCanciones tablaCanciones = new TablaCanciones();
-
-	private MediaPlayer mediaPlayer;
-	private String tempPath;
 	private VentanaBuscar ventanaBuscar = new VentanaBuscar();
 
 	/**
@@ -79,8 +62,6 @@ public class VentanaPrincipal {
 	}
 
 	public VentanaPrincipal() {
-		mediaPlayer = null;
-		tempPath = System.getProperty("user.dir") + "/temp";
 		initialize();
 	}
 
@@ -131,7 +112,7 @@ public class VentanaPrincipal {
 				int salir = JOptionPane.showConfirmDialog(null, "¿Desea salir de la aplicación?", "Salir",
 						JOptionPane.YES_NO_OPTION);
 				if (salir == JOptionPane.YES_OPTION) {
-					// Controlador.INSTANCE.salir();
+					Controlador.INSTANCE.stop();
 					LoginView login = new LoginView();
 					login.mostrarVentana();
 					frmVentanaPrincipal.dispose();
@@ -205,8 +186,12 @@ public class VentanaPrincipal {
 		btnRecientes.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/umu/tds/AppMusic/images/reloj.png")));
 		btnRecientes.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnRecientes.addActionListener(e -> {
+			List<Cancion> recientes = Controlador.INSTANCE.getRecientes();
+			tablaCanciones.mostrarResultadosEnTabla(recientes, false);
+			panelCardLayout.add(tablaCanciones, "panelTabla");
 			CardLayout card = (CardLayout) panelCardLayout.getLayout();
-			card.show(panelCardLayout, "panelRecientes");
+			card.show(panelCardLayout, "panelTabla");
+			;
 		});
 
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
@@ -230,11 +215,11 @@ public class VentanaPrincipal {
 			panelBotones.add(btnMasEscuchadas, gbc_btnNewButton_5);
 			btnMasEscuchadas.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// TODO: hay que hacer la lista de canciones mas escuchadas y obtenerla con el
-					// controlador
-					// List<Cancion> resultado = Controlador.INSTANCE.();
-					// actualizarTabla(resultado);
-
+					List<Cancion> reproducidas = Controlador.INSTANCE.getMasReproducidas();
+					tablaCanciones.mostrarResultadosEnTabla(reproducidas, true);
+					panelCardLayout.add(tablaCanciones, "panelTabla");
+					CardLayout card = (CardLayout) panelCardLayout.getLayout();
+					card.show(panelCardLayout, "panelTabla");
 				}
 			});
 
@@ -320,71 +305,6 @@ public class VentanaPrincipal {
 
 	}
 
-	// Método para reproducir una canción
-/*	private void playCancion() throws FileNotFoundException {
-		if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED) {
-			mediaPlayer.play();
-			return;
-		}
-		stopCancion();
-	//TODO	String url = VentanaBuscar.getDirecion();
-		Cancion c = Controlador.INSTANCE.obtenerCancionActual();
-		String url = c.getRutaFichero();
-		try {
-			com.sun.javafx.application.PlatformImpl.startup(() -> {
-			});
-
-			Media media;
-			if (url.startsWith("http")) {
-				URL uri = new URL(url);
-				System.setProperty("java.io.tmpdir", tempPath);
-				Path mp3 = Files.createTempFile("now-playing", ".mp3");
-				try (InputStream stream = uri.openStream()) {
-					Files.copy(stream, mp3, StandardCopyOption.REPLACE_EXISTING);
-				}
-				media = new Media(mp3.toFile().toURI().toString());
-			} else {
-				String resourcePath = "/" + url;
-				URL resourceURL = getClass().getResource(resourcePath);
-				if (resourceURL == null) {
-					throw new FileNotFoundException("Fichero canción no encontrado: " + url);
-				}
-				media = new Media(resourceURL.toExternalForm());
-			}
-
-			mediaPlayer = new MediaPlayer(media);
-			mediaPlayer.play();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
-
-	// Método para detener la reproducción
-/*	private void stopCancion() {
-		if (mediaPlayer != null) {
-			mediaPlayer.stop();
-			mediaPlayer.dispose();
-			mediaPlayer = null;
-		}
-		File directorio = new File(tempPath);
-		if (directorio.exists() && directorio.isDirectory()) {
-			String[] files = directorio.list();
-			if (files != null) {
-				for (String archivo : files) {
-					File fichero = new File(directorio, archivo);
-					fichero.delete();
-				}
-			}
-		}
-	}*/
-
-	// Método para pausar la reproducción de la canción
-/*	private void pauseCancion() {
-		if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-			mediaPlayer.pause();
-		}
-	}*/
-
 	// Añadir botones de control de música en el panel sur
 	private void agregarBotonesControlMusica(JPanel panel_sur) {
 		JButton btnCancionAnterior = new JButton("");
@@ -407,7 +327,6 @@ public class VentanaPrincipal {
 			try {
 				Controlador.INSTANCE.play();
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
@@ -427,7 +346,6 @@ public class VentanaPrincipal {
 				e1.printStackTrace();
 			}
 		});
-		
 
 		// Añadir botones al panel
 		panel_sur.add(btnCancionAnterior);
@@ -456,7 +374,7 @@ public class VentanaPrincipal {
 					int selectedRowIndex = playlistList.getSelectedIndex();
 					PlayList playlistSeleccionada = playlists.get(selectedRowIndex);
 					Controlador.INSTANCE.establecerPlaylistActual(playlistSeleccionada);
-					tablaCanciones.mostrarResultadosEnTabla(playlistSeleccionada.getCanciones());
+					tablaCanciones.mostrarResultadosEnTabla(playlistSeleccionada.getCanciones(), false);
 					panelCardLayout.add(tablaCanciones, "panelTabla");
 					CardLayout card = (CardLayout) panelCardLayout.getLayout();
 					card.show(panelCardLayout, "panelTabla");
@@ -465,6 +383,5 @@ public class VentanaPrincipal {
 		});
 
 	}
-
 
 }

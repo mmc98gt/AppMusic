@@ -5,11 +5,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.table.DefaultTableModel;
 
 import umu.tds.AppMusic.controlador.Controlador;
-import umu.tds.AppMusic.modelo.Usuario;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -24,11 +21,8 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.JScrollPane;
 
 public class VentanaPremium extends JDialog {
 	/**

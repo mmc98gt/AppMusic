@@ -6,9 +6,7 @@ import java.util.Map;
 
 import umu.tds.AppMusic.dao.DAOException;
 import umu.tds.AppMusic.dao.FactoriaDao;
-import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.PlayList;
-import umu.tds.AppMusic.modelo.Usuario;
 
 public enum RepositorioPlayList {
 	INSTANCE;

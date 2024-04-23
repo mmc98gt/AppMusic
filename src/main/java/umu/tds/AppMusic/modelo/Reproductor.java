@@ -7,8 +7,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.OptionalInt;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -40,7 +38,8 @@ public enum Reproductor {
 		if(mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
 			mediaPlayer.stop();
 		}
-
+		Controlador.INSTANCE.addReciente();
+		Controlador.INSTANCE.addReproduccion(cancion);
 		String tempPath = System.getProperty("user.dir") + "/temp";
 		String url = cancion.getRutaFichero();
 		try {
@@ -99,9 +98,9 @@ public enum Reproductor {
 				mediaPlayer.stop();
 			return;
 		}
-		if (playlist.getCanciones().size() > i + 1) {
-			Cancion cancion = playlist.getCanciones().get(i + 1);
-			Controlador.INSTANCE.establecerCancionActual(cancion, i+1);
+		if (playlist.getCanciones().size() > i) {
+			Cancion cancion = playlist.getCanciones().get(i);
+			Controlador.INSTANCE.establecerCancionActual(cancion, i);
 			play(cancion);
 			
 		} else {
@@ -117,9 +116,9 @@ public enum Reproductor {
 				mediaPlayer.stop();
 			return;
 		}
-		if (playlist.getCanciones().size() > i-1) {
-			Cancion cancion = playlist.getCanciones().get(i-1);
-			Controlador.INSTANCE.establecerCancionActual(cancion,i-1);
+		if (playlist.getCanciones().size() > i) {
+			Cancion cancion = playlist.getCanciones().get(i);
+			Controlador.INSTANCE.establecerCancionActual(cancion,i);
 			play(cancion);
 			
 		} else {

@@ -1,13 +1,10 @@
 package umu.tds.AppMusic.modelo;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import umu.tds.AppMusic.modelo.Descuento;
 
 /**
  * Representa a un usuario de la aplicación, incluyendo información personal y
@@ -23,6 +20,7 @@ public class Usuario {
 	private String fechaNacimiento;
 	private boolean premium;
 	private List<PlayList> playlists;
+	private PlayList recientes;
 
 	/**
 	 * Constructor para crear un usuario solo con su nombre.
@@ -33,6 +31,8 @@ public class Usuario {
 		this.nombre = nombre;
 		this.premium = false; // Por defecto, el usuario no es premium
 		this.playlists = new ArrayList<>();
+		this.recientes = new PlayList("recientes");
+
 	}
 
 	/**
@@ -55,6 +55,7 @@ public class Usuario {
 		this.fechaNacimiento = fechaNacimiento;
 		this.premium = premium; // Por defecto, el usuario no es premium
 		this.playlists = new ArrayList<>();
+		this.recientes = new PlayList("recientes");
 	}
 
 	/**
@@ -76,11 +77,11 @@ public class Usuario {
 	}
 
 	public void actualizarPlaylist(PlayList playlist) {
-		/*for (PlayList p : playlists)
-			if (p.getNombre().equals(playlist.getNombre())) {
-				p.setCanciones(playlist.getCanciones());
-			}*/
-		//TODO: 
+		/*
+		 * for (PlayList p : playlists) if (p.getNombre().equals(playlist.getNombre()))
+		 * { p.setCanciones(playlist.getCanciones()); }
+		 */
+		// TODO:
 	}
 
 	/**
@@ -188,6 +189,16 @@ public class Usuario {
 		this.password = password;
 	}
 
+	public PlayList getRecientes() {
+		return recientes;
+	}
+
+	public void anadirCancionReciente(Cancion cancion) {
+
+		recientes.addCancionReciente(cancion);
+
+	}
+
 	public Boolean comprobarDescuento(String opcionSeleccionada) {
 		if (opcionSeleccionada.equals("-")) {
 			return true;
@@ -200,8 +211,13 @@ public class Usuario {
 		}
 		return false;
 	}
-	
+
 	public void borrarPlaylist(PlayList playlist) {
-        playlists.remove(playlist);
-    }
+		playlists.remove(playlist);
+	}
+
+	public void setRecientesId(int rId) {
+		recientes.setId(rId);
+
+	}
 }

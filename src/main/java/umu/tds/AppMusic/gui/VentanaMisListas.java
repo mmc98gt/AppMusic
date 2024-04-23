@@ -1,50 +1,29 @@
 package umu.tds.AppMusic.gui;
 
-import java.awt.EventQueue;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
-import java.awt.GridBagLayout;
-import javax.swing.JTextField;
+
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 
 import umu.tds.AppMusic.controlador.Controlador;
 import umu.tds.AppMusic.modelo.Cancion;
-import umu.tds.AppMusic.modelo.EstiloMusical;
 import umu.tds.AppMusic.modelo.PlayList;
-
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 public class VentanaMisListas extends JPanel {
 	private JFrame frmVentanaMisListas;
-	private JPanel panelb;
-	private JTable tablaCanciones;
-	private JTable table_1;
-	private final List<PlayList> playlists = new LinkedList<>();
 	private List<Cancion> canciones = new LinkedList<>();
 	private boolean eliminar;
 

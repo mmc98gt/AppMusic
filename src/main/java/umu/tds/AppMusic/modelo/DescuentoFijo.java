@@ -1,6 +1,5 @@
 package umu.tds.AppMusic.modelo;
 
-import java.util.List;
 
 /**
  * Clase que extiende Descuento para implementar un descuento fijo. Este tipo de

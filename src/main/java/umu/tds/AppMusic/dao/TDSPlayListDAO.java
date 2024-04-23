@@ -1,6 +1,5 @@
 package umu.tds.AppMusic.dao;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -13,15 +12,12 @@ import tds.driver.FactoriaServicioPersistencia;
 import tds.driver.ServicioPersistencia;
 import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.PlayList;
-import umu.tds.AppMusic.modelo.Usuario;
-import umu.tds.AppMusic.dao.*;
 
 public final class TDSPlayListDAO implements PlayListDao {
 
 	private static final String PLAYLIST = "PlayList";
 	private static final String NOMBRE = "nombre";
 	private static final String CANCIONES = "cancion";
-	private static final String ID = "id";
 	private ServicioPersistencia servPersistencia;
 
 	public TDSPlayListDAO() {
