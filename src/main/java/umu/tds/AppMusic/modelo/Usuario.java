@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-
 /**
  * Representa a un usuario de la aplicación, incluyendo información personal y
  * de acceso, estado de suscripción y listas de reproducción.
@@ -133,6 +132,17 @@ public class Usuario {
 			}
 		}
 		return false;
+	}
+
+	public List<Cancion> getCancionesPlaylistPorNombre(String nombrePlaylist) {
+
+		for (PlayList p : playlists) {
+			if (p.getNombre().equals(nombrePlaylist)) {
+				return p.getCanciones();
+			}
+		}
+		return null;
+
 	}
 
 	public String getApellidos() {

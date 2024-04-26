@@ -215,12 +215,13 @@ public enum Controlador {
 				.collect(Collectors.toList());
 	}
 
-	public boolean comprobarListaYaExiste(String nombre) {
-		return usuarioActual.comprobarListaYaExiste(nombre);
+	public boolean comprobarListaYaExiste(String nombrePlaylist) {
+		return usuarioActual.comprobarListaYaExiste(nombrePlaylist);
 	}
 
 	public void crearPlaylist(String nombrePlaylist, List<Cancion> canciones) {
 		PlayList playlist = new PlayList(nombrePlaylist, canciones);
+		
 		PlayListDao playlistDAO = factoria.getPlayListDAO();
 		playlistDAO.agregarPlaylist(playlist);
 		// playlistDAO.updatePlayList(playlist);
@@ -310,16 +311,8 @@ public enum Controlador {
 
 	}
 
-	public List<Cancion> cancionesPlaylistNombre(String nombrePlaylist) {
-		List<PlayList> playlists = obtenerPlaylistsUsuario();
-		{
-			for (PlayList p : playlists) {
-				if (p.getNombre().equals(nombrePlaylist)) {
-					return p.getCanciones();
-				}
-			}
-		}
-		return null;
+	public List<Cancion> getCancionesPlaylistPorNombre(String nombrePlaylist) {
+		return usuarioActual.getCancionesPlaylistPorNombre(nombrePlaylist);
 
 	}
 
@@ -379,9 +372,8 @@ public enum Controlador {
 	}
 
 	public void addReciente() {
-
 		usuarioActual.anadirCancionReciente(cancionActual);
-
+		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 	}
 
 	public List<Cancion> getRecientes() {

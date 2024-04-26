@@ -97,7 +97,7 @@ public class VentanaGestion extends JPanel {
 				String nombrePlaylist = txtTitulo.getText();
 
 				if (Controlador.INSTANCE.comprobarListaYaExiste(nombrePlaylist)) {
-					List<Cancion> canciones = Controlador.INSTANCE.cancionesPlaylistNombre(nombrePlaylist);
+					List<Cancion> canciones = Controlador.INSTANCE.getCancionesPlaylistPorNombre(nombrePlaylist);
 					rellenarCanciones(canciones);
 				} else {
 					int creacionLista = JOptionPane.showConfirmDialog(VentanaGestion.this,

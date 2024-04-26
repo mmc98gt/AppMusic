@@ -28,8 +28,11 @@ public enum RepositorioCanciones {
         try {
             factoria = FactoriaDao.getInstancia();
             List<Cancion> listaCanciones = factoria.getCancionDAO().obtenerTodasLasCanciones();
+            listaCanciones.clear();
             listaCanciones.addAll(factoria.getCancionXMLDao().obtenerTodasLasCanciones());
-            
+            for(Cancion c: listaCanciones) {
+            	System.out.println(c.getTitulo() + " " + c.getId());
+            }
             listaCanciones.forEach(cancion -> {
                 cancionesPorID.put(cancion.getId(), cancion);
                 cancionesPorTitulo.put(cancion.getTitulo(), cancion);
