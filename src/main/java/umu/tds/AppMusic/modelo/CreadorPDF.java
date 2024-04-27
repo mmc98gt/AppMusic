@@ -10,13 +10,13 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class CreadorPDF {
 
-	private Usuario usuario;
+	
 
-	public CreadorPDF(Usuario usuario) {
-		this.usuario = usuario;
+	public CreadorPDF() {
+		
 	}
 
-	public void crearPDF() throws FileNotFoundException, DocumentException {
+	public void crearPDF(Usuario usuario) throws FileNotFoundException, DocumentException {
 		/*FileSystemView view = FileSystemView.getFileSystemView();
 		File desktopDirectory = view.getHomeDirectory();
 		String rutaEscritorio = desktopDirectory.getAbsolutePath();

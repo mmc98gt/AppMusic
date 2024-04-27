@@ -317,10 +317,10 @@ public enum Controlador {
 	}
 
 	public boolean crearPDF() {
-		CreadorPDF creador = new CreadorPDF(usuarioActual);
+		CreadorPDF creador = new CreadorPDF();
 
 		try {
-			creador.crearPDF();
+			creador.crearPDF(usuarioActual);
 		} catch (Exception e) {
 			return false;
 		}
