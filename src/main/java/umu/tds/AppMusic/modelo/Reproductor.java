@@ -8,15 +8,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
+import javax.swing.JOptionPane;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import umu.tds.AppMusic.controlador.Controlador;
+import umu.tds.AppMusic.gui.VentanaPrincipal;
 
 public enum Reproductor {
 	INSTANCE;
-	
-	private static MediaPlayer mediaPlayer;
 
+	private static MediaPlayer mediaPlayer;
 
 	public void activar() {
 		// activar reproductor
@@ -35,7 +37,7 @@ public enum Reproductor {
 			mediaPlayer.play();
 			return;
 		}
-		if(mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+		if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
 			mediaPlayer.stop();
 		}
 		Controlador.INSTANCE.addReciente();
@@ -57,7 +59,9 @@ public enum Reproductor {
 				mediaPlayer.play();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "No se ha podido reproducir la canción", "Error de reproducción",
+					JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -90,39 +94,19 @@ public enum Reproductor {
 	}
 
 	public void siguiente(PlayList playlist, int i) throws FileNotFoundException {
-		if (playlist == null || i == -1) {
-			if (mediaPlayer != null)
-				mediaPlayer.stop();
-			return;
-		}
-		if (playlist.getCanciones().size() > i) {
-			Cancion cancion = playlist.getCanciones().get(i);
-			Controlador.INSTANCE.establecerCancionActual(cancion, i);
-			play(cancion);
-			
-		} else {
-			if (mediaPlayer != null)
-				mediaPlayer.stop();
-		}
+		if (mediaPlayer != null) {
+			if (playlist == null || i == -1) {
+				if (mediaPlayer != null)
+					mediaPlayer.stop();
+				return;
+			}
+			if (playlist.getCanciones().size() > i) {
+				Cancion cancion = playlist.getCanciones().get(i);
+				Controlador.INSTANCE.establecerCancionActual(cancion, i);
+				play(cancion);
 
-	}
-	
-	public void anterior(PlayList playlist, int i) throws FileNotFoundException {
-		if (playlist == null || i == -1) {
-			if (mediaPlayer != null)
-				mediaPlayer.stop();
-			return;
+			}
 		}
-		if (playlist.getCanciones().size() > i) {
-			Cancion cancion = playlist.getCanciones().get(i);
-			Controlador.INSTANCE.establecerCancionActual(cancion,i);
-			play(cancion);
-			
-		} else {
-			if (mediaPlayer != null)
-				mediaPlayer.stop();
-		}
-
 	}
 
 }

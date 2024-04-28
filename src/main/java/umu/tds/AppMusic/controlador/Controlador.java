@@ -222,7 +222,7 @@ public enum Controlador {
 
 	public void crearPlaylist(String nombrePlaylist, List<Cancion> canciones) {
 		PlayList playlist = new PlayList(nombrePlaylist, canciones);
-		
+
 		PlayListDao playlistDAO = factoria.getPlayListDAO();
 		playlistDAO.agregarPlaylist(playlist);
 		// playlistDAO.updatePlayList(playlist);
@@ -345,15 +345,21 @@ public enum Controlador {
 	}
 
 	public void play() throws FileNotFoundException {
-		Reproductor.INSTANCE.play(cancionActual);
+		if (cancionActual != null) {
+			Reproductor.INSTANCE.play(cancionActual);
+		}
 	}
 
 	public void stop() {
-		Reproductor.INSTANCE.stop();
+		if (cancionActual != null) {
+			Reproductor.INSTANCE.stop();
+		}
 	}
 
 	public void pause() {
-		Reproductor.INSTANCE.pauseCancion();
+		if (cancionActual != null) {
+			Reproductor.INSTANCE.pauseCancion();
+		}
 	}
 
 	public void siguiente() throws FileNotFoundException {
@@ -367,7 +373,7 @@ public enum Controlador {
 	public void anterior() throws FileNotFoundException {
 		if (playlistActual != null && indexCancion != -1) {
 			int i = (indexCancion - 1) % playlistActual.getCanciones().size();
-			Reproductor.INSTANCE.anterior(playlistActual, i);
+			Reproductor.INSTANCE.siguiente(playlistActual, i);
 		}
 
 	}
