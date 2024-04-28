@@ -42,8 +42,8 @@ public abstract class FactoriaDao {
 	
 	// Metodos factoria para obtener adaptadores
 	
-	public abstract TDSUsuarioDAO getUsuarioDAO();
-	public abstract TDSCancionDao getCancionDAO();
-	public abstract TDSPlayListDAO getPlayListDAO();
+	public abstract UsuarioDao getUsuarioDAO();
+	public abstract CancionDao getCancionDAO();
+	public abstract PlayListDao getPlayListDAO();
 	public abstract TDSCancionXMLDao getCancionXMLDao();
 }

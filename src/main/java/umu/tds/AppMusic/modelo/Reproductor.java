@@ -43,9 +43,6 @@ public enum Reproductor {
 		String tempPath = System.getProperty("user.dir") + "/temp";
 		String url = cancion.getRutaFichero();
 		try {
-			com.sun.javafx.application.PlatformImpl.startup(() -> {
-			});
-
 			Media media;
 			if (url.startsWith("http")) {
 				URL uri = new URL(url);

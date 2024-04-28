@@ -44,6 +44,7 @@ public enum Controlador {
 		usuarioActual = null;
 		try {
 			factoria = FactoriaDao.getInstancia();
+			Reproductor.INSTANCE.activar();
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}

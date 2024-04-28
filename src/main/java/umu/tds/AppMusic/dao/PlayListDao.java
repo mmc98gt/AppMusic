@@ -40,6 +40,10 @@ public interface PlayListDao {
      */
     void deletePlayList(PlayList playlist);
 
+	PlayList obtenerPlaylistPorId(int parseInt);
+
+	List<PlayList> obtenerTodasLasPlayList();
+
 	
 }
 

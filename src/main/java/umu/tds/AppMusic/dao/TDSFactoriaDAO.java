@@ -10,12 +10,12 @@ public final class TDSFactoriaDAO extends FactoriaDao {
 	public TDSFactoriaDAO() {	}
 	
 	@Override
-	public TDSUsuarioDAO getUsuarioDAO() {	
+	public UsuarioDao getUsuarioDAO() {	
 		return new TDSUsuarioDAO(); 
 	}
 
 	@Override
-	public TDSCancionDao getCancionDAO() {
+	public CancionDao getCancionDAO() {
 		return new TDSCancionDao(); 
 	}
 
@@ -25,7 +25,7 @@ public final class TDSFactoriaDAO extends FactoriaDao {
 	}
 
 	@Override
-	public TDSPlayListDAO getPlayListDAO() {
+	public PlayListDao getPlayListDAO() {
 		return new TDSPlayListDAO(); 
 	}
 
