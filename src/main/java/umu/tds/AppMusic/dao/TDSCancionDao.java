@@ -73,15 +73,17 @@ public class TDSCancionDao implements CancionDao {
 		return eCancion;
 	}
 
-	/**
-	 * Agrega una nueva canción a la base de datos.
-	 * 
-	 * @param cancion La canción a agregar.
-	 */
+    /**
+     * Agrega una nueva canción a la base de datos solo si no existe una canción con el mismo título e intérprete.
+     * 
+     * @param cancion La canción a agregar.
+     */
 	public void agregarCancion(Cancion cancion) {
-		Entidad eCancion = this.cancionToEntidad(cancion);
-		eCancion = servPersistencia.registrarEntidad(eCancion);
-		cancion.setId(eCancion.getId());
+	    if (!existeCancion(cancion.getTitulo(), cancion.getInterprete())) {
+	    	Entidad eCancion = cancionToEntidad(cancion);
+	    	eCancion = servPersistencia.registrarEntidad(eCancion);
+	    	cancion.setId(eCancion.getId());
+	    }
 	}
 
 	/**
@@ -166,4 +168,17 @@ public class TDSCancionDao implements CancionDao {
 	    }
 	    return entidadToCancion(entidad);
 	}
+	
+    /**
+     * Verifica si existe una canción con el mismo título e intérprete en la base de datos.
+     * 
+     * @param titulo El título de la canción.
+     * @param interprete El intérprete de la canción.
+     * @return true si la canción existe, false de lo contrario.
+     */
+    private boolean existeCancion(String titulo, String interprete) {
+        return servPersistencia.recuperarEntidades(CANCION).stream()
+            .anyMatch(e -> titulo.equals(servPersistencia.recuperarPropiedadEntidad(e, TITULO)) &&
+                           interprete.equals(servPersistencia.recuperarPropiedadEntidad(e, INTERPRETE)));
+    }
 }

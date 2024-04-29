@@ -79,7 +79,6 @@ public class TDSCancionXMLDao implements CancionDao {
      * @return El objeto Cancion convertido.
      */
     private Cancion convertirCancionXMLaCancion(CancionXml cancionXML) {
-        // Debes implementar la lógica de conversión aquí, por ejemplo:
         EstiloMusical estilo = new EstiloMusical(cancionXML.getEstilo());
         Interprete interprete = new Interprete(cancionXML.getInterprete());
         Cancion cancion = new Cancion(cancionXML.getTitulo(), cancionXML.getURL(), estilo.getNombre(), interprete.getNombre());

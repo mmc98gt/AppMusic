@@ -1,6 +1,5 @@
 package umu.tds.AppMusic.dao;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -53,7 +52,8 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 		String password = servPersistencia.recuperarPropiedadEntidad(eUsuario, PASSWORD);
 		String fechaNacimientoStr = servPersistencia.recuperarPropiedadEntidad(eUsuario, FECHA_NACIMIENTO);
 		String playlistID = servPersistencia.recuperarPropiedadEntidad(eUsuario, PLAYLISTS);
-		int recientes = Integer.parseInt(servPersistencia.recuperarPropiedadEntidad(eUsuario, RECIENTES));
+		String recientesStr = servPersistencia.recuperarPropiedadEntidad(eUsuario, RECIENTES);
+		int recientes = recientesStr != null ? Integer.parseInt(recientesStr) : -1;
 		List<PlayList> playlists = new LinkedList<>();
 
 		if (playlistID != null) {
