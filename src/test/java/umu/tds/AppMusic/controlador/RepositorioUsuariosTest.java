@@ -87,15 +87,14 @@ public class RepositorioUsuariosTest {
 		}
 	}
 
-	@Test
-	public void testRemoveNonExistingUsuario() {
-		Usuario nonExistingUser = new Usuario("nonExisting", "User", "non.existing@example.com", "nonexisting", "pass",
-				"01/01/2000");
-		nonExistingUser.setId(888);
-		repositorio.removeUsuario(nonExistingUser);
-		Usuario result = repositorio.findUsuario(nonExistingUser.getId());
-		assertNull("Eliminar un usuario no existente no debe afectar al repositorio", result);
-	}
+    @Test
+    public void testRemoveNonExistingUsuario() {
+        Usuario nonExistingUser = new Usuario("nonExisting", "User", "non.existing@example.com", "nonexisting", false, "pass", "01/01/2000");
+        nonExistingUser.setId(888);
+        repositorio.removeUsuario(nonExistingUser);
+        Usuario result = repositorio.findUsuario(nonExistingUser.getId());
+        assertNull("Eliminar un usuario no existente no debe afectar al repositorio", result);
+    }
 
 	@After
 	public void tearDown() {

@@ -15,7 +15,7 @@ import umu.tds.AppMusic.modelo.Interprete;
 
 public class TDSCancionDaoTest {
 
-    private TDSCancionDao cancionDao;
+    private CancionDao cancionDao;
     private FactoriaDao factoria;
     
     @Before

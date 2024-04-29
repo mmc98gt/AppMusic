@@ -1,12 +1,9 @@
 package ficherosAyuda;
 
-import umu.tds.AppMusic.dao.TDSCancionDao;
+import umu.tds.AppMusic.dao.CancionDao;
 import umu.tds.AppMusic.dao.DAOException;
 import umu.tds.AppMusic.dao.FactoriaDao;
 import umu.tds.AppMusic.modelo.Cancion;
-import umu.tds.AppMusic.modelo.EstiloMusical;
-import umu.tds.AppMusic.modelo.Interprete;
-
 import java.io.File;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +11,7 @@ import java.util.Scanner;
 public class CancionesHelper {
 
     private static final String RUTA_CANCION = "Canciones/"; // Ruta de la carpeta de canciones por defecto
-    private TDSCancionDao cancionDao;
+    private CancionDao cancionDao;
     
     public CancionesHelper() throws DAOException {
         // Inicialización del DAO
@@ -24,9 +21,7 @@ public class CancionesHelper {
 
     public void anadirCancion(String titulo, String estilo, String interprete) {
         // Crear una nueva canción y añadirla a la base de datos
-        EstiloMusical estiloMusical = new EstiloMusical(estilo);
-        Interprete interpreteObj = new Interprete(interprete);
-        Cancion cancion = new Cancion(titulo, RUTA_CANCION + titulo + ".mp3", estiloMusical, interpreteObj); // Asume que el nombre del archivo es el título con extensión .mp3
+        Cancion cancion = new Cancion(titulo, RUTA_CANCION + titulo + ".mp3", estilo, interprete);
         cancionDao.agregarCancion(cancion);
     }
 
@@ -85,9 +80,7 @@ public class CancionesHelper {
         // Aquí puedes agregar lógica adicional para determinar el título de la canción
         String titulo = cancionElegida.getName().replace(".mp3", "");
 
-        EstiloMusical estiloMusical = new EstiloMusical(estilo);
-        Interprete interpreteObj = new Interprete(interprete);
-        Cancion cancion = new Cancion(titulo, RUTA_CANCION + cancionElegida.getName(), estiloMusical, interpreteObj);
+        Cancion cancion = new Cancion(titulo, RUTA_CANCION + cancionElegida.getName(), estilo, interprete);
         cancionDao.agregarCancion(cancion);
         System.out.println("Canción agregada con éxito: " + titulo);
     }
