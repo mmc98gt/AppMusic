@@ -181,4 +181,11 @@ public class TDSCancionDao implements CancionDao {
             .anyMatch(e -> titulo.equals(servPersistencia.recuperarPropiedadEntidad(e, TITULO)) &&
                            interprete.equals(servPersistencia.recuperarPropiedadEntidad(e, INTERPRETE)));
     }
+    
+    public void borrarCanciones() {
+    	List<Entidad> entidades = servPersistencia.recuperarEntidades(CANCION);
+		for(Entidad e : entidades) {
+			servPersistencia.borrarEntidad(e); 
+		}
+    }
 }

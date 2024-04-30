@@ -153,7 +153,6 @@ public class VentanaBuscar extends JPanel {
 		EstiloMusical estilo = (EstiloMusical) comboBox.getSelectedItem();
 
 		List<Cancion> resultados = Controlador.INSTANCE.buscarCanciones(interprete, titulo, esFavorita, estilo);
-		resultadoActual = Controlador.INSTANCE.buscarCanciones(interprete, titulo, esFavorita, estilo);
 		mostrarResultadosEnTabla(resultados);
 	}
 
@@ -172,10 +171,7 @@ public class VentanaBuscar extends JPanel {
 					// Obtener la canción seleccionada
 					int selectedRowIndex = table.getSelectedRow();
 					Cancion cancionSeleccionada = resultados.get(selectedRowIndex);
-					// TODO setCancionActual(cancionSeleccionada);
 					Controlador.INSTANCE.establecerCancionActual(cancionSeleccionada, selectedRowIndex);
-					// Aquí puedes llamar a cualquier método que necesites para reproducir la
-					// canción
 				}
 			}
 		});

@@ -23,5 +23,7 @@ public interface CancionDao {
     
     // Método para obtener todas las canciones
     List<Cancion> obtenerTodasLasCanciones();
+
+	void borrarCanciones();
     
 }
