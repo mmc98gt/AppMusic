@@ -116,15 +116,18 @@ public class PlayList {
 	}
 
 	public void addCancionReciente(Cancion cancion) {
-		Optional<Cancion> duplicada = canciones.stream().filter(s -> s.getId() == cancion.getId()).findAny();
-		if (duplicada.isPresent()) {
-			canciones.remove(duplicada.get());
+		boolean duplicada = canciones.stream().anyMatch(c -> c.getId() == cancion.getId());
+		if(!duplicada) {
 			canciones.add(0, cancion);
 		}
-
-		canciones.add(0, cancion);
-		while (canciones.size() > 10)
-			canciones.remove(canciones.size() - 1);
+		else {
+			for (int i = 0; i < canciones.size(); i++) {
+	            if (canciones.get(i).getId() == cancion.getId()) {
+	                canciones.remove(i);
+	            }
+			}
+			canciones.add(0, cancion);
+		}
 
 	}
 }

@@ -380,6 +380,8 @@ public enum Controlador {
 
 	public void addReciente() {
 		usuarioActual.anadirCancionReciente(cancionActual);
+		RepositorioPlayList.INSTANCE.modificarPlaylist(usuarioActual.getRecientes());
+		factoria.getPlayListDAO().updatePlayList(usuarioActual.getRecientes());
 		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 	}
 

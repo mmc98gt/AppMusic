@@ -63,7 +63,7 @@ public class DescuentoJovenes implements Descuento {
 	public boolean esAplicable(Usuario usuario) {
 
 		//TODO: corregir, comprobar que el usuario es menor de 25 años
-		LocalDate fechaActual = LocalDate.now();
+	/*	LocalDate fechaActual = LocalDate.now();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			Date fecha = dateFormat.parse(usuario.getFechaNacimiento());
@@ -71,14 +71,14 @@ public class DescuentoJovenes implements Descuento {
 			return fecha.before(fecha2);
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}
+		}*/
 	
-/*
+
 		//int edad = Period.between(usuario.getFechaNacimiento(), fechaActual).getYears();
 int edad = 18;
 		if (edad < 25) {
 			return true;
-		}*/
+		}
 		return false;
 	}
 
