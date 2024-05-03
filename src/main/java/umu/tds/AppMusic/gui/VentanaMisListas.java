@@ -55,7 +55,7 @@ public class VentanaMisListas extends JPanel {
 		frmVentanaMisListas = new JFrame();
 		frmVentanaMisListas.setTitle("AppMusic");
 		frmVentanaMisListas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frmVentanaMisListas.setBounds(100, 100, 249, 245);
+		frmVentanaMisListas.setBounds(100, 100, 214, 245);
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

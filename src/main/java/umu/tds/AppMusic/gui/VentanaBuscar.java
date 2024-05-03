@@ -1,5 +1,6 @@
 package umu.tds.AppMusic.gui;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -119,6 +120,9 @@ public class VentanaBuscar extends JPanel {
 		gbc_comboBox.gridx = 3;
 		gbc_comboBox.gridy = 2;
 		panel.add(comboBox, gbc_comboBox);
+		List<String> estilos = Controlador.INSTANCE.obtenerEstilosMusicales();
+		String[] array = estilos.toArray(new String[estilos.size()]);
+		comboBox.setModel(new DefaultComboBoxModel<String>(array));
 
 		btnBuscar = new JButton("Buscar");
 		GridBagConstraints gbc_btnBuscar = new GridBagConstraints();
@@ -150,7 +154,10 @@ public class VentanaBuscar extends JPanel {
 		String interprete = txtIntrprete.getText();
 		String titulo = txtTtulo.getText();
 		boolean esFavorita = chckbxFavoritas.isSelected();
-		EstiloMusical estilo = (EstiloMusical) comboBox.getSelectedItem();
+		String estilo = (String) comboBox.getSelectedItem();
+		if(estilo.equals("Estilo Musical")) {
+			estilo=null;
+		}
 
 		List<Cancion> resultados = Controlador.INSTANCE.buscarCanciones(interprete, titulo, esFavorita, estilo);
 		mostrarResultadosEnTabla(resultados);

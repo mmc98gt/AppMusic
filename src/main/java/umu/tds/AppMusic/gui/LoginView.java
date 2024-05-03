@@ -141,7 +141,7 @@ public class LoginView {
 		panelBotonSalir.add(btnSalir);
 
 		addManejadorBotonLogin(btnLogin);
-//TODO		//addManejadorBotonLoginGitHub(btnLoginGit);
+//TODO	//addManejadorBotonLoginGitHub(btnLoginGit);
 		addManejadorBotonSalir(btnSalir);
 
 		return panelBotonesLogin;

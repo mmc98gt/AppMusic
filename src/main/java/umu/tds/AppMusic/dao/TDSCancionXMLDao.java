@@ -88,13 +88,11 @@ public class TDSCancionXMLDao implements CancionDao {
 
 	@Override
 	public Cancion obtenerCancionPorId(Integer id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void borrarCanciones() {
-		// TODO Auto-generated method stub
 		
 	}
 }

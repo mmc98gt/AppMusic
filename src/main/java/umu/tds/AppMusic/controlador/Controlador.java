@@ -9,6 +9,7 @@ import org.kohsuke.github.GitHubBuilder;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -186,7 +187,7 @@ public enum Controlador {
 	 * @param estilo     Estilo musical de la canción.
 	 * @return Lista de canciones que coinciden con los criterios.
 	 */
-	public List<Cancion> buscarCanciones(String interprete, String titulo, boolean esFavorita, EstiloMusical estilo) {
+	public List<Cancion> buscarCanciones(String interprete, String titulo, boolean esFavorita, String estilo) {
 		List<Cancion> canciones = RepositorioCanciones.INSTANCE.findAllCanciones().stream()
 				.filter(cancion -> (interprete == null || interprete.isEmpty()
 						|| cancion.getInterprete().toLowerCase().contains(interprete.toLowerCase()))
@@ -402,6 +403,16 @@ public enum Controlador {
 		cancion.addReproduccion();
 		CancionDao cancionDAO = factoria.getCancionDAO();
 		cancionDAO.actualizarCancion(cancion);
+	}
+
+	public List<String> obtenerEstilosMusicales() {
+		List<Cancion> canciones = factoria.getCancionDAO().obtenerTodasLasCanciones();
+		List<String> estilos = new LinkedList<String>();
+		estilos.add("Estilo Musical");
+		for (Cancion c : canciones) {
+			estilos.add(c.getEstilo());
+		}
+		return estilos;
 	}
 
 }

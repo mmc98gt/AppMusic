@@ -45,7 +45,6 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 		try {
 			factoria = FactoriaDao.getInstancia();
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

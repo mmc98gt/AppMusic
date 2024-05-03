@@ -70,7 +70,7 @@ public class VentanaPrincipal {
 		frmVentanaPrincipal = new JFrame();
 		frmVentanaPrincipal.setTitle("AppMusic");
 		frmVentanaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmVentanaPrincipal.setBounds(100, 100, 653, 447);
+		frmVentanaPrincipal.setBounds(100, 100, 727, 444);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -135,9 +135,9 @@ public class VentanaPrincipal {
 		JPanel panelBotones = new JPanel();
 		contentPane.add(panelBotones, BorderLayout.WEST);
 		GridBagLayout gbl_panelBotones = new GridBagLayout();
-		gbl_panelBotones.columnWidths = new int[] { 10, 0, 10, 0 };
+		gbl_panelBotones.columnWidths = new int[] { 10, 220, 10, 0 };
 		gbl_panelBotones.rowHeights = new int[] { 10, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panelBotones.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_panelBotones.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_panelBotones.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		panelBotones.setLayout(gbl_panelBotones);
 

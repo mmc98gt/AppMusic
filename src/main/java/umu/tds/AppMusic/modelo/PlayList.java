@@ -127,6 +127,10 @@ public class PlayList {
 	            }
 			}
 			canciones.add(0, cancion);
+			//tamaño máximo 10
+			if(canciones.size()>=10) {
+				canciones.remove(canciones.size()-1);
+			}
 		}
 
 	}
