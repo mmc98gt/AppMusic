@@ -1,6 +1,7 @@
 package umu.tds.AppMusic.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -46,12 +47,18 @@ public class TDSCancionDaoTest {
         Cancion cancion = new Cancion("Titulo Test2", "Ruta Test", estilo.getNombre(), interprete.getNombre());
         cancionDao.agregarCancion(cancion);
 
+        // Verificar que la canción ha sido agregada y tiene un ID asignado
+        assertNotNull(cancion.getId());
+        assertTrue(cancion.getId() > 0);  // Asegura que el ID es mayor que 0
+
         cancion.setRutaFichero("Ruta Actualizada");
         cancionDao.actualizarCancion(cancion);
 
         Cancion updatedCancion = cancionDao.obtenerCancionPorTitulo("Titulo Test2");
+        assertNotNull(updatedCancion);
         assertEquals("Ruta Actualizada", updatedCancion.getRutaFichero());
     }
+
 
     @Test
     public void testEliminarCancion() {
