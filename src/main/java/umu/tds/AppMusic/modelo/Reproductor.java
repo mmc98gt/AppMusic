@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import umu.tds.AppMusic.controlador.Controlador;
-import umu.tds.AppMusic.gui.VentanaPrincipal;
 
 public enum Reproductor {
 	INSTANCE;

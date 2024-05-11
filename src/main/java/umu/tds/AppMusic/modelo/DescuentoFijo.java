@@ -1,6 +1,5 @@
 package umu.tds.AppMusic.modelo;
 
-
 /**
  * Clase que extiende Descuento para implementar un descuento fijo. Este tipo de
  * descuento resta una cantidad fija del precio original.
@@ -27,10 +26,8 @@ public class DescuentoFijo implements Descuento {
 	 */
 	@Override
 	public double calcDescuento(double precio) {
-		return precio*porcentajeDescuento;
+		return precio * porcentajeDescuento;
 	}
-
-
 
 	@Override
 	public String getDescuento() {

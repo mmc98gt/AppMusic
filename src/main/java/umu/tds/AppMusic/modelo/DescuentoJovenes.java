@@ -1,9 +1,11 @@
 package umu.tds.AppMusic.modelo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.Period;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
 /**
  * Clase que extiende Descuento para implementar un descuento porcentual para
@@ -31,7 +33,7 @@ public class DescuentoJovenes implements Descuento {
 	 */
 	@Override
 	public double calcDescuento(double precio) {
-		return precio*porcentajeDescuento;
+		return precio * porcentajeDescuento;
 	}
 
 	/**
@@ -52,8 +54,6 @@ public class DescuentoJovenes implements Descuento {
 		this.porcentajeDescuento = porcentajeDescuento;
 	}
 
-
-
 	@Override
 	public String getDescuento() {
 		return tipo;
@@ -62,25 +62,22 @@ public class DescuentoJovenes implements Descuento {
 	@Override
 	public boolean esAplicable(Usuario usuario) {
 
-		//TODO: corregir, comprobar que el usuario es menor de 25 años
-	/*	LocalDate fechaActual = LocalDate.now();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		try {
-			Date fecha = dateFormat.parse(usuario.getFechaNacimiento());
-			Date fecha2 = dateFormat.parse(usuario.getFechaNacimiento());
-			return fecha.before(fecha2);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}*/
-	
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+		LocalDate fechaActual = LocalDate.now();
 
-		//int edad = Period.between(usuario.getFechaNacimiento(), fechaActual).getYears();
-int edad = 18;
-		if (edad < 25) {
-			return true;
+		try {
+			ZonedDateTime fechaNacimientoZoned = ZonedDateTime.parse(usuario.getFechaNacimiento(), formatter);
+			LocalDate fechaNacimiento = fechaNacimientoZoned.toLocalDate();
+			int edad = Period.between(fechaNacimiento, fechaActual).getYears();
+
+			if (edad < 25) {
+				return true;
+			}
+			return false;
+		} catch (DateTimeParseException e) {
+			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
-	
 }

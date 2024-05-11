@@ -47,11 +47,10 @@ public class TablaCanciones extends JPanel {
 
 	public void mostrarResultadosEnTabla(List<Cancion> canciones, boolean reproducidas) {
 		Tabla tableModel;
-		if(reproducidas) {
-			 tableModel = new Tabla(canciones,reproducidas);
-		}
-		else {
-			 tableModel = new Tabla(canciones);
+		if (reproducidas) {
+			tableModel = new Tabla(canciones, reproducidas);
+		} else {
+			tableModel = new Tabla(canciones);
 		}
 		JTable table = new JTable(tableModel);
 

@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import umu.tds.AppMusic.dao.DAOException;
+import umu.tds.AppMusic.dao.RepositorioUsuarios;
 import umu.tds.AppMusic.modelo.Usuario;
 
 public class RepositorioUsuariosTest {

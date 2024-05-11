@@ -59,12 +59,12 @@ public class Tabla extends AbstractTableModel {
 			valor = cancion.getEstilo();
 			break;
 		case 3:
-			if(premium) {
+			if (premium) {
 				valor = cancion.getNumReproducciones();
-			}else {
+			} else {
 				valor = cancion.getEsFavorita();
 			}
-			
+
 			break;
 		}
 		return valor;
@@ -72,7 +72,7 @@ public class Tabla extends AbstractTableModel {
 
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
-		
+
 		if (columnIndex == 3 && !premium) {
 			return Boolean.class;
 		}
@@ -81,7 +81,7 @@ public class Tabla extends AbstractTableModel {
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		if(!premium) {
+		if (!premium) {
 			return col == 3; // Solo la columna de checkboxes es editable.
 		}
 		return false;

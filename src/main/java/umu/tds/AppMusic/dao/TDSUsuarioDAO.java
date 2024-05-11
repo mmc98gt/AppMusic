@@ -36,12 +36,12 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 
 	private ServicioPersistencia servPersistencia;
 	private FactoriaDao factoria;
-	
-	//private SimpleDateFormat dateFormat;
+
+	// private SimpleDateFormat dateFormat;
 
 	public TDSUsuarioDAO() {
 		servPersistencia = FactoriaServicioPersistencia.getInstance().getServicioPersistencia();
-		//dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		// dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			factoria = FactoriaDao.getInstancia();
 		} catch (DAOException e) {
@@ -86,19 +86,18 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 			for (Cancion c : rCanciones)
 				usuario.anadirCancionReciente(c);
 		}
-		
+
 		usuario.setId(eUsuario.getId());
 		usuario.setPlaylists(playlists);
 		return usuario;
 	}
 
-	private Entidad usuarioToEntidad(Usuario usuario){
-	 
+	private Entidad usuarioToEntidad(Usuario usuario) {
+
 		Entidad eUsuario = new Entidad();
 		eUsuario.setNombre(USUARIO);
-		//Controlador.INSTANCE.addPlaylistToCurrentUser(usuario.getRecientes());
+		// Controlador.INSTANCE.addPlaylistToCurrentUser(usuario.getRecientes());
 
-		
 		factoria.getPlayListDAO().agregarPlaylist(usuario.getRecientes());
 		String fechaNacimientoStr = usuario.getFechaNacimiento() != null ? usuario.getFechaNacimiento() : ""; // o
 																												// alguna

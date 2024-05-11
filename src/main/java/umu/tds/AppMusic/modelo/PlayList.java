@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 /**
  * Representa una lista de reproducción de canciones con un nombre específico.
  */
@@ -117,19 +116,18 @@ public class PlayList {
 
 	public void addCancionReciente(Cancion cancion) {
 		boolean duplicada = canciones.stream().anyMatch(c -> c.getId() == cancion.getId());
-		if(!duplicada) {
+		if (!duplicada) {
 			canciones.add(0, cancion);
-		}
-		else {
+		} else {
 			for (int i = 0; i < canciones.size(); i++) {
-	            if (canciones.get(i).getId() == cancion.getId()) {
-	                canciones.remove(i);
-	            }
+				if (canciones.get(i).getId() == cancion.getId()) {
+					canciones.remove(i);
+				}
 			}
 			canciones.add(0, cancion);
-			//tamaño máximo 10
-			if(canciones.size()>=10) {
-				canciones.remove(canciones.size()-1);
+			// tamaño máximo 10
+			if (canciones.size() >= 10) {
+				canciones.remove(canciones.size() - 1);
 			}
 		}
 

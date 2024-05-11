@@ -18,11 +18,13 @@ import umu.tds.AppMusic.dao.CancionDao;
 import umu.tds.AppMusic.dao.DAOException;
 import umu.tds.AppMusic.dao.FactoriaDao;
 import umu.tds.AppMusic.dao.PlayListDao;
+import umu.tds.AppMusic.dao.RepositorioCanciones;
+import umu.tds.AppMusic.dao.RepositorioPlayList;
+import umu.tds.AppMusic.dao.RepositorioUsuarios;
 import umu.tds.AppMusic.dao.UsuarioDao;
 import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.CreadorPDF;
 import umu.tds.AppMusic.modelo.Descuento;
-import umu.tds.AppMusic.modelo.EstiloMusical;
 import umu.tds.AppMusic.modelo.PlayList;
 import umu.tds.AppMusic.modelo.Reproductor;
 import umu.tds.AppMusic.modelo.Usuario;
@@ -265,13 +267,11 @@ public enum Controlador {
 
 	public void hacerPremium() {
 		usuarioActual.realizarPago();
-		// RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
 		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 	}
 
 	public void salirPremium() {
 		usuarioActual.setPremium(false);
-		// RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
 		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 	}
 
@@ -286,7 +286,6 @@ public enum Controlador {
 		RepositorioPlayList.INSTANCE.modificarPlaylist(playlist);
 		factoria.getPlayListDAO().updatePlayList(playlist);
 		usuarioActual.actualizarPlaylist(playlist);
-		RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
 		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 
 	}
@@ -298,7 +297,6 @@ public enum Controlador {
 		RepositorioPlayList.INSTANCE.modificarPlaylist(playlist);
 		factoria.getPlayListDAO().updatePlayList(playlist);
 		usuarioActual.actualizarPlaylist(playlist);
-		RepositorioUsuarios.INSTANCE.modificarUsuario(usuarioActual);
 		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 
 	}

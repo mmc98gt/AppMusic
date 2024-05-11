@@ -115,27 +115,24 @@ public class VentanaGestion extends JPanel {
 		btnEliminar = new JButton("Eliminar");
 		panel_botones.add(btnEliminar);
 		btnEliminar.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				if (Controlador.INSTANCE.obtenerPlaylistActual() != null) {
 					PlayList p = Controlador.INSTANCE.obtenerPlaylistActual();
-		        	int respuesta = JOptionPane
-							.showConfirmDialog(null,
-									"¿Quieres eliminar playlist \""
-											+ p.getNombre() + "\"?",
-									"Eliminar Canciones", JOptionPane.YES_NO_OPTION);
+					int respuesta = JOptionPane.showConfirmDialog(null,
+							"¿Quieres eliminar playlist \"" + p.getNombre() + "\"?", "Eliminar Canciones",
+							JOptionPane.YES_NO_OPTION);
 					if (respuesta == JOptionPane.YES_OPTION) {
 						Controlador.INSTANCE.borrarListaCanciones(p);
-						JOptionPane.showMessageDialog(panel, "La playlist se ha eliminado",
-								"Playlist eliminada", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(panel, "La playlist se ha eliminado", "Playlist eliminada",
+								JOptionPane.INFORMATION_MESSAGE);
 					}
-	        	}
-	        	else {
-	        		JOptionPane.showMessageDialog(panel, "No hay ninguna playlist seleccionada",
-							"Error", JOptionPane.INFORMATION_MESSAGE);
-	        	}
-	        	
-	        }
-	    });
+				} else {
+					JOptionPane.showMessageDialog(panel, "No hay ninguna playlist seleccionada", "Error",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+
+			}
+		});
 
 		JPanel panelControlMusica = new JPanel();
 		add(panelControlMusica, BorderLayout.SOUTH);
@@ -143,15 +140,15 @@ public class VentanaGestion extends JPanel {
 		btnEliminarLista.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelControlMusica.add(btnEliminarLista);
 		btnEliminarLista.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	        	VentanaMisListas misListas = new VentanaMisListas(true);
-	        	misListas.mostrarVentana();
-	        }
-	    });
+			public void actionPerformed(ActionEvent e) {
+				VentanaMisListas misListas = new VentanaMisListas(true);
+				misListas.mostrarVentana();
+			}
+		});
 	}
 
 	public void rellenarCanciones(List<Cancion> canciones) {
-		
+
 		Tabla tableModel = new Tabla(canciones);
 		JTable table = new JTable(tableModel);
 

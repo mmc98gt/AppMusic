@@ -10,21 +10,20 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class CreadorPDF {
 
-	
-
 	public CreadorPDF() {
-		
+
 	}
 
 	public void crearPDF(Usuario usuario) throws FileNotFoundException, DocumentException {
-		/*FileSystemView view = FileSystemView.getFileSystemView();
-		File desktopDirectory = view.getHomeDirectory();
-		String rutaEscritorio = desktopDirectory.getAbsolutePath();
+		/*
+		 * FileSystemView view = FileSystemView.getFileSystemView(); File
+		 * desktopDirectory = view.getHomeDirectory(); String rutaEscritorio =
+		 * desktopDirectory.getAbsolutePath();
+		 * 
+		 * // Ruta completa del archivo PDF en el escritorio String rutaArchivo =
+		 * Paths.get(rutaEscritorio, usuario.getNombre() + ".pdf").toString();
+		 */
 
-		// Ruta completa del archivo PDF en el escritorio
-		String rutaArchivo = Paths.get(rutaEscritorio, usuario.getNombre() + ".pdf").toString();*/
-		
-		
 		String rutaArchivo = usuario.getNombre() + ".pdf";
 		Document document = new Document();
 		PdfWriter.getInstance(document, new FileOutputStream(rutaArchivo));

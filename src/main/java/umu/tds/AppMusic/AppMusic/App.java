@@ -4,14 +4,12 @@ import java.awt.EventQueue;
 
 import umu.tds.AppMusic.gui.LoginView;
 
-
 /**
  * Hello world!
  *
  */
-public class App 
-{
-	public static void main(final String[] args){
+public class App {
+	public static void main(final String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

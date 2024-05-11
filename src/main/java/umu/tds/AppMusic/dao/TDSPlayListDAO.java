@@ -39,21 +39,22 @@ public final class TDSPlayListDAO implements PlayListDao {
 
 	@Override
 	public void updatePlayList(PlayList playList) {
-	    Entidad ePlaylist = servPersistencia.recuperarEntidad(playList.getId());
-	    if (ePlaylist == null) {
-	        // Manejo del caso cuando la entidad no se encuentra.
-	        // Podrías lanzar una excepción o manejarlo de otra manera dependiendo de tu caso de uso.
-	        throw new IllegalStateException("PlayList not found with ID: " + playList.getId());
-	    }
+		Entidad ePlaylist = servPersistencia.recuperarEntidad(playList.getId());
+		if (ePlaylist == null) {
+			// Manejo del caso cuando la entidad no se encuentra.
+			// Podrías lanzar una excepción o manejarlo de otra manera dependiendo de tu
+			// caso de uso.
+			throw new IllegalStateException("PlayList not found with ID: " + playList.getId());
+		}
 
-	    for (Propiedad prop : ePlaylist.getPropiedades()) {
-	        if (prop.getNombre().equals(NOMBRE)) {
-	            prop.setValor(playList.getNombre());
-	        } else if (prop.getNombre().equals(CANCIONES)) {
-	            prop.setValor(obtenerIdCanciones(playList.getCanciones()));
-	        }
-	        servPersistencia.modificarPropiedad(prop);
-	    }
+		for (Propiedad prop : ePlaylist.getPropiedades()) {
+			if (prop.getNombre().equals(NOMBRE)) {
+				prop.setValor(playList.getNombre());
+			} else if (prop.getNombre().equals(CANCIONES)) {
+				prop.setValor(obtenerIdCanciones(playList.getCanciones()));
+			}
+			servPersistencia.modificarPropiedad(prop);
+		}
 	}
 
 	@Override
@@ -146,6 +147,5 @@ public final class TDSPlayListDAO implements PlayListDao {
 				.filter(ePlaylist -> servPersistencia.recuperarPropiedadEntidad(ePlaylist, NOMBRE).equals(nombre))
 				.map(this::entidadToPlayList).findFirst().orElse(null);
 	}
-
 
 }

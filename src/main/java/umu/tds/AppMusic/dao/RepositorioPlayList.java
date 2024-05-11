@@ -1,11 +1,9 @@
-package umu.tds.AppMusic.controlador;
+package umu.tds.AppMusic.dao;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import umu.tds.AppMusic.dao.DAOException;
-import umu.tds.AppMusic.dao.FactoriaDao;
 import umu.tds.AppMusic.modelo.PlayList;
 
 public enum RepositorioPlayList {
@@ -49,7 +47,7 @@ public enum RepositorioPlayList {
 
 	public void deletePlaylist(PlayList playlist) {
 		this.playlist.remove(playlist.getId());
-		
+
 	}
 
 }

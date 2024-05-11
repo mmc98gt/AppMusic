@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-
 /**
  * Representa a un usuario de la aplicación, incluyendo información personal y
  * de acceso, estado de suscripción y listas de reproducción.

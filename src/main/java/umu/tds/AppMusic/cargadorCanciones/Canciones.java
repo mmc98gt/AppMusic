@@ -5,7 +5,6 @@
 // Generado el: 2017.10.26 a las 12:42:42 AM CEST 
 //
 
-
 package umu.tds.AppMusic.cargadorCanciones;
 
 import java.util.ArrayList;
@@ -15,11 +14,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>
+ * Clase Java para anonymous complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que
+ * haya en esta clase.
  * 
  * <pre>
  * &lt;complexType>
@@ -36,41 +37,39 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "cancion"
-})
+@XmlType(name = "", propOrder = { "cancion" })
 @XmlRootElement(name = "canciones")
 public class Canciones {
 
-    protected List<CancionXml> cancion;
+	protected List<CancionXml> cancion;
 
-    /**
-     * Gets the value of the cancion property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the cancion property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getCancion().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link CancionXml }
-     * 
-     * 
-     */
-    public List<CancionXml> getCancion() {
-        if (cancion == null) {
-            cancion = new ArrayList<CancionXml>();
-        }
-        return this.cancion;
-    }
+	/**
+	 * Gets the value of the cancion property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a snapshot.
+	 * Therefore any modification you make to the returned list will be present
+	 * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+	 * for the cancion property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getCancion().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list {@link CancionXml }
+	 * 
+	 * 
+	 */
+	public List<CancionXml> getCancion() {
+		if (cancion == null) {
+			cancion = new ArrayList<CancionXml>();
+		}
+		return this.cancion;
+	}
 
 }

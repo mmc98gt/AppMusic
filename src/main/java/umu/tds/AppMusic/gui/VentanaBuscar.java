@@ -155,8 +155,8 @@ public class VentanaBuscar extends JPanel {
 		String titulo = txtTtulo.getText();
 		boolean esFavorita = chckbxFavoritas.isSelected();
 		String estilo = (String) comboBox.getSelectedItem();
-		if(estilo.equals("Estilo Musical")) {
-			estilo=null;
+		if (estilo.equals("Estilo Musical")) {
+			estilo = null;
 		}
 
 		List<Cancion> resultados = Controlador.INSTANCE.buscarCanciones(interprete, titulo, esFavorita, estilo);

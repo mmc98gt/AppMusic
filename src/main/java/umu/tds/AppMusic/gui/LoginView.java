@@ -166,8 +166,7 @@ public class LoginView {
 		});
 		panelRegistro.add(btnRegistro, BorderLayout.CENTER);
 		panelRegistro.setBorder(new EmptyBorder(10, 20, 20, 20));
-		
-		
+
 		addManejadorBotonRegistro(btnRegistro);
 	}
 
@@ -206,7 +205,7 @@ public class LoginView {
 			}
 		});
 	}
-	
+
 	private void addManejadorBotonLoginGitHub(JButton btnLoginGit) {
 		btnLoginGit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

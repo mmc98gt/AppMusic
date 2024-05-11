@@ -32,6 +32,7 @@ public class VentanaPremium extends JDialog {
 	private final double precio = 10.00;
 	private double descuento = 0;
 	private JFrame frmVentanaPremium;
+
 	/**
 	 * Launch the application.
 	 */
@@ -61,7 +62,7 @@ public class VentanaPremium extends JDialog {
 		this.setResizable(false);
 		this.initialize();
 	}
-	
+
 	public void mostrarVentana() {
 		frmVentanaPremium.setLocationRelativeTo(null);
 		frmVentanaPremium.setVisible(true);
@@ -173,14 +174,15 @@ public class VentanaPremium extends JDialog {
 		btnDescuento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String opcionSeleccionada = (String) comboBox.getSelectedItem();
-				if(!opcionSeleccionada.equals("-")) {
+				if (!opcionSeleccionada.equals("-")) {
 					Boolean descontar = Controlador.INSTANCE.comprobarDescuento(opcionSeleccionada);
 					if (descontar) {
 						descuento = Controlador.INSTANCE.getDescuento(precio, opcionSeleccionada);
 						lblNewLabel_5.setText(String.valueOf(descuento));
 						lblNewLabel_3.setText(String.valueOf(precio - descuento));
 					} else {
-						JOptionPane.showMessageDialog(VentanaPremium.this, "No puedes optar a ese descuento, elige otro");
+						JOptionPane.showMessageDialog(VentanaPremium.this,
+								"No puedes optar a ese descuento, elige otro");
 					}
 				}
 			}
