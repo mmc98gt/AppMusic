@@ -39,55 +39,6 @@ public enum RepositorioCanciones {
 	}
 
 	/**
-	 * Encuentra canciones disponibles en el repositorio.
-	 * 
-	 * @return una lista de canciones.
-	 */
-	public List<Cancion> findCanciones() throws DAOException {
-		return new LinkedList<>(cancionesPorTitulo.values());
-	}
-
-	/**
-	 * Busca una canción por su título.
-	 * 
-	 * @param titulo el título de la canción.
-	 * @return la canción encontrada, o null si no existe.
-	 */
-	public Cancion findCancion(String titulo) {
-		return cancionesPorTitulo.get(titulo);
-	}
-
-	/**
-	 * Busca una canción por su identificador.
-	 * 
-	 * @param id el identificador de la canción.
-	 * @return la canción encontrada, o null si no existe.
-	 */
-	public Cancion findCancion(int id) {
-		return cancionesPorID.get(id);
-	}
-
-	/**
-	 * Añade una canción al repositorio.
-	 * 
-	 * @param cancion la canción a añadir.
-	 */
-	public void addCancion(Cancion cancion) {
-		cancionesPorID.put(cancion.getId(), cancion);
-		cancionesPorTitulo.put(cancion.getTitulo(), cancion);
-	}
-
-	/**
-	 * Elimina una canción del repositorio.
-	 * 
-	 * @param cancion la canción a eliminar.
-	 */
-	public void removeCancion(Cancion cancion) {
-		cancionesPorID.remove(cancion.getId());
-		cancionesPorTitulo.remove(cancion.getTitulo());
-	}
-
-	/**
 	 * Método para obtener todas las canciones disponibles.
 	 * 
 	 * @return una lista de todas las canciones.

@@ -228,11 +228,9 @@ public enum Controlador {
 
 		PlayListDao playlistDAO = factoria.getPlayListDAO();
 		playlistDAO.agregarPlaylist(playlist);
-		// playlistDAO.updatePlayList(playlist);
 
 		RepositorioPlayList.INSTANCE.addPlaylist(playlist);
 		addPlaylistToCurrentUser(playlist);
-		// factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
 
 	}
 
@@ -330,11 +328,6 @@ public enum Controlador {
 	public void agregarCancion(Cancion cancion) {
 		factoria.getCancionDAO().agregarCancion(cancion);
 
-	}
-
-	public Cancion obtenerCancionActual() {
-
-		return cancionActual;
 	}
 
 	public void establecerCancionActual(Cancion cancion, int i) {

@@ -15,21 +15,6 @@ public interface PlayListDao {
 	void agregarPlaylist(PlayList playlist);
 
 	/**
-	 * Recupera una playlist de la base de datos según su nombre.
-	 * 
-	 * @param nombre El nombre de la playlist.
-	 * @return La playlist si se encontró, null de lo contrario.
-	 */
-	PlayList getPlayListByName(String nombre);
-
-	/**
-	 * Recupera todas las playlists de la base de datos.
-	 * 
-	 * @return Una lista con todas las playlists.
-	 */
-	List<PlayList> getAllPlayLists();
-
-	/**
 	 * Actualiza una playlist existente en la base de datos.
 	 * 
 	 * @param playList La playlist con los datos actualizados.

@@ -25,19 +25,6 @@ public final class TDSPlayListDAO implements PlayListDao {
 	}
 
 	@Override
-	public PlayList getPlayListByName(String nombre) {
-		return servPersistencia.recuperarEntidades(PLAYLIST).stream()
-				.filter(eCancion -> servPersistencia.recuperarPropiedadEntidad(eCancion, NOMBRE).equals(nombre))
-				.findFirst().map(this::entidadToPlayList).orElse(null);
-	}
-
-	@Override
-	public List<PlayList> getAllPlayLists() {
-		return servPersistencia.recuperarEntidades(PLAYLIST).stream().map(this::entidadToPlayList)
-				.collect(Collectors.toList());
-	}
-
-	@Override
 	public void updatePlayList(PlayList playList) {
 		Entidad ePlaylist = servPersistencia.recuperarEntidad(playList.getId());
 		if (ePlaylist == null) {
@@ -140,12 +127,6 @@ public final class TDSPlayListDAO implements PlayListDao {
 		playlist.setId(id);
 
 		return playlist;
-	}
-
-	public PlayList obtenerPlaylistPorNombre(String nombre) {
-		return servPersistencia.recuperarEntidades(PLAYLIST).stream()
-				.filter(ePlaylist -> servPersistencia.recuperarPropiedadEntidad(ePlaylist, NOMBRE).equals(nombre))
-				.map(this::entidadToPlayList).findFirst().orElse(null);
 	}
 
 }

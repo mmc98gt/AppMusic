@@ -4,9 +4,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-//TODO:cambiar comentario
+
 /**
- * Clase abstracta que representa un descuento. Proporciona la estructura básica
+ * Interfaz que representa a los descuentos. Proporciona la estructura básica
  * para aplicar diferentes tipos de descuentos.
  */
 

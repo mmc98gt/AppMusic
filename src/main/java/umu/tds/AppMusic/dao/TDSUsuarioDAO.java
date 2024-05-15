@@ -115,58 +115,6 @@ public final class TDSUsuarioDAO implements UsuarioDao {
 	}
 
 	/**
-	 * Crea un nuevo usuario en la base de datos.
-	 * 
-	 * @param usuario Usuario a crear.
-	 */
-	public void create(Usuario usuario) {
-		Entidad eUsuario = this.usuarioToEntidad(usuario);
-		eUsuario = servPersistencia.registrarEntidad(eUsuario);
-		usuario.setId(eUsuario.getId());
-	}
-
-	/**
-	 * Elimina un usuario de la base de datos.
-	 * 
-	 * @param usuario Usuario a eliminar.
-	 * @return Verdadero si se eliminó con éxito, falso de lo contrario.
-	 */
-	public boolean delete(Usuario usuario) {
-		Entidad eUsuario;
-		eUsuario = servPersistencia.recuperarEntidad(usuario.getId());
-
-		return servPersistencia.borrarEntidad(eUsuario);
-	}
-
-	/**
-	 * Recupera un usuario basado en su identificador.
-	 * 
-	 * @param id El identificador del usuario.
-	 * @return El usuario correspondiente al identificador.
-	 */
-	public Usuario get(int id) {
-		Entidad eUsuario = servPersistencia.recuperarEntidad(id);
-
-		return entidadToUsuario(eUsuario);
-	}
-
-	/**
-	 * Obtiene todos los usuarios de la base de datos.
-	 * 
-	 * @return Una lista de todos los usuarios.
-	 */
-	public List<Usuario> getAll() {
-		List<Entidad> entidades = servPersistencia.recuperarEntidades(USUARIO);
-
-		List<Usuario> usuarios = new LinkedList<Usuario>();
-		for (Entidad eUsuario : entidades) {
-			usuarios.add(get(eUsuario.getId()));
-		}
-
-		return usuarios;
-	}
-
-	/**
 	 * Agrega un nuevo usuario a la base de datos.
 	 * 
 	 * @param usuario El usuario a agregar.

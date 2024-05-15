@@ -34,9 +34,6 @@ public class VentanaBuscar extends JPanel {
 	private JComboBox comboBox;
 	private JButton btnBuscar;
 	private JPanel panel_tabla;
-	private JTable table;
-	private List<Cancion> resultadoActual;
-	private static Cancion cancionActual;
 	private JButton btnAnadirLista;
 
 	/**
@@ -182,33 +179,6 @@ public class VentanaBuscar extends JPanel {
 				}
 			}
 		});
-	}
-
-	public static Cancion getCancionActual() {
-		return cancionActual;
-	}
-
-	public Cancion getCancionAnterior() {
-		int num = table.getSelectedRow();
-		if (num - 1 != -1) {
-			Cancion cancion = resultadoActual.get(num - 1);
-			return cancion;
-		}
-		return null;
-
-	}
-
-	public static String getDirecion() {
-		try {
-			return cancionActual.getRutaFichero();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
-
-	public void setCancionActual(Cancion cancionActual) {
-		VentanaBuscar.cancionActual = cancionActual;
 	}
 
 }

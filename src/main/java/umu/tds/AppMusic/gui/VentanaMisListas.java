@@ -22,7 +22,6 @@ import javax.swing.JOptionPane;
 
 public class VentanaMisListas extends JPanel {
 	private JFrame frmVentanaMisListas;
-	private List<Cancion> canciones = new LinkedList<>();
 	private boolean eliminar;
 
 	/**
@@ -33,8 +32,6 @@ public class VentanaMisListas extends JPanel {
 	 * Create the application.
 	 */
 	public VentanaMisListas(boolean eliminar) {
-		List<Cancion> canciones = Controlador.INSTANCE.obtenerCancionesFavoritas();
-		this.canciones = canciones;
 		this.eliminar = eliminar;
 		initialize();
 
@@ -86,6 +83,7 @@ public class VentanaMisListas extends JPanel {
 				if (!event.getValueIsAdjusting() && playlistList.getSelectedIndex() != -1) {
 					int selectedRowIndex = playlistList.getSelectedIndex();
 					PlayList playlistSeleccionada = playlists.get(selectedRowIndex);
+					List<Cancion> canciones = Controlador.INSTANCE.obtenerCancionesFavoritas();
 					if (eliminar) {
 						int respuesta = JOptionPane
 								.showConfirmDialog(null,
