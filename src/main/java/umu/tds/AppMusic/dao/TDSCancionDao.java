@@ -161,7 +161,6 @@ public class TDSCancionDao implements CancionDao {
 	 * @param titulo El id de la canción a buscar.
 	 * @return La canción encontrada o null si no existe.
 	 */
-
 	@Override
 	public Cancion obtenerCancionPorId(Integer id) {
 	    Entidad entidad = servPersistencia.recuperarEntidad(id);
@@ -185,10 +184,12 @@ public class TDSCancionDao implements CancionDao {
                            interprete.equals(servPersistencia.recuperarPropiedadEntidad(e, INTERPRETE)));
     }
     
+    /**
+     * Borra todas las canciones en la persistencia.
+     */
     public void borrarCanciones() {
-    	List<Entidad> entidades = servPersistencia.recuperarEntidades(CANCION);
-		for(Entidad e : entidades) {
-			servPersistencia.borrarEntidad(e); 
-		}
+        List<Entidad> entidades = servPersistencia.recuperarEntidades(CANCION);
+        entidades.forEach(servPersistencia::borrarEntidad);
     }
+
 }

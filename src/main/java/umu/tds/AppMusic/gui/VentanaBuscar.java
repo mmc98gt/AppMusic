@@ -28,6 +28,10 @@ import javax.swing.JLabel;
 
 public class VentanaBuscar extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtIntrprete;
 	private JTextField txtTtulo;
 	private JCheckBox chckbxFavoritas;

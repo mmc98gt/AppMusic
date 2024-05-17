@@ -29,25 +29,39 @@ public enum RepositorioPlayList {
 	/**
 	 * Almacena una playlist en memoria y persistencia. Si la playlist ya existe, el
 	 * método no modifica nada.
-	 * 
-	 * @param playlist La playlist a añadir.
+	 *
+	 * @param playlist la playlist a añadir.
 	 */
 	public void addPlaylist(PlayList playlist) {
-
 		this.playlist.put(playlist.getId(), playlist);
 	}
 
+	/**
+	 * Obtiene una playlist por su id.
+	 *
+	 * @param id el id de la playlist.
+	 * @return la playlist con el id especificado.
+	 */
 	public PlayList obtenerPlaylist(int id) {
 		return factoria.getPlayListDAO().obtenerPlaylistPorId(id);
 	}
 
+	/**
+	 * Modifica una playlist en memoria.
+	 *
+	 * @param playlist la playlist a modificar.
+	 */
 	public void modificarPlaylist(PlayList playlist) {
 		this.playlist.put(playlist.getId(), playlist);
 	}
 
+	/**
+	 * Elimina una playlist en memoria.
+	 *
+	 * @param playlist la playlist a eliminar.
+	 */
 	public void deletePlaylist(PlayList playlist) {
 		this.playlist.remove(playlist.getId());
-
 	}
 
 }

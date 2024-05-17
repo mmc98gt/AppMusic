@@ -1,10 +1,15 @@
 package umu.tds.AppMusic.gui;
 
+import java.awt.BorderLayout;
+import java.util.List;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -13,14 +18,12 @@ import javax.swing.event.ListSelectionListener;
 import umu.tds.AppMusic.controlador.Controlador;
 import umu.tds.AppMusic.modelo.Cancion;
 import umu.tds.AppMusic.modelo.PlayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
 
 public class VentanaMisListas extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame frmVentanaMisListas;
 	private boolean eliminar;
 

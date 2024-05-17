@@ -6,6 +6,10 @@ import javax.swing.table.AbstractTableModel;
 import umu.tds.AppMusic.modelo.Cancion;
 
 public class Tabla extends AbstractTableModel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Cancion> resultados;
 	private String[] columnNames;
 	private boolean premium;

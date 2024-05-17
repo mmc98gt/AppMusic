@@ -4,34 +4,45 @@ import java.util.List;
 
 import umu.tds.AppMusic.modelo.PlayList;
 
+/**
+ * Interfaz para operaciones CRUD de playlists.
+ */
 public interface PlayListDao {
 
-	/**
-	 * Inserta una nueva playlist en la base de datos.
-	 * 
-	 * @param playList La playlist a insertar.
-	 * @return true si la inserción fue exitosa, false de lo contrario.
-	 */
-	void agregarPlaylist(PlayList playlist);
+    /**
+     * Inserta una nueva playlist en la base de datos.
+     *
+     * @param playlist la playlist a insertar.
+     */
+    void agregarPlaylist(PlayList playlist);
 
-	/**
-	 * Actualiza una playlist existente en la base de datos.
-	 * 
-	 * @param playList La playlist con los datos actualizados.
-	 * @return true si la actualización fue exitosa, false de lo contrario.
-	 */
-	void updatePlayList(PlayList playList);
+    /**
+     * Actualiza una playlist existente en la base de datos.
+     *
+     * @param playList la playlist con los datos actualizados.
+     */
+    void updatePlayList(PlayList playList);
 
-	/**
-	 * Elimina una playlist de la base de datos.
-	 * 
-	 * @param nombre El nombre de la playlist a eliminar.
-	 * @return true si la eliminación fue exitosa, false de lo contrario.
-	 */
-	void deletePlayList(PlayList playlist);
+    /**
+     * Elimina una playlist de la base de datos.
+     *
+     * @param playlist la playlist a eliminar.
+     */
+    void deletePlayList(PlayList playlist);
 
-	PlayList obtenerPlaylistPorId(int parseInt);
+    /**
+     * Obtiene una playlist por su id.
+     *
+     * @param id el id de la playlist.
+     * @return la playlist con el id especificado.
+     */
+    PlayList obtenerPlaylistPorId(int id);
 
-	List<PlayList> obtenerTodasLasPlayList();
-
+    /**
+     * Obtiene todas las playlists.
+     *
+     * @return una lista de todas las playlists.
+     */
+    List<PlayList> obtenerTodasLasPlayList();
 }
+

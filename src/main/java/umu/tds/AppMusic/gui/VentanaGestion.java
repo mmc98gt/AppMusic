@@ -23,6 +23,10 @@ import umu.tds.AppMusic.modelo.PlayList;
 
 public class VentanaGestion extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtTitulo;
 	private JPanel panel_tabla;
 	private JPanel panel_botones;

@@ -94,11 +94,13 @@ public class TDSCancionXMLDao implements CancionDao {
 
 	@Override
 	public Cancion obtenerCancionPorId(Integer id) {
-		return null;
+	    // Implementación para obtener una canción por su ID.
+	    // Retorna null como valor predeterminado.
+	    return null;
 	}
 
 	@Override
 	public void borrarCanciones() {
-
+		// Implementación para borrar todas las canciones.
 	}
 }

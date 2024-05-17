@@ -205,21 +205,4 @@ public class LoginView {
 			}
 		});
 	}
-
-	private void addManejadorBotonLoginGitHub(JButton btnLoginGit) {
-		btnLoginGit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				boolean login = Controlador.INSTANCE.loginUsuarioGitHub(textUsuario.getText(),
-						new String(textPassword.getPassword()));
-				if (login) {
-					VentanaPrincipal principal = new VentanaPrincipal();
-					principal.mostrarVentana();
-					frmLogin.dispose();
-				} else
-					JOptionPane.showMessageDialog(frmLogin, "Nombre de usuario o contraseña no valido", "Error",
-							JOptionPane.ERROR_MESSAGE);
-			}
-		});
-	}
-
 }

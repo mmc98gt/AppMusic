@@ -15,6 +15,10 @@ import umu.tds.AppMusic.modelo.Cancion;
 
 public class TablaCanciones extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel panel_tabla;
 
 	/**
