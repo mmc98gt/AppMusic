@@ -26,6 +26,7 @@ import umu.tds.AppMusic.modelo.Descuento;
 import umu.tds.AppMusic.modelo.PlayList;
 import umu.tds.AppMusic.modelo.Reproductor;
 import umu.tds.AppMusic.modelo.Usuario;
+import umu.tds.AppMusic.utils.PasswordUtils;
 
 /**
  * Controlador principal de la aplicación de música. Gestiona las operaciones de
@@ -77,14 +78,17 @@ public enum Controlador {
 	 * @param password Contraseña del usuario.
 	 * @return true si el inicio de sesión es exitoso, false en caso contrario.
 	 */
-	public boolean loginUsuario(String nombre, String password) {
-		Usuario usuario = RepositorioUsuarios.INSTANCE.findUsuario(nombre);
-		if (usuario != null && usuario.getPassword().equals(password)) {
-			this.usuarioActual = usuario;
-			return true;
-		}
-		return false;
-	}
+       public boolean loginUsuario(String nombre, String password) {
+               Usuario usuario = RepositorioUsuarios.INSTANCE.findUsuario(nombre);
+               if (usuario != null) {
+                       String hashed = PasswordUtils.hashPassword(password);
+                       if (hashed != null && hashed.equals(usuario.getPassword())) {
+                               this.usuarioActual = usuario;
+                               return true;
+                       }
+               }
+               return false;
+       }
 
 	public boolean loginUsuarioGitHub(String nombre, String password) {
 		// TODO: acepta cualquier usuario
@@ -115,11 +119,12 @@ public enum Controlador {
 	 * @param fechaNacimiento Fecha de nacimiento del usuario.
 	 * @return true si el registro es exitoso, false en caso contrario.
 	 */
-	public boolean registrarUsuario(String nombre, String apellidos, String email, String login, boolean premium,
-			String password, String fechaNacimiento) {
-		if (esUsuarioRegistrado(login))
-			return false;
-		Usuario usuario = new Usuario(nombre, apellidos, email, login, premium, password, fechaNacimiento);
+       public boolean registrarUsuario(String nombre, String apellidos, String email, String login, boolean premium,
+                       String password, String fechaNacimiento) {
+               if (esUsuarioRegistrado(login))
+                       return false;
+               String hashed = PasswordUtils.hashPassword(password);
+               Usuario usuario = new Usuario(nombre, apellidos, email, login, premium, hashed, fechaNacimiento);
 
 		UsuarioDao usuarioDAO = factoria.getUsuarioDAO();
 		usuarioDAO.agregarUsuario(usuario);
@@ -325,13 +330,16 @@ public enum Controlador {
 	 *                  canciones.
 	 * @param canciones la lista de canciones a agregar.
 	 */
-	public void addCancionesToPlaylist(PlayList playlist, List<Cancion> canciones) {
-		canciones.forEach(playlist::addCancion);
-		RepositorioPlayList.INSTANCE.modificarPlaylist(playlist);
-		factoria.getPlayListDAO().updatePlayList(playlist);
-		usuarioActual.actualizarPlaylist(playlist);
-		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
-	}
+       public void addCancionesToPlaylist(PlayList playlist, List<Cancion> canciones) {
+               if (playlist == null || canciones == null || usuarioActual == null) {
+                       return;
+               }
+               canciones.stream().filter(c -> c != null).forEach(playlist::addCancion);
+               RepositorioPlayList.INSTANCE.modificarPlaylist(playlist);
+               factoria.getPlayListDAO().updatePlayList(playlist);
+               usuarioActual.actualizarPlaylist(playlist);
+               factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
+       }
 
 	/**
 	 * Borra una lista de canciones de una lista de reproducción existente.
@@ -340,13 +348,16 @@ public enum Controlador {
 	 *                  canciones.
 	 * @param canciones la lista de canciones a borrar.
 	 */
-	public void deleteCancionesToPlaylist(PlayList playlist, List<Cancion> canciones) {
-		canciones.forEach(playlist::borrarCancion);
-		RepositorioPlayList.INSTANCE.modificarPlaylist(playlist);
-		factoria.getPlayListDAO().updatePlayList(playlist);
-		usuarioActual.actualizarPlaylist(playlist);
-		factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
-	}
+       public void deleteCancionesToPlaylist(PlayList playlist, List<Cancion> canciones) {
+               if (playlist == null || canciones == null || usuarioActual == null) {
+                       return;
+               }
+               canciones.stream().filter(c -> c != null).forEach(playlist::borrarCancion);
+               RepositorioPlayList.INSTANCE.modificarPlaylist(playlist);
+               factoria.getPlayListDAO().updatePlayList(playlist);
+               usuarioActual.actualizarPlaylist(playlist);
+               factoria.getUsuarioDAO().actualizarUsuario(usuarioActual);
+       }
 
 	/**
 	 * Obtiene la playlist actual.
